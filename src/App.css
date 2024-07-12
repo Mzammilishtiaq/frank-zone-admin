@@ -1,0 +1,6 @@
+.login-bg-gradient {
+    height: 100vh;
+    background: url("assets/image/bg-gardient.svg") no-repeat;
+    background-position: top;
+    background-size: cover;
+}
