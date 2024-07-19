@@ -6,7 +6,7 @@ export interface ShellProps{
 }
 function ShellContainer({children,styleClass}: ShellProps) {
   return (
-    <div className={`flex flex-col pt-24 pb-6 px-6 login-bg-gradient ${styleClass}`}>
+    <div className={` flex flex-col pt-24 pb-6 px-6 min-h-screen  bg-gradient ${styleClass}`}>
       {children}
     </div>
   )

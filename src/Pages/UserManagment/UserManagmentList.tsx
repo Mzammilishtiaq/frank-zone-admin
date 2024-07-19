@@ -15,7 +15,7 @@ import { Switch } from '@mui/material';
 import Data1 from '@src/assets/data.json';
 import Popup from '@src/Shared/Popup/Popup';
 import { useNavigate } from 'react-router-dom';
-
+import DeleteCut from '@src/assets/icon/delete-cut.svg'
 
 
 function UserManagmentList() {
@@ -117,22 +117,37 @@ const navigate= useNavigate();
         }
     ]
     return (
-        <>
-            <Popup isOpen={isdeletepop} handleClose={() => setisDeletePop(false)} isShowHeader={true} disabledelete='Disable' userid='01'>
-                <CustomButton
-                    handleButtonClick={() => setisDeletePop(false)}
-                    label={'Cancel'}
-                    type={'button'}
-                    styleClass={'btn-gray-light w-full  !rounded-xl !font-medium mr-2 bg-gray-400 text-white py-5 px-4 font-semibold '}
-                />
-                <CustomButton
-                    // handleButtonClick={handleDelete}
-                    label={'Yes, Disable'}
-                    type={'button'}
-                    styleClass={'btn-red w-full !mt-0 !rounded-xl !font-medium ml-2 bg-red-600 text-white py-5 px-4 font-semibold'}
-                />
+        <div className='px-4'>
+            <Popup isOpen={isdeletepop} handleClose={() => setisDeletePop(false)} isShowHeader={true} >
+            <div className={``}><div className="flex flex-col justify-center items-center gap-3 w-[599px]">
+                        <img src={DeleteCut} className="h-[124px] mt-6" />
+                        <h4 className="font-[900] font-sans mt-5 text-[20px]">Are you sure?</h4>
+                        <div className="flex flex-col justify-center items-center ">
+                            <p className="font-medium ">
+                                Are you sure you want to <span className="font-[900]">disable</span>{' '}
+                            </p>
+                            <p className="font-semibold ">This User?</p>
+                            <p className="text-sm font-[900] mt-2">User ID #113355</p>
+                        </div>
+
+                        <div className="space-y-3 mt-8 flex justify-around w-4/5">
+                            <CustomButton
+                                handleButtonClick={() => setisDeletePop(false)}
+                                label={'Cancel'}
+                                type={'button'}
+                                styleClass={'btn-gray-light w-full  !rounded-xl !font-medium mr-2 bg-gray-400 text-white py-5 px-4 font-semibold '}
+                            />
+                            <CustomButton
+                                // handleButtonClick={handleDelete}
+                                label={'Yes, Disable'}
+                                type={'button'}
+                                styleClass={'btn-red w-full !mt-0 !rounded-xl !font-medium ml-2 bg-red-600 text-white py-5 px-4 font-semibold'}
+                            />
+                        </div>
+                    </div>
+                </div>
             </Popup>
-            <CustomCard styleClass={' px-5 py-4 '}>
+            <CustomCard styleClass={' p-4 '}>
                 <div role="presentation flex flex-col gap-2">
                     <Breadcrumbs aria-label="breadcrumb">
                         <Link underline="hover" color="inherit" href='/dashboard' className=''>
@@ -142,7 +157,7 @@ const navigate= useNavigate();
                     </Breadcrumbs>
                     <h5 className='text-2xl font-semibold font-sans'>User Management</h5>
                 </div>
-                <Search icon={<BsSearch className='text-gray-400my-4' />} type={'search'} placeholder={'Start typing to search for user'} />
+                <Search icon={<BsSearch className='text-gray-400my-4' />} type={'search'} placeholder={'Start typing to search for user'} styleClass={''} />
                 <Table
                     tableLayout="fixed"
                     columns={Column as any}
@@ -163,7 +178,7 @@ const navigate= useNavigate();
                 />
 
             </CustomCard>
-        </>
+        </div>
     )
 }
 

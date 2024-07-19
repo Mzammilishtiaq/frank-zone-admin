@@ -59,7 +59,10 @@ const SidebarMoreItem = ({ item, dataIndex }: any) => {
           ? '!bg-black !text-white '
           : '!bg-transparent !shadow-none !border-transparent !outline-none'
           }`}
-        expandIcon={<MdArrowDropDown className="text-gray-900" />}
+        expandIcon={<MdArrowDropDown className={`${splitLocation[1] == item.link.replace('/', '')
+          ? '!bg-transparent !text-white '
+          : '!bg-transparent !shadow-none !border-transparent !outline-none'
+          }`} />}
       >
         <div className="flex items-center gap-3 px-1">
           {splitLocation[1] == item.link.replace('/', '') ? item.icon_white : item.icon}
@@ -69,7 +72,7 @@ const SidebarMoreItem = ({ item, dataIndex }: any) => {
       {item.more_items.map((elem: any, index: any) => (
         <Link key={index} to={elem.link}>
           <p
-            className={`text-left ml-6 pl-2 py-2 mt-2 mb-1 hover:bg-gray-800 hover:text-white ${activeRoute.pathname == elem.link ? 'bg-gray-800' : ''
+            className={`text-left ml-6 pl-2 py-2 mt-2 mb-1 hover:bg-gray-400 hover:text-white ${activeRoute.pathname == elem.link ? 'bg-gray-300 text-white' : ''
               }`}
           >
             {elem.title}
@@ -123,27 +126,27 @@ export default function Sidebar(props: Props) {
         icon_white: <TbUserDollar className='text-white' />,
         more_items: [
           {
-            link: '/ecommerce-shop',
+            link: '/vendor_managment/ecommerce_shop',
             title: 'Ecommerce Shop',
             icon: <></>
           },
           {
-            link: '/food-ordering',
+            link: '/vendor_managment/food_ordering',
             title: 'Food Ordering',
             icon: <></>
           },
           {
-            link: '/Health-beauty',
+            link: '/vendor_managment/health_beauty',
             title: 'Health & Beauty',
             icon: <></>,
 
 
           }, {
-            link: '/handyman',
+            link: '/vendor_managment/handyman',
             title: 'Handyman',
             icon: <></>,
           }, {
-            link: '/Online-consultation',
+            link: '/vendor_managment/online_consulation',
             title: 'Online Consultation',
             icon: <></>,
           },
@@ -444,39 +447,6 @@ export default function Sidebar(props: Props) {
         >
           {drawer}
         </Drawer>
-        {/* <Box
-          component="main"
-          sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
-        >
-          <Toolbar />
-          <Typography paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-            enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-            imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-            Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-            Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-            adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-            nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-            leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-            feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-            sapien faucibus et molestie ac.
-          </Typography>
-          <Typography paragraph>
-            Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-            eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-            neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-            tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-            sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-            tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-            gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-            et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-            tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-            eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-            posuere sollicitudin aliquam ultrices sagittis orci a.
-          </Typography>
-        </Box> */}
       </Box>
 
     </>

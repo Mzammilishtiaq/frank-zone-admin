@@ -3,7 +3,7 @@ import { Dialog, DialogTitle } from '@mui/material';
 import { Spinner } from '../Spinner/Spinner';
 import Style from './Popup.module.scss';
 import { Close } from '@mui/icons-material';
-import DeleteCut from '@src/assets/icon/delete-cut.svg'
+
 
 export interface PopupProps {
     isOpen: boolean;
@@ -18,8 +18,7 @@ export interface PopupProps {
     childClassName?: string;
     containerClassName?: string;
     children?: React.ReactNode;
-    userid?:string;
-    disabledelete?:string;
+
 }
 
 function Popup({
@@ -35,8 +34,7 @@ function Popup({
     childClassName,
     containerClassName,
     children,
-    userid,
-    disabledelete
+
 }: PopupProps) {
 
     const closePopup = () => {
@@ -79,22 +77,9 @@ function Popup({
                             </div>
                         </DialogTitle>
                     )}
-                    <div className={`${Style.content} ${childClassName}`}><div className="flex flex-col justify-center items-center gap-3 w-[599px]">
-                    <img src={DeleteCut} className="h-[124px] mt-6" />
-                    <h4 className="font-[900] font-sans mt-5 text-[20px]">Are you sure?</h4>
-                    <div className="flex flex-col justify-center items-center ">
-                        <p className="font-medium ">
-                            Are you sure you want to <span className="font-[900]">{disabledelete}</span>{' '}
-                        </p>
-                        <p className="font-semibold ">This User?</p>
-                        <p className="text-sm font-[900] mt-2">User ID #{userid}</p>
-                    </div>
-
-                    <div className="space-y-3 mt-8 flex justify-around w-4/5">
-                       {children}
-                    </div>
-                </div></div>
-                </div>
+                   {children}
+                   </div>
+                   
             </Dialog>
         </div>
     )

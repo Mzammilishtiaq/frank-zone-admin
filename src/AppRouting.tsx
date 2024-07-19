@@ -8,6 +8,13 @@ import HomeContainer from './Containers/HomeContainer';
 import UserMangment from './Pages/UserManagment/Index';
 import UserMangmentList from './Pages/UserManagment/UserManagmentList';
 import UserManagmentProfile from './Pages/UserManagment/UserManagmentProfile';
+import VendorManagment from './Pages/VendorManagment/index';
+import EcommerceShop from './Pages/VendorManagment/EcommerceShop';
+import FoodOrdering from './Pages/VendorManagment/FoodOrdering';
+import HealthBeauty from './Pages/VendorManagment/HealthBeauity';
+import Handyman from './Pages/VendorManagment/Handman';
+import OnlineConsulation from './Pages/VendorManagment/onlineConsulation';
+
 
 const routes = [
   {
@@ -45,6 +52,32 @@ const routes = [
             path:'profile/:id',
             component:<UserManagmentProfile/>
           }
+        ]
+      },
+      {
+        path:'/vendor_managment',
+        component:<VendorManagment/>,
+        children:[
+          {
+            path:'ecommerce_shop',
+            component:<EcommerceShop/>,
+          },
+          {
+            path:'food_ordering',
+            component:<FoodOrdering/>,
+          },
+          {
+            path:'health_beauty',
+            component:<HealthBeauty/>,
+          }, {
+            path:'handyman',
+            component:<Handyman/>,
+          },{
+            path:'online_consulation',
+            component:<OnlineConsulation/>
+          }
+
+          
         ]
       }
     ]

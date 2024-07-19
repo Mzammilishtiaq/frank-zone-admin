@@ -22,7 +22,7 @@ function Pagination({ handleChangePage, handleChangRowPage, totalCount = 0 }: an
         count={totalCount}
         rowsPerPage={rowPerPage}
         page={Page}
-        onPageChange={handleChangePage}
+        onPageChange={onhandlePage}
         onRowsPerPageChange={onhandlChangeRowPage}
     />    )
 }

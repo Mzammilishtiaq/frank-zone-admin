@@ -3,11 +3,12 @@ export interface searchProps{
     type:any;
     placeholder:string;
     icon:any;
+    styleClass:string;
 }
-function Search({type,placeholder,icon}:searchProps) {
+function Search({type,placeholder,icon,styleClass}:searchProps) {
   return (
-    <div className='w-full border-2 border-gray-400 px-5 py-2 rounded flex items-center gap-2'>
-      <div className="icon">{icon}</div>
+    <div className={`w-full border border-gray-400 px-5 py-2 rounded flex items-center gap-2 ${styleClass}`}>
+      <div className="text-gray-400">{icon}</div>
       <input type={type} placeholder={placeholder} className='w-full outline-transparent px-2 placeholder:text-gray-400 font-medium'/>
     </div>
   )
