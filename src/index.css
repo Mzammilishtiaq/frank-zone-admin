@@ -2,3 +2,65 @@
 @tailwind components;
 @tailwind utilities;
 
+
+* {
+    scrollbar-width: none;
+    scrollbar-color: var(--secondary) var(--primary);
+  }
+  
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  
+  *::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 5px;
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    background-color: #c6c4c4;
+    border-radius: 4px;
+  }
+
+  .rc-table{
+    border: none;
+  }
+  .rc-table .rc-table-header {
+    border-radius: 0px 0px 4px 4px;
+    border-top:1px solid #051917;
+    border-bottom:0px;
+    border-left:0px;
+    border-right:0px;
+  }
+  .rc-table thead.rc-table-thead th {
+    background-color: #fff !important;
+    border: 0px;
+  }
+  .rc-table-body {
+    border-top:1px solid #051917;
+    border-bottom:1px solid #051917;
+    border-left:0px;
+    border-right:0px;
+  }
+  .rc-table thead.rc-table-thead .header-title th {
+    color: #051917;
+    white-space: normal;
+    font-size: 54px;
+    border: 0px;
+    font-weight: 600;
+    padding-top: 8px;
+    padding-bottom: 8px;
+
+  }
+  .rc-table tbody > tr td {
+    background-color: unset !important;
+    color: #747474;
+    border-top:0px solid #051917;
+    border-bottom:0px solid #051917;
+    border-left:0px;
+    border-right:0px;
+    border-radius: 0px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
