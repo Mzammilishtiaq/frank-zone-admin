@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { Breadcrumbs, Link, Switch, Typography } from '@mui/material';
 import CustomCard from '@src/Shared/Card/CustomCard';
 import SeperatorLine from '@src/Shared/SeperatorLine/SeperatorLine';
-import { TbAdjustmentsFilled } from "react-icons/tb";
 import Search from '@src/Shared/Search/Search';
-import { IoSearchOutline } from "react-icons/io5";
+import Searchicon from '@src/assets/icon/search-icon.svg';
 import { Table } from '@src/Shared/Table/Table';
 import Pagination from '@src/Shared/Table/Pagination';
 import viewbtn from '@src/assets/icon/view.svg';
 import CustomButton from '@src/Shared/CustomButton';
+import filledicon from '@src/assets/icon/filter-icon.svg';
 
 function EcommerceShop() {
     const [drop, setDrop] = useState(false);
@@ -59,78 +59,78 @@ function EcommerceShop() {
     const column = [
         {
             title: (
-                <div className='flex justify-center'>
-                    <span className="font-semibold text-lg">{'First Name'}</span>
+                <div className='flex justify-start items-start'>
+                    <span className="font-semibold text-[20px]  text-black-900 opacity-[1]">{'First Name'}</span>
                 </div>
             ),
             dataIndex: 'index',
             key: 'index',
             width: 50,
             render: (name: string, row: any) => (
-                <div className="flex items-center justify-center">
-                    <p className='text-black capitalize'>{row.firstname}</p>
+                <div className="flex items-start justify-start">
+                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px]'>{row.firstname}</p>
                 </div>
             )
         },
         {
             title: (
-                <div className='flex items-center justify-center'>
-                    <span className="font-semibold text-lg">{'Last Name'}</span>
+                <div className='flex items-start justify-start'>
+                    <span className="font-semibold text-black-900 text-[20px] opacity-[1]">{'Last Name'}</span>
                 </div>
             ),
             dataIndex: 'index',
             key: 'index',
             width: 50,
             render: (name: string, row: any) => (
-                <div className="flex items-center justify-center">
-                    <p className='text-black capitalize'>{row.lastname}</p>
+                <div className="flex items-start justify-start">
+                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px]'>{row.lastname}</p>
                 </div>
             )
         }, {
             title: (
-                <div className='flex items-center justify-center'>
-                    <span className="font-semibold text-lg">{'Phone Number'}</span>
+                <div className='flex items-start justify-start'>
+                    <span className="font-semibold text-black-900 text-[20px] opacity-[1]">{'Phone Number'}</span>
                 </div>
             ),
             dataIndex: 'index',
             key: 'index',
             width: 50,
             render: (name: string, row: any) => (
-                <div className="flex items-center justify-center">
-                    <p className='text-black capitalize'>{row.phone}</p>
+                <div className="flex items-start justify-start">
+                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px]'>{row.phone}</p>
                 </div>
             )
         }, {
             title: (
-                <div className='flex items-center justify-center'>
-                    <span className="font-semibold text-lg">{'Email'}</span>
+                <div className='flex items-start justify-start'>
+                    <span className="font-semibold text-black-900 text-[20px] opacity-[1]">{'Email'}</span>
                 </div>
             ),
             dataIndex: 'index',
             key: 'index',
             width: 50,
             render: (name: string, row: any) => (
-                <div className="flex items-center justify-center">
-                    <p className='text-black capitalize'>{row.email}</p>
+                <div className="flex items-start justify-start">
+                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px]'>{row.email}</p>
                 </div>
             )
         }, {
             title: (
-                <div className='flex items-center justify-center'>
-                    <span className="font-semibold text-lg">{'Documnet'}</span>
+                <div className='flex items-start justify-start'>
+                    <span className="font-semibold text-black-900 text-[20px] opacity-[1]">{'Documnet'}</span>
                 </div>
             ),
             dataIndex: 'index',
             key: 'index',
             width: 50,
             render: (name: string, row: any) => (
-                <div className="flex items-center justify-center">
+                <div className="flex items-start justify-start px-3">
                     <p className={
                         row.status && row.status === 'PENDING'
-                            ? 'text-white bg-orange-500  rounded px-2 py-1'
+                            ? 'text-white bg-orange-500  rounded px-5 py-1 font-normal'
                             : row.status == 'REJECTED'
-                                ? 'text-white  bg-red-500  rounded px-2 py-1'
-                                : 'text-white bg-green-500  rounded px-2 py-1'
+                                ? 'text-white  bg-red-500  rounded px-5 py-1 font-normal'
+                                : 'text-white bg-green-500  rounded px-5 py-1 font-normal'
                     }>
                         {row.status?.charAt(0).toUpperCase() + row.status?.slice(1)?.toLowerCase()}
                     </p>
@@ -138,15 +138,15 @@ function EcommerceShop() {
             )
         }, {
             title: (
-                <div className='flex items-center justify-center'>
-                    <span className="font-semibold text-lg">{'Action'}</span>
+                <div className='flex items-start justify-start'>
+                    <span className="font-semibold text-black-900 text-[20px] opacity-[1]">{'Action'}</span>
                 </div>
             ),
             dataIndex: 'index',
             key: 'index',
             width: 50,
             render: (name: string, row: any) => (
-                <div className="flex items-center justify-center">
+                <div className="flex items-center justify-start">
                     <Switch
                         // checked={}
                         // onChange={}
@@ -162,10 +162,10 @@ function EcommerceShop() {
          <CustomCard styleClass={'px-10 py-2 '}>
             <div role="presentation">
                 <Breadcrumbs aria-label="breadcrumb">
-                    <Link underline="hover" color="inherit" href='/dashboard' className=''>
+                    <Link underline="hover" color="inherit" href='#' className='text-sm'>
                         Dashboard
                     </Link>
-                    <Typography color="text-sm">Vendor Managment</Typography>
+                    <Typography color="" className='text-[10px]'>Vendor Managment</Typography>
                 </Breadcrumbs>
                 <div className="flex items-center justify-between">
                     <h5 className='text-2xl font-semibold font-sans'>Ecommerce Vendor Managment</h5>
@@ -173,15 +173,15 @@ function EcommerceShop() {
             </div>
             <div className="w-full flex items-center">
                 <div className='px-2 py-1 cursor-pointer relative top-0'>
-                    <TbAdjustmentsFilled className='text-2xl text-gray-400 font-thin' onClick={handleDrop} />
+                    <img src={filledicon} className='text-2xl text-gray-400 font-thin' onClick={handleDrop} />
 
                     {drop && <div className="w-72 absolute top-10 z-50">
-                        <p className='text-gray-600 font-medium border-gray-400 border-2  px-5 py-2 bg-white hover:bg-gray-300 hover:text-white'>Approved</p>
-                        <p className='text-gray-600 font-medium border-gray-400 border-2  px-5 py-2 bg-white hover:bg-gray-300 hover:text-white'>Rejected</p>
+                        <p className='text-gray-500 font-medium border-gray-400 border-2  px-5 py-2 bg-white hover:bg-gray-100'>Approved</p>
+                        <p className='text-gray-500 font-medium border-gray-400 border-2  px-5 py-2 bg-white hover:bg-gray-100'>Rejected</p>
                     </div>}
                 </div>
                 <div className='w-full'>
-                    <Search type={'search'} placeholder={'Start typing to search  for user'} icon={<IoSearchOutline />} styleClass={''} />
+                    <Search type={'search'} placeholder={'Start typing to search  for user'} icon={<img src={Searchicon} className='w-[28px]' />} styleClass={''} />
                 </div>
             </div>
 

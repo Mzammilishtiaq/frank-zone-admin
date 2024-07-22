@@ -24,13 +24,13 @@ export interface PopupProps {
 function Popup({
     isOpen,
     handleClose,
-    title,
-    width,
-    maxWidth,
-    isLoading,
-    borderRadius,
-    isFullScreen,
-    isShowHeader,
+    title = '',
+    width = 475,
+    maxWidth = 900,
+    isLoading = false,
+    borderRadius = 15,
+    isFullScreen = false,
+    isShowHeader = true,
     childClassName,
     containerClassName,
     children,
@@ -77,9 +77,9 @@ function Popup({
                             </div>
                         </DialogTitle>
                     )}
-                   {children}
-                   </div>
-                   
+                    {children}
+                </div>
+
             </Dialog>
         </div>
     )

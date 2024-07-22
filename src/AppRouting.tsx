@@ -14,6 +14,7 @@ import FoodOrdering from './Pages/VendorManagment/FoodOrdering';
 import HealthBeauty from './Pages/VendorManagment/HealthBeauity';
 import Handyman from './Pages/VendorManagment/Handman';
 import OnlineConsulation from './Pages/VendorManagment/onlineConsulation';
+import ProfileVendor from './Pages/VendorManagment/VendorManagmentDetail';
 
 
 const routes = [
@@ -75,6 +76,9 @@ const routes = [
           },{
             path:'online_consulation',
             component:<OnlineConsulation/>
+          },{
+            path:'profile',
+            component:<ProfileVendor/>
           }
 
           

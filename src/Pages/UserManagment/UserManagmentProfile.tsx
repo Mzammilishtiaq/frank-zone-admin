@@ -1,13 +1,13 @@
 import { Breadcrumbs, Link, Switch, Typography } from '@mui/material';
 import CustomCard from '@src/Shared/Card/CustomCard';
-import React from 'react'
+import React, { useState } from 'react'
 import SeperatorLine from '@src/Shared/SeperatorLine/SeperatorLine';
 import Profileimg from '@src/assets/icon/Profile-Menu.png'
 import NavTabs from '@src/Shared/NavTabs/NavTabs';
 import KFC from '@src/assets/image/kfc.png';
 
 function UserManagmentProfile() {
-
+    const [activeTabId, setactiveTabId] = useState(1)
     return (
         <CustomCard styleClass={'px-5 py-4'} >
             <div role="presentation flex flex-col gap-2">
@@ -43,11 +43,23 @@ function UserManagmentProfile() {
                         <span className='text-gray-500'> Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem quae illum beatae ipsum veniam fugiat obcaecati labore id vitae nihil doloribus in, sed ad est voluptatibus! Natus consequuntur laborum modi.</span> </p>
                 </div>
             </div>
+            <div className="text-left px-4 pt-4 flex">
+                {/* <p
+                    className={`text-gray-900  flex cursor-pointer mx-3 ${activeTabId === deal?.id
+                            ? 'border-red-300 border-b-2 !text-black-900 font-medium'
+                            : null
+                        }`}
+                    onClick={() => handleTab(deal?.id)}
+                >
+                    {' '}
+                    {deal?.image_url ? <LazyImage src={deal?.image_url} className="w-6 h-6 mr-1" /> : <LazyImage src={NoImage} className="w-6 h-6" />}
+                    {deal?.label?.toUpperCase()}
+                </p> */}
+            </div>
 
-            <NavTabs navlable={'Reviews & Rating'} navtabindex={undefined}>
-                <div className='grid grid-cols-2 gap-4'>
-                   <CustomCard  styleClass={'px-5 py-5 !shadow-md'}>
-                   <div className='flex items-center gap-3 w-[708px]'>
+            <div className='grid grid-cols-2 gap-4'>
+                <CustomCard styleClass={'px-5 py-5 !shadow-md'}>
+                    <div className='flex items-center gap-3 w-[708px]'>
                         <div>
                             <img className='w-20 ' src={KFC} alt="" />
                         </div>
@@ -57,9 +69,8 @@ function UserManagmentProfile() {
                             <p className='text-black font-medium'>Total Items: 5 Items</p>
                         </div>
                     </div>
-                   </CustomCard>
-                </div>
-            </NavTabs>
+                </CustomCard>
+            </div>
         </CustomCard>
     )
 }

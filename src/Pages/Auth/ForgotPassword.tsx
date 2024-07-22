@@ -20,7 +20,7 @@ function ForgotPassword() {
                 <div className="inline-flex">
                     <img src={Logo} alt="frank zone logo" className='w-44' />
                 </div>
-                <CustomCard styleClass={'items-center justify-center w-9/12 px-10 py-6 text-left'}>
+                <CustomCard styleClass={'sm:w-[20rem] md:w-[25rem] sm:px-5 items-center justify-center w-9/12 px-10 py-6 text-left'}>
                     <img src={forgoticon} alt="" className='w-12' />
                     <div className='text-xl font-bold tracking-wide font-sans'>Forgot Password</div>
                     <p className='text-sm font-medium text-center opacity-85 font-sans'>Enter Your Email Address, We'll Send You An OTP To Reset You Password</p>
@@ -28,19 +28,30 @@ function ForgotPassword() {
                         initialValues={{ email: '' }}
                         onSubmit={handleSubmit}
                     >
+                                                {({ errors, handleChange, handleBlur, touched, values, setFieldValue }) => (
+
                         <Form className='w-full flex flex-col items-center justify-center gap-5'>
-                            <Input
-                                label={'Email'}
-                                labelClass={''}
-                                type={undefined}
-                                placeholder={'Enter Email ID'}
-                                name={'email'} />
+                        <Input
+                                    id="email"
+                                    name="email"
+                                    label="Email"
+                                    type="email"
+                                    variant="outline"
+                                    placeholder="Enter Email ID"
+                                    handldChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.email}
+                                    error={errors.email}
+                                    touched={touched.email}
+                                    className='w-full'
+                                />
                             <CustomButton
                                 type={'submit'}
                                 label='Send'
                                 labelClass='text-white font-semibold'
-                                styleClass='bg-black w-5/6 !rounded-lg px-1 py-2' />
+                                styleClass='bg-black-900 w-5/6 !rounded-lg px-1 py-2' />
                         </Form>
+                                                )}
                     </Formik>
                 </CustomCard>
             </div>

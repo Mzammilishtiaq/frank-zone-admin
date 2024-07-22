@@ -20,7 +20,7 @@ function NewPassword() {
                 <div className="inline-flex">
                     <img src={Logo} className='w-44' alt="" />
                 </div>
-                <CustomCard styleClass='items-center justify-center w-9/12 px-10 py-6 text-left'>
+                <CustomCard styleClass='sm:w-[20rem] md:w-[25rem] sm:px-5 items-center justify-center w-9/12 px-10 py-6 text-left'>
                     <img src={verfiyicon} className='w-12' alt="" />
                     <div className='text-xl font-bold tracking-wide font-sans'>Forgot Password</div>
                     <p className='text-sm font-medium text-center opacity-85 font-sans'>Enter Your Email Address, We'll Send You An OTP To Reset You Password</p>
@@ -28,14 +28,43 @@ function NewPassword() {
                         onSubmit={handleSubmit}
                         initialValues={{ newpassowrd: '', confirmpassword: '' }}
                     >
-                        <Form className='w-full flex flex-col items-center text-left justify-center gap-5 mx-16'>
-                            <Input label={'New Password'} labelClass={''} type={'password'} placeholder={'Enter New Password'} name={'newpassowrd'} />
-                            <Input label={'Confirm Password'} labelClass={''} type={'password'} placeholder={'Enter Confirm Password'} name={'confirmpassword'} />
-                            <CustomButton  type={'submit'}
-                                label='Verify & Proceed'
-                                labelClass='text-white font-semibold'
-                                styleClass='bg-black w-5/6 !rounded-lg px-1 py-2' />
-                        </Form>
+                        {({ errors, handleChange, handleBlur, touched, values, setFieldValue }) => (
+
+                            <Form className='w-full flex flex-col items-center text-left justify-center gap-5 mx-16'>
+                                <Input
+                                    id="password"
+                                    name="newpassowrd"
+                                    label="New Password"
+                                    type="password"
+                                    variant="outline"
+                                    placeholder="Enter New Password"
+                                    handldChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.newpassowrd}
+                                    error={errors.newpassowrd}
+                                    touched={touched.newpassowrd}
+                                    className='w-full'
+                                />
+                                <Input
+                                    id="confirmpassword"
+                                    name="confirmpassword"
+                                    label="Confirm Password"
+                                    type="password"
+                                    variant="outline"
+                                    placeholder="Enter Confirm Password"
+                                    handldChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.confirmpassword}
+                                    error={errors.confirmpassword}
+                                    touched={touched.confirmpassword}
+                                    className='w-full'
+                                />
+                                <CustomButton type={'submit'}
+                                    label='Verify & Proceed'
+                                    labelClass='text-white font-semibold'
+                                    styleClass='bg-black-900 w-5/6 !rounded-lg px-1 py-2' />
+                            </Form>
+                        )}
                     </Formik>
                 </CustomCard>
             </div>
