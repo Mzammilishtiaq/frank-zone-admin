@@ -3,6 +3,10 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      fontFamily:{
+        poppins: ["Poppins"]
+
+      },
       colors:{
         black: {
           100: "#1B1B1B",
@@ -15,7 +19,7 @@ export default {
           800: "#2d3748",
           900: "#051917",
         },
-
+line:"#707070",
         white: "#fff",
         pink: {
           100: "#FFA2BA",
@@ -52,6 +56,11 @@ export default {
         transparent: "transparent",
       }, width: {
         128: "32rem",
+      },
+      opacity:{
+        1:"1",
+        0.3:"0.3",
+        0.7:"0.7"
       },
       screens: {
         sm: { min: "350px", max: "767px" },

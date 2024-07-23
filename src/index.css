@@ -1,15 +1,16 @@
+@import './assets/fonts/poppins/stylesheet.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-body {
-  font-family: "Poppins", sans-serif;
-  font-weight: 100;
-  font-style: normal;}
+html,body {
+  font-family: "Poppins" !important;
+  margin: 0;
+}
 
 * {
+font-family: "Poppins" !important;
   scrollbar-width: 10px;
   scrollbar-color: var(--secondary) var(--primary);
 }
@@ -31,11 +32,12 @@ body {
 
 .rc-table {
   border: none;
+  margin-left: -20px;
 }
 
 .rc-table .rc-table-header {
   /* border-radius: 0px 0px 4px 4px; */
-  border-top: 1px solid #051917;
+  border-top: 1px solid rgba(112, 112, 112, 0.3);
   border-bottom: 0px;
   border-left: 0px;
   border-right: 0px;
@@ -44,11 +46,12 @@ body {
 .rc-table thead.rc-table-thead th {
   background-color: #fff !important;
   border: 0px;
+  padding-left: 25px;
 }
 
 .rc-table-body {
-  border-top: 1px solid #051917;
-  border-bottom: 1px solid #051917;
+  border-top: 1px solid rgba(112, 112, 112, 0.3) ;
+  border-bottom: 1px solid rgba(112, 112, 112, 0.3) ;
   border-left: 0px;
   border-right: 0px;
 }
@@ -57,21 +60,19 @@ body {
   color: #051917;
   white-space: normal;
   font-size: 54px;
-  border: 0px;
   font-weight: 600;
-  border-top: 1px solid #051917;
+  border-top: 1px solid rgba(112, 112, 112,0.3);
   border-bottom: 0px;
   border-left: 0px;
-  border-right: 1px solid #051917;
-  padding: 0px;
+  border-right: 1px solid rgba(112, 112, 112, 0.3);
+  padding-left: 25px;
+
 }
+
 
 .rc-table tbody>tr td {
   background-color: unset !important;
   color: #747474;
-  /* border-top:0px solid #051917;
-    border-bottom:0px solid #051917;
-    border-left:0px; */
-  padding: 10px;
+  padding-left: 25px;
   border: 0px;
 }

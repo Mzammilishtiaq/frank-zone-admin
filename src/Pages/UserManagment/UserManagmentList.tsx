@@ -24,7 +24,7 @@ function UserManagmentList() {
         {
             title: (
                 <div className='w-full flex items-start justify-start'>
-                    <span className="font-semibold text-black-900 text-[20px] opacity-[1]">{'ID'}</span>
+                    <span className="font-semibold text-black-900 text-[15px] opacity-[1]">{'ID'}</span>
                 </div>
             ),
             dataIndex: 'index',
@@ -38,89 +38,89 @@ function UserManagmentList() {
         },
         {
             title: (
-                <div className='w-full flex items-start justify-start'>
-                    <span className="font-semibold text-black-900 text-[20px] opacity-[1]">{'Name'}</span>
+                <div className='w-full flex items-center justify-center'>
+                    <span className="font-semibold text-black-900 text-[15px] opacity-[1]">{'Name'}</span>
                 </div>
             ),
             dataIndex: 'name',
             key: 'name',
             width: 100,
             render: (name: string, row: any) => (
-                <div className="w-full flex items-start justify-start">
-                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px]'>{row.name}</p>
+                <div className="w-full flex items-center justify-center">
+                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate' title={row.name}>{row.name}</p>
                 </div>
             )
         },
         {
             title: (
-                <div className='w-full flex items-start justify-start'>
-                    <span className="font-semibold text-black-900 text-[20px] opacity-[1]">{'Phone'}</span>
+                <div className='w-full flex items-center justify-center'>
+                    <span className="font-semibold text-black-900 text-[15px] opacity-[1]">{'Phone'}</span>
                 </div>
             ),
             dataIndex: 'id',
             key: 'id',
             width: 150,
             render: (name: string, row: any) => (
-                <div className="w-full flex items-start justify-start">
-                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px]'>{row.phone}</p>
+                <div className="w-full flex items-center justify-center">
+                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate' title={row.phone}>{row.phone}</p>
                 </div>
             )
         },
         {
             title: (
-                <div className='w-full flex items-start justify-start'>
-                    <span className="font-semibold text-black-900 text-[20px] opacity-[1]">{'Email'}</span>
+                <div className='w-full flex items-center justify-center'>
+                    <span className="font-semibold text-black-900 text-[15px] opacity-[1]">{'Email'}</span>
                 </div>
             ),
             dataIndex: 'id',
             key: 'id',
             width: 200,
             render: (name: string, row: any) => (
-                <div className="w-full flex items-start justify-start">
-                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px]'>{row.email}</p>
+                <div className="w-full flex items-center justify-center">
+                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate' title={row.email}>{row.email}</p>
                 </div>
             )
         },
         {
             title: (
-                <div className='w-full flex items-start justify-start'>
-                    <span className="font-semibold text-black-900 text-[20px] opacity-[1]">{'Address'}</span>
+                <div className='w-full flex items-center justify-center'>
+                    <span className="font-semibold text-black-900 text-[15px] opacity-[1]">{'Address'}</span>
                 </div>
             ),
             dataIndex: 'id',
             key: 'id',
             width: 150,
             render: (name: string, row: any) => (
-                <div className="w-full flex items-start justify-start">
-                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px]'>{row.address}</p>
+                <div className="w-full flex items-center justify-center">
+                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate' title={row.address}>{row.address}</p>
                 </div>
             )
         },
         {
             title: (
-                <div className='w-full flex items-start justify-start'>
-                    <span className="font-semibold text-black-900 text-[20px] opacity-[1]">{'Action'}</span>
+                <div className='w-full flex items-end justify-center ml-5'>
+                    <span className="font-semibold text-black-900 text-[15px] opacity-[1]">{'Action'}</span>
                 </div>
             ),
             dataIndex: 'id',
             key: 'id',
             width: 150,
             render: (name: string, row: any) => (
-                <div className="w-full flex items-center justify-start gap-2">
+                <div className="w-full flex items-center justify-end gap-3">
                     <Switch
                         // checked={}
                         // onChange={}
                         inputProps={{ 'aria-label': 'controlled' }}
                     />
 
-                    <CustomButton type={'button'} handleButtonClick={() => navigate(`/user_management/profile/${row.id}`)} icon={<img src={viewbtn} className='w-5' />} />
-                    <CustomButton type={'button'} icon={<img src={deletebtn} className='w-5' />} />
+                    <CustomButton type={'button'} handleButtonClick={() => navigate(`/user_management/profile/${row.id}`)} icon={<img src={viewbtn} className='w-4' />} />
+                    <CustomButton type={'button'} icon={<img src={deletebtn} className='w-4' />} />
                 </div>
             )
         }
     ]
     return (
-        <div className='px-4'>
+        <div className=''>
             <Popup isOpen={isdeletepop} handleClose={() => setisDeletePop(false)} isShowHeader={true} >
                 <div className={``}><div className="flex flex-col justify-center items-center gap-3 w-[599px]">
                     <img src={DeleteCut} className="h-[124px] mt-6" />
@@ -150,17 +150,17 @@ function UserManagmentList() {
                 </div>
                 </div>
             </Popup>
-            <CustomCard styleClass={' p-4 '}>
-                <div role="presentation flex flex-col gap-2">
-                    <Breadcrumbs aria-label="breadcrumb">
-                        <Link underline="hover" color="inherit" href='/dashboard' className='text-sm'>
+            <CustomCard styleClass={' p-5 '}>
+                <div role="presentation" className='mb-3' >
+                    <Breadcrumbs aria-label="breadcrumb" className='opacity-[0.3]'>
+                        <Link underline="hover" color="gray" href='/dashboard' className='text-sm'>
                             Dashboard
                         </Link>
                         <Typography color="" className='text-sm'>User</Typography>
                     </Breadcrumbs>
-                    <h5 className='text-2xl font-semibold font-sans'>User Management</h5>
+                    <h5 className='text-2xl font-semibold text-[rgba(5, 25, 23, 1)]'>User Management</h5>
                 </div>
-                <Search icon={<img src={searchicon} className='w-[28px]' />} type={'search'} placeholder={'Start typing to search for user'} styleClass={''} />
+                <Search icon={<img src={searchicon} className='w-[28px] opacity-[1]' />} type={'search'} placeholder={'Start typing to search for user'} styleClass={'sm:placeholder:text-xs sm:w-68'} />
                 <Table
                     tableLayout="fixed"
                     columns={Column as any}

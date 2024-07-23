@@ -26,7 +26,30 @@ import { FaRegQuestionCircle } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import profilelogo from '@src/assets/icon/Profile-Menu.png';
 import searchicon from '@src/assets/icon/search-icon.svg';
-import notificationicon from '@src/assets/icon/sidebar-icon/notification-cin-black.svg';
+import carticonblack from '@src/assets/icon/sidebar-icon/black-icon/cart-icon-black.svg';
+import categoryiconblack from '@src/assets/icon/sidebar-icon/black-icon/category-icon-black.svg';
+import dashboardiconblack from '@src/assets/icon/sidebar-icon/black-icon/dashboard-icon-black.svg';
+import deliveryiconblack from '@src/assets/icon/sidebar-icon/black-icon/delivery-icon-black.svg';
+import mailiconblack from '@src/assets/icon/sidebar-icon/black-icon/mail-icon-black.svg';
+import notificationblack from '@src/assets/icon/sidebar-icon/black-icon/notification-icon-black.svg';
+import questionnareblackicon from '@src/assets/icon/sidebar-icon/black-icon/questionnare-icon-black.svg';
+import settingiconblack from '@src/assets/icon/sidebar-icon/black-icon/setting-icon-black.svg';
+import subscriptionblackicon from '@src/assets/icon/sidebar-icon/black-icon/subscription-icon-black.svg';
+import usermanagmentblackicon from '@src/assets/icon/sidebar-icon/black-icon/user-managment-icon-black.svg';
+import vendormaniconblack from '@src/assets/icon/sidebar-icon/black-icon/vendor-managment-icon-black.svg';
+import dealiconblack from '@src/assets/icon/sidebar-icon/black-icon/deal-managment-icon-black.svg';
+import carticonwhite from '@src/assets/icon/sidebar-icon/white-icon/cart-icon-white.svg';
+import categoryiconwhite from '@src/assets/icon/sidebar-icon/white-icon/category-icon-white.svg';
+import dashboardiconwhite from '@src/assets/icon/sidebar-icon/white-icon/dashboard-icon-white.svg';
+import dealiconwhite from '@src/assets/icon/sidebar-icon/white-icon/deal-managment-icon-white.svg';
+import deliverticonwhite from '@src/assets/icon/sidebar-icon/white-icon/delivery-icon-white.svg';
+import mailiconwhite from '@src/assets/icon/sidebar-icon/white-icon/mail-icon-white.svg';
+import notificationiconwhite from '@src/assets/icon/sidebar-icon/white-icon/notification-icon-white.svg';
+import questionnareiconwhite from '@src/assets/icon/sidebar-icon/white-icon/questionnare-icon-white.svg';
+import settingiconwhite from '@src/assets/icon/sidebar-icon/white-icon/setting-icon-white.svg';
+import subscriptioniconwhite from '@src/assets/icon/sidebar-icon/white-icon/subscription-icon-white.svg';
+import usermaniconwhite from '@src/assets/icon/sidebar-icon/white-icon/user-managment-icon-white.svg';
+import vendormaniconwhite from '@src/assets/icon/sidebar-icon/white-icon/vendor-managment-icon-white.svg';
 
 const drawerWidth = 240;
 
@@ -40,8 +63,8 @@ const SidebarItem = ({ item, dataIndex }: any) => {
         className={`py-3 px-5 flex gap-x-3 mb-2 cursor-pointer  ${splitLocation[1] === item.link.replace('/', '') ? 'bg-black-900' : 'bg-transparent'
           }`}
       >
-        {splitLocation[1] == item.link.replace('/', '') ? item.icon_white : item.icon}
-        <p className={`text-black-900 ${splitLocation[1] == item.link.replace('/', '') ? 'text-white' : ''}`}>
+        {splitLocation[1] == item.link.replace('/', '') ? <img src={item.icon_white} className='w-[20px]' /> : <img src={item.icon} className='w-[20px]'/>}
+        <p className={`text-black-900 text-[14px] ${splitLocation[1] == item.link.replace('/', '') ? 'text-white' : ''}`}>
           {' '}
           {item.title}
         </p>
@@ -65,15 +88,15 @@ const SidebarMoreItem = ({ item, dataIndex }: any) => {
           : '!bg-transparent !shadow-none !border-transparent !outline-none'
           }`} />}
       >
-        <div className="flex items-center gap-3 px-1">
-          {splitLocation[1] == item.link.replace('/', '') ? item.icon_white : item.icon}
+        <div className="flex items-center gap-3 px-1 text-[14px]">
+          {splitLocation[1] == item.link.replace('/', '') ? <img src={item.icon_white} className='w-[20px]' /> : <img src={item.icon} className='w-[20px]'/>}
           {item.title}
         </div>
       </AccordionSummary>
       {item.more_items.map((elem: any, index: any) => (
         <Link key={index} to={elem.link}>
           <p
-            className={`text-left ml-6 pl-2 py-2 mt-2 mb-1 hover:bg-gray-400 hover:text-white ${activeRoute.pathname == elem.link ? 'bg-gray-300 text-white' : ''
+            className={`text-left text-[14px] ml-6 pl-2 py-2 mt-2 mb-1 hover:bg-gray-400 hover:text-white ${activeRoute.pathname == elem.link ? 'bg-gray-300 text-white' : ''
               }`}
           >
             {elem.title}
@@ -101,16 +124,8 @@ export default function Sidebar(props: Props) {
   const [isClosing, setIsClosing] = React.useState(false);
   const [notificationCount, setNotificationCount] = React.useState(0)
   const [isdropdownopen, setisDropdownOpen] = React.useState(false)
-  const [topsearch,setTopSearch] = React.useState(false)
+  const [topsearch, setTopSearch] = React.useState(false)
   const navigate = useNavigate();
-
-  const handlesearchbar = ()=>{
-    setTopSearch( opensearch => !opensearch)
-  }
-
-  React.useEffect(() => {
-    getSiderbar();
-  }, []);
 
   const getSiderbar = () => {
     let _siderbar = [
@@ -118,20 +133,20 @@ export default function Sidebar(props: Props) {
         // link: '/dashboard',
         link: '#',
         title: 'Dashboard',
-        icon: <LuLayoutDashboard />,
-        icon_white: <LuLayoutDashboard className='text-white' />,
+        icon: dashboardiconblack,
+        icon_white: dashboardiconwhite,
       },
       {
         link: '/user_management',
         title: 'User Management',
-        icon: <FaUserCog />,
-        icon_white: <FaUserCog className='text-white' />,
+        icon: usermanagmentblackicon,
+        icon_white: usermaniconwhite,
       },
       {
         link: '/vendor_managment',
         title: 'Vendor Managemnt',
-        icon: <TbUserDollar />,
-        icon_white: <TbUserDollar className='text-white' />,
+        icon: vendormaniconblack,
+        icon_white: vendormaniconwhite,
         more_items: [
           {
             link: '/vendor_managment/ecommerce_shop',
@@ -162,8 +177,8 @@ export default function Sidebar(props: Props) {
       }, {
         link: '/orders_managment',
         title: 'Orders Managemnt',
-        icon: <BsCartCheck />,
-        icon_white: <BsCartCheck className='text-white' />,
+        icon: carticonblack,
+        icon_white: carticonwhite,
         more_items: [
           {
             link: '#',
@@ -189,50 +204,50 @@ export default function Sidebar(props: Props) {
         link: '#',
         // link: '/deals_managment',
         title: 'Deals Managemnt',
-        icon: <PiSealPercent />,
-        icon_white: <PiSealPercent className='text-white' />,
+        icon: dealiconblack,
+        icon_white: dealiconwhite,
       }, {
         link: '#',
         // link: '/category_managment',
         title: 'Category Managemnt',
-        icon: <LuClipboardList />,
-        icon_white: <LuClipboardList className='text-white' />,
+        icon: categoryiconblack,
+        icon_white: categoryiconwhite,
       }, {
         link: '#',
         // link: '/delivery_managment',
         title: 'Delivery Managemnt',
-        icon: <TbTruckDelivery />,
-        icon_white: <TbTruckDelivery className='text-white' />,
+        icon: deliveryiconblack,
+        icon_white: deliverticonwhite,
       }, {
         link: '#',
         // link: '/questionnaire',
         title: 'Questionnaire',
-        icon: <IoMdInformationCircleOutline />,
-        icon_white: <IoMdInformationCircleOutline className='text-white' />,
+        icon: questionnareblackicon,
+        icon_white: questionnareiconwhite
       }, {
         link: '#',
         // link: '/chat',
         title: 'Chat',
-        icon: <CiMail />,
-        icon_white: <CiMail className='text-white' />,
+        icon: mailiconblack,
+        icon_white: mailiconwhite,
       }, {
         link: '#',
         // link: '/notification',
         title: 'Notification',
-        icon: <MdOutlineNotificationsActive />,
-        icon_white: <MdOutlineNotificationsActive className='text-wrap' />,
+        icon: notificationblack,
+        icon_white: notificationiconwhite,
       }, {
         link: '#',
         // link: '/subscription',
         title: 'Subscription',
-        icon: <RiExchangeDollarFill />,
-        icon_white: <RiExchangeDollarFill className='text-white' />,
+        icon: subscriptionblackicon,
+        icon_white: subscriptioniconwhite,
       }, {
         link: '#',
         // link: '/setting',
         title: 'Setting',
-        icon: <IoSettingsOutline />,
-        icon_white: <IoSettingsOutline className='text-wrap' />,
+        icon: settingiconblack,
+        icon_white: settingiconwhite,
         more_items: [
           {
             link: '#',
@@ -263,7 +278,13 @@ export default function Sidebar(props: Props) {
     setSidebarItem([..._siderbar])
   }
 
+  const handlesearchbar = () => {
+    setTopSearch(opensearch => !opensearch)
+  }
 
+  React.useEffect(() => {
+    getSiderbar();
+  }, []);
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -284,7 +305,7 @@ export default function Sidebar(props: Props) {
     <div className='' >
       <Toolbar>
         {/* <Logo className="w-9/12 cursor-pointer" /> */}
-        <img src={Logo} alt="" />
+        <img src={Logo} alt="" className='mt-5' />
       </Toolbar>
       <List className="top-7">
         {sidebaritem.map((item: { more_items: any; }, index: any) => {
@@ -320,9 +341,9 @@ export default function Sidebar(props: Props) {
       >
         <Toolbar className='flex justify-between bg-white relative top-0'>
           <div className="flex gap-x-2 items-center">
-            <img src={searchicon} className='w-[28px] sm:hidden' onClick={()=>handlesearchbar()} />
+            <img src={searchicon} className='w-[28px] sm:hidden' onClick={() => handlesearchbar()} />
             <p className='text-gray-300 font-bold sm:hidden'>Ctrl K</p>
-           <input type="search" placeholder='Search anything...' className='text-black-900 placeholder:text-gray-300 placeholder:font-semibold outline-transparent sm:placeholder:text-sm px-3 sm:w-50' />
+            <input type="search" placeholder='Search anything...' className='text-black-900 placeholder:text-gray-300 placeholder:font-semibold outline-transparent sm:placeholder:text-sm px-3 sm:w-50' />
           </div>
           <div className='flex items-center'>
             <IconButton
@@ -340,11 +361,11 @@ export default function Sidebar(props: Props) {
               <GiHamburgerMenu />
             </IconButton>
 
-            <div className="inline-flex items-center gap-2">
+            <div className="inline-flex items-center gap-2 sm:gap-1">
               <FaRegQuestionCircle className="text-black-900 text-4xl px-1" />
               <div className='relative cursor-pointer' onClick={() => navigate('/settings/AllNotifications')}>
-                <p className='text-white text-[8px] bg-red-500 rounded-full h-5 w-5 absolute flex justify-center items-center -top-1'>{notificationCount}</p>
-                <img src={notificationicon} className=" px-1" />
+                <p className='text-white text-[8px] bg-red-500 rounded-full h-5 w-5 sm:h-3 sm:w-3 absolute flex justify-center items-center -top-1'>{notificationCount}</p>
+                <img src={notificationblack} className=" px-1 sm:-pl-2 " />
               </div>
             </div>
 
@@ -358,14 +379,14 @@ export default function Sidebar(props: Props) {
               onClick={handleClickDropdown}
             >
               <div className="flex items-center justify-around cursor-pointer">
-                <img src={profilelogo} alt="" className="h-10 w-10   border-2 rounded-full" onClick={()=>setisDropdownOpen(true)} />
+                <img src={profilelogo} alt="" className="h-10 w-10 sm:w-7 sm:h-7   border-2 rounded-full" onClick={() => setisDropdownOpen(true)} />
               </div>
             </Typography>
             <Popover
               id={'simple-popover'}
               open={isdropdownopen}
               // anchorEl={anchorEl}
-              onClose={()=>setisDropdownOpen(false)}
+              onClose={() => setisDropdownOpen(false)}
               anchorOrigin={{
                 vertical: 'top',
                 horizontal: 'right',

@@ -19,7 +19,7 @@ const Login = () => {
                     <img src={Logo} className='w-44' alt="" />
                 </div>
                 <CustomCard styleClass=' sm:w-[20rem] md:w-[25rem] sm:px-5 items-center justify-center w-9/12 px-10 py-6 text-left'>
-                    <div className='w text-2xl font-semibold tracking-wide font-sans'>Get Started</div>
+                    <h5 className='text-2xl font-semibold tracking-wide '>Get Started</h5>
                     <p className='font-medium text-center opacity-90 text-black-900'>Frankzone Super Admin Hub: Unifying Excellence Across Six Spectrums</p>
                     <Formik
                         initialValues={{ email: '', password: '' }}
