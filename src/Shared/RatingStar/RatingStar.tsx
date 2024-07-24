@@ -1,18 +1,21 @@
 import React from 'react';
 import ReactStars from  'react-rating-stars-component';
 
-function RatingStar() {
+export interface RatingProps{
+  size:any;
+}
+function RatingStar({size}:RatingProps) {
     const ratingChanged = (newRating: any) => {
         console.log(newRating);
     };
-    const starSize = window.innerWidth < 768 ? 2 : 2;
+    // const starSize = window.innerWidth < 768 ? 20 : 40;
 
     return (
       <div style={{ maxWidth: '300px', margin: 'auto',display:'flex' }}>
         <ReactStars
           count={5}
           onChange={ratingChanged}
-          size={starSize}
+          size={size}
           activeColor="#ffd700"
         />
       </div>

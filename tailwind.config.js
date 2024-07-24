@@ -3,11 +3,11 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      fontFamily:{
+      fontFamily: {
         poppins: ["Poppins"]
 
       },
-      colors:{
+      colors: {
         black: {
           100: "#1B1B1B",
           200: "#edf2f7",
@@ -18,8 +18,9 @@ export default {
           700: "#100909",
           800: "#2d3748",
           900: "#051917",
+          901: "#100909"
         },
-line:"#707070",
+        line: "#707070",
         white: "#fff",
         pink: {
           100: "#FFA2BA",
@@ -42,7 +43,7 @@ line:"#707070",
           700: "#FBFBFB",
           800: "#F0F0F0",
           900: "#989898",
-        },red: { 100: "#F44336" },
+        }, red: { 100: "#F44336" },
         yellow: { 100: "#ECC74F", 200: "#FFD960" },
         green: {
           300: "#B9FBA4",
@@ -57,10 +58,11 @@ line:"#707070",
       }, width: {
         128: "32rem",
       },
-      opacity:{
-        1:"1",
-        0.3:"0.3",
-        0.7:"0.7"
+      opacity: {
+        1: "1",
+        0.1: "0.1",
+        0.3: "0.3",
+        0.7: "0.7"
       },
       screens: {
         sm: { min: "350px", max: "767px" },

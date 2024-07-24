@@ -9,9 +9,11 @@ import viewbtn from '@src/assets/icon/view.svg';
 import CustomButton from '@src/Shared/CustomButton';
 import Searchicon from '@src/assets/icon/search-icon.svg';
 import filledicon from '@src/assets/icon/filter-icon.svg';
+import { useNavigate } from 'react-router-dom';
 
 function FoodOrdering() {
     const [drop, setDrop] = useState(false);
+    const navigate = useNavigate();
     function handleDrop(): void {
         setDrop(prevDrop => !prevDrop)
     }
@@ -152,7 +154,7 @@ function FoodOrdering() {
                         // onChange={}
                         inputProps={{ 'aria-label': 'controlled' }}
                     />
-                    <CustomButton icon={<img src={viewbtn} className='w-4' />} type={'button'} />
+                    <CustomButton icon={<img src={viewbtn} className='w-4' />} handleButtonClick={() => navigate(`/vendor_managment/profile/${row.id}`)} type={'button'} />
                 </div>
             )
         }

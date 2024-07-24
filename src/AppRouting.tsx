@@ -77,7 +77,7 @@ const routes = [
             path:'online_consulation',
             component:<OnlineConsulation/>
           },{
-            path:'profile',
+            path:'profile/:id',
             component:<ProfileVendor/>
           }
 
