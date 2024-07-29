@@ -7,6 +7,7 @@ import React, { useState } from 'react'
 import filledicon from '@src/assets/icon/filter-icon.svg';
 import { GrPowerReset } from 'react-icons/gr'
 import Searchicon from '@src/assets/icon/search-icon.svg';
+import LazyImage from '@src/Shared/LazyImage/LazyImage'
 
 
 function HandyProduct() {
@@ -134,7 +135,7 @@ function HandyProduct() {
     <div className="produts">
     <div className="w-full flex items-center">
       <div className='px-2 py-1 cursor-pointer relative top-0'>
-        <img src={filledicon} className='' onClick={handleDrop} />
+        <LazyImage src={filledicon} className='' handleClick={handleDrop} />
 
         {drop && <div className="w-[20vw] sm:w-[80vw] md:w-[50vw] absolute top-10 z-50 border border-gray-300">
           <CustomCard styleClass='p-2'>

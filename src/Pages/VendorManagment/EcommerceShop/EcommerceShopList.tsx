@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Breadcrumbs, Link, Switch, Typography } from '@mui/material';
+import { Breadcrumbs, Switch, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 import CustomCard from '@src/Shared/Card/CustomCard';
 import SeperatorLine from '@src/Shared/SeperatorLine/SeperatorLine';
 import Search from '@src/Shared/Search/Search';
@@ -10,6 +11,7 @@ import viewbtn from '@src/assets/icon/view.svg';
 import CustomButton from '@src/Shared/CustomButton';
 import filledicon from '@src/assets/icon/filter-icon.svg';
 import { useNavigate } from 'react-router-dom';
+import LazyImage from '@src/Shared/LazyImage/LazyImage';
 
 function EcommerceShopList() {
     const navigate = useNavigate();
@@ -154,7 +156,7 @@ function EcommerceShopList() {
                         // onChange={}
                         inputProps={{ 'aria-label': 'controlled' }}
                     />
-                    <CustomButton icon={<img src={viewbtn} className='w-4' />} handleButtonClick={() => navigate(`/vendor_managment/ecommerce_shop/ecommerce_shop_profile/${row.phone}`)} type={'button'} />
+                    <CustomButton icon={<LazyImage src={viewbtn} className='w-4' />} handleButtonClick={() => navigate(`/vendor_managment/ecommerce_shop/ecommerce_shop_profile/${row.phone}`)} type={'button'} />
                 </div>
             )
         }
@@ -165,8 +167,8 @@ function EcommerceShopList() {
             <CustomCard styleClass={'p-5 '}>
                 <div role="presentation" className='mb-3'>
                     <Breadcrumbs aria-label="breadcrumb" className='opacity-[0.3]'>
-                        <Link underline="hover" color="inherit" href='#' className='text-sm'>
-                            Dashboard
+                    <Link   to='/dashboard' className='text-sm hover:border-b-2 hover:border-gray-500'>
+                    Dashboard
                         </Link>
                         <Typography color="" className='text-[10px]'>Vendor Managment</Typography>
                     </Breadcrumbs>

@@ -7,6 +7,7 @@ import Profileimg from '@src/assets/icon/Profile-Menu.png'
 import UserManagmentRatingReview from './UserManagmentRatingReview'
 import { usermanagement_type } from '@src/Shared/enum/enum'
 import UserManagmentChat from './UserManagmentChat'
+import LazyImage from '@src/Shared/LazyImage/LazyImage'
 
 function UserManagmentProfile() {
     const [activeTabId, setactiveTabId] = useState("REVIEW & RATING")
@@ -17,8 +18,8 @@ function UserManagmentProfile() {
         <CustomCard styleClass='p-5 sticky'>
             <div role="presentation" >
                 <Breadcrumbs aria-label="breadcrumb" className='opacity-[0.3] text-gray-500'>
-                    <Link color="inherit" to='#' className=''>
-                        Dashboard
+                <Link   to='/dashboard' className='text-sm hover:border-b-2 hover:border-gray-500'>
+                Dashboard
                     </Link>
                     <Typography color="">User Management</Typography>
                 </Breadcrumbs>
@@ -42,7 +43,7 @@ function UserManagmentProfile() {
                 sm:flex-col sm:border-r-0 sm:mx-0 sm:mb-4 sm:w-full
                 md:flex-col md:border-r-0 md:mx-0 md:mb-4 md:w-full
                 flex items-center justify-center-center gap-2 w-3/6  border-r-2 border-opacity-[0.1] border-black-900 mx-5 '>
-                    <img src={Profileimg} className='w-28 sm:w-20 ' alt="" />
+                    <LazyImage src={Profileimg} className='w-28 sm:w-20 ' alt="" />
                     <div className="flex flex-col gap-3 sm:w-full">
                         <div className=' flex gap-3 text-sm'> <span className='font-semibold text-black-900 text-opacity-[1] '>User Name:</span> <span className='text-gray-500'>Ali</span> </div>
                         <div className='flex gap-3 text-sm'><span className='font-semibold text-black-900 '> Phone Number:</span> <span className='text-gray-500'>091234555</span></div>

@@ -1,6 +1,7 @@
 import CustomCard from '@src/Shared/Card/CustomCard';
 import KFC from '@src/assets/image/kfc.png';
 import RatingStar from '@src/Shared/RatingStar/RatingStar';
+import LazyImage from '@src/Shared/LazyImage/LazyImage';
 
 function UserManagmentRatingReview() {
   
@@ -11,7 +12,7 @@ function UserManagmentRatingReview() {
                     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((item, index) => (
                         <CustomCard key={index} styleClass={'p-5 sm:p-1 sm:!shadow-xl !shadow-md !flex-row items-center justify-between w-[100%]'}>
                             <div className='flex flex-col items-center w-40'>
-                                <img src={KFC} className='w-10 md:w-6' alt="" />
+                                <LazyImage src={KFC} className='w-10 md:w-6' alt="" />
                                 <h5 className='text-black-900 opacity-1 font-semibold text-left text-sm'>KFC</h5>
                                 <p className='text-black-900 opacity-0.3 text-left text-[10px]'>Berlin, Germany</p>
                             </div>

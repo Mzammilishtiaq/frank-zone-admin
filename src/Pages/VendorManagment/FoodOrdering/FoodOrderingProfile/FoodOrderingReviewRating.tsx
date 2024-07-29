@@ -2,6 +2,7 @@ import CustomCard from '@src/Shared/Card/CustomCard'
 import RatingStar from '@src/Shared/RatingStar/RatingStar'
 import React from 'react'
 import Profileimg from '@src/assets/icon/Profile-Menu.png';
+import LazyImage from '@src/Shared/LazyImage/LazyImage';
 
 
 function FoodOrderingReviewRating() {
@@ -14,7 +15,7 @@ function FoodOrderingReviewRating() {
           <CustomCard styleClass='p-3 my-3 '>
             <div className='flex justify-between'>
               <div className='flex items-center gap-3'>
-                <img src={Profileimg} className='w-20' alt="" />
+                <LazyImage src={Profileimg} className='w-20' alt="" />
                 <div>
                   <p className='text-black-901 font-medium'>John Doe</p>
                   <div className='flex items-center gap-2'>

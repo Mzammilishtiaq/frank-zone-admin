@@ -6,16 +6,18 @@ import { Link } from 'react-router-dom'
 import { Status } from '@src/Shared/enum/enum'
 import Listing_product_Logo from '@src/assets/image/listing_logo.png'
 import Listing_product_img from '@src/assets/image/listing_img.png'
+import LazyImage from '@src/Shared/LazyImage/LazyImage'
 
 function ListingProfile() {
   return (
     <CustomCard styleClass={'sticky'}>
       <div role="presentation" className='mb-3 px-5 pt-5 pb-1'>
         <Breadcrumbs aria-label="breadcrumb" className='opacity-[0.3] '>
-          <Link color="inherit" to='#' className='text-sm'>
-            Dashboard
-          </Link>
-          <Typography color="" className='text-[10px]'>Vendor Managment</Typography>
+        <Link to='/dashboard' className='text-sm hover:border-b-2 hover:border-gray-500'>
+                            Dashboard
+                        </Link>
+                        <Typography color="" className='text-[10px]'>Orders Management</Typography>
+                        <Typography color="" className='text-[10px]'>Listing</Typography>
         </Breadcrumbs>
         <div className="flex items-center justify-between">
           <h5 className='text-2xl sm:text-lg md:text-sm font-medium text-[rgba(5, 25, 23, 1)]'>Health & Beauty Orders Listing</h5>
@@ -89,13 +91,13 @@ function ListingProfile() {
                     </p>
                     <div className='flex justify-between items-center'>
                       <div className='flex gap-3'>
-                        <img src={Listing_product_Logo} className='w-10 h-10' alt="" />
+                        <LazyImage src={Listing_product_Logo} className='w-10 h-10' alt="" />
                         <p className='flex flex-col gap-2'>
                           <span className='text-[15px] text-black-900 font-semibold'>Rouge</span>
                           <span className='text-xs w-full text-black-900 text-opacity-0.2'>Berlin, Germany</span>
                         </p>
                       </div>
-                      <img src={Listing_product_img} className='w-36 sm:w-20 md:w-20' alt="" />
+                      <LazyImage src={Listing_product_img} className='w-36 sm:w-20 md:w-20' alt="" />
                     </div>
                   </div>
 

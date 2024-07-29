@@ -50,6 +50,8 @@ import settingiconwhite from '@src/assets/icon/sidebar-icon/white-icon/setting-i
 import subscriptioniconwhite from '@src/assets/icon/sidebar-icon/white-icon/subscription-icon-white.svg';
 import usermaniconwhite from '@src/assets/icon/sidebar-icon/white-icon/user-managment-icon-white.svg';
 import vendormaniconwhite from '@src/assets/icon/sidebar-icon/white-icon/vendor-managment-icon-white.svg';
+import LazyImage from '../LazyImage/LazyImage';
+import QuestionIconImg from '@src/assets/icon/question-icon.svg'
 
 const drawerWidth = 240;
 
@@ -63,7 +65,7 @@ const SidebarItem = ({ item, dataIndex }: any) => {
         className={`py-3 px-5 flex gap-x-3 mb-2 cursor-pointer  ${splitLocation[1] === item.link.replace('/', '') ? 'bg-black-900' : 'bg-transparent'
           }`}
       >
-        {splitLocation[1] == item.link.replace('/', '') ? <img src={item.icon_white} className='w-[20px]' /> : <img src={item.icon} className='w-[20px]'/>}
+        {splitLocation[1] == item.link.replace('/', '') ? <LazyImage src={item.icon_white} className='w-[20px]' /> : <img src={item.icon} className='w-[20px]' />}
         <p className={`text-black-900 text-[14px] ${splitLocation[1] == item.link.replace('/', '') ? 'text-white' : ''}`}>
           {' '}
           {item.title}
@@ -89,7 +91,7 @@ const SidebarMoreItem = ({ item, dataIndex }: any) => {
           }`} />}
       >
         <div className="flex items-center gap-3 px-1 text-[14px]">
-          {splitLocation[1] == item.link.replace('/', '') ? <img src={item.icon_white} className='w-[20px]' /> : <img src={item.icon} className='w-[20px]'/>}
+          {splitLocation[1] == item.link.replace('/', '') ? <LazyImage src={item.icon_white} className='w-[20px]' /> : <img src={item.icon} className='w-[20px]' />}
           {item.title}
         </div>
       </AccordionSummary>
@@ -130,8 +132,8 @@ export default function Sidebar(props: Props) {
   const getSiderbar = () => {
     let _siderbar = [
       {
-        // link: '/dashboard',
-        link: '#',
+        link: '/dashboard',
+        // link: '#',
         title: 'Dashboard',
         icon: dashboardiconblack,
         icon_white: dashboardiconwhite,
@@ -305,7 +307,7 @@ export default function Sidebar(props: Props) {
     <div className='' >
       <Toolbar>
         {/* <Logo className="w-9/12 cursor-pointer" /> */}
-        <img src={Logo} alt="" className='mt-5' />
+        <LazyImage src={Logo} alt="" className='mt-5' />
       </Toolbar>
       <List className="top-7">
         {sidebaritem.map((item: { more_items: any; }, index: any) => {
@@ -341,7 +343,7 @@ export default function Sidebar(props: Props) {
       >
         <Toolbar className='flex justify-between bg-white relative top-0'>
           <div className="flex gap-x-2  items-center">
-          <IconButton
+            <IconButton
               color="inherit"
               aria-label="open drawer"
               edge="start"
@@ -356,18 +358,18 @@ export default function Sidebar(props: Props) {
             >
               <GiHamburgerMenu />
             </IconButton>
-            <img src={searchicon} className='w-[28px] sm:hidden' onClick={() => handlesearchbar()} />
+            <LazyImage src={searchicon} className='w-[28px] sm:hidden' handleClick={() => handlesearchbar()} />
             <p className='text-gray-300 font-bold sm:hidden'>Ctrl K</p>
             <input type="search" placeholder='Search anything...' className='text-black-900 placeholder:text-gray-300 placeholder:font-semibold outline-transparent sm:placeholder:text-sm px-3 sm:w-50 sm:hidden' />
           </div>
           <div className='flex items-center'>
-            
+
 
             <div className="inline-flex items-center gap-2 sm:gap-1">
-              <FaRegQuestionCircle className="text-black-900 text-4xl md:text-2xl sm:text-2xl px-1" />
+              <LazyImage src={QuestionIconImg} alt="" className='px-1 sm:-pl-2 sm:w-5 sm:h-5 ' />
               <div className='relative cursor-pointer' onClick={() => navigate('/settings/AllNotifications')}>
                 <p className='text-white text-[8px] bg-red-500 rounded-full h-5 w-5 sm:h-3 sm:w-3 absolute flex justify-center items-center -top-1'>{notificationCount}</p>
-                <img src={notificationblack} className=" px-1 sm:-pl-2 sm:w-5 sm:h-5 " />
+                <LazyImage src={notificationblack} className=" px-1 sm:-pl-2 sm:w-5 sm:h-5 " />
               </div>
             </div>
 
@@ -402,24 +404,24 @@ export default function Sidebar(props: Props) {
               <div className="w-64">
                 <div className="flex flex-col justify-center items-center my-4">
                   <div
-                    className="flex w-full font-semibold text-sm mt-3 cursor-pointer"
+                    className="flex  w-full font-semibold text-xs p-2 mt-3 cursor-pointer"
                     onClick={() => {
                       setisDropdownOpen(false);
                       navigate('/profile');
                     }}
                   >
-                    <img
+                    <LazyImage
                       src={profilelogo}
                       // size={"small"}
-                      className="h-10 w-10   border-2 rounded-full"
+                      className="w-10   border-2 rounded-full"
                     />
 
 
-                    <div className="flex flex-col ml-3">
+                    <div className="flex flex-col w-full ml-3">
                       <p className="text-black-900 font-light text-sm">
                         Muzammil ishtiaq
                       </p>
-                      <p className="text-black-900 text-opacity-30 font-normal text-xs sm:text-[11px]  w-40 break-words">
+                      <p className="text-black-900 text-opacity-30 font-normal text-[9px] sm:text-[11px]  w-40 break-words">
                         tomuzammilishtiaq@gmail.com
                       </p>
                     </div>

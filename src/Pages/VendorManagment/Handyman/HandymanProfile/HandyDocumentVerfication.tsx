@@ -7,6 +7,7 @@ import frontcard from '@src/assets/image/front.jpeg'
 import backcard from '@src/assets/image/back.jpeg'
 import passport from '@src/assets/image/passport.jpg'
 import CircleCross from '@src/assets/icon/circlecross-icon.svg'
+import LazyImage from '@src/Shared/LazyImage/LazyImage'
 
 function HandyDocumentVerfication() {
     const [deletepopup, setDeletePopup] = useState(false);
@@ -124,7 +125,7 @@ function HandyDocumentVerfication() {
         <div>
             <Popup isOpen={deletepopup} handleClose={() => setDeletePopup(false)} isShowHeader={true}>
                 <div className="flex flex-col justify-center items-center gap-3">
-                    <img src={CircleCross} className="h-[70px] mt-6" />
+                    <LazyImage src={CircleCross} className="h-[70px] mt-6" />
                     <h5 className="font-bold text-2xl mt-5">Rejection</h5>
                     <div className="flex flex-col justify-center items-center">
                         <p className="font-medium text-sm text-gray-400 ">
@@ -152,7 +153,7 @@ function HandyDocumentVerfication() {
             </Popup>
             <Popup isOpen={imgpopup} handleClose={() => setImgPopup(false)} isShowHeader={true}>
                 <div className="flex flex-col justify-center items-center gap-3">
-                    <img src={imgpopupdata} className='h-[220px] mt-6' />
+                    <LazyImage src={imgpopupdata} className='h-[220px] mt-6' />
                 </div>
             </Popup>
 

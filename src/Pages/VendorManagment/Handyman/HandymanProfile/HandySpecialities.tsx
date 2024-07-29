@@ -5,6 +5,7 @@ import viewbtn from '@src/assets/icon/view.svg'
 import Profileimg from '@src/assets/icon/Profile-Menu.png'
 import React, { useState } from 'react'
 import Popup from '@src/Shared/Popup/Popup'
+import LazyImage from '@src/Shared/LazyImage/LazyImage'
 
 function HandySpecialities() {
     const [specialpopup, setSpecialPopup] = useState(false);
@@ -122,7 +123,7 @@ function HandySpecialities() {
             width: 50,
             render: (name: string, row: any) => (
                 <div className="w-full flex items-center justify-end gap-3 -ml-5">
-                    <CustomButton type={'button'} icon={<img src={viewbtn} className='w-5' />} handleButtonClick={() => setSpecialPopup(true)} />
+                    <CustomButton type={'button'} icon={<LazyImage src={viewbtn} className='w-5' />} handleButtonClick={() => setSpecialPopup(true)} />
                     <Switch
                         // checked={}
                         // onChange={}
@@ -138,7 +139,7 @@ function HandySpecialities() {
             <Popup isOpen={specialpopup} handleClose={() => setSpecialPopup(false)} isShowHeader={true}>
                 <div className="flex flex-col gap-3 p-5">
                     <div className="flex items-center">
-                        <img src={Profileimg} className='w-40' />
+                        <LazyImage src={Profileimg} className='w-40' />
                         <div className='flex flex-col items-start gap-2 ml-10'>
                             <p className='font-medium text-black-900 text-sm'>Admin Panel</p>
                             <p className='text-sm font-medium text-black-900 text-opacity-[0.5]'>Pharmacy</p>

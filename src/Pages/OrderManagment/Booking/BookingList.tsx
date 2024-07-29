@@ -1,4 +1,5 @@
-import { Breadcrumbs, Checkbox, Link, Switch, Typography } from '@mui/material'
+import { Breadcrumbs, Checkbox,Switch, Typography } from '@mui/material'
+import { Link } from 'react-router-dom'
 import CustomCard from '@src/Shared/Card/CustomCard'
 import CustomButton from '@src/Shared/CustomButton'
 import Search from '@src/Shared/Search/Search'
@@ -16,6 +17,7 @@ import { GrPowerReset } from 'react-icons/gr'
 import { Calendar } from '@src/Shared/Calendar/Calendar'
 import { Value } from 'react-calendar/dist/cjs/shared/types'
 import ProfileImg from '@src/assets/icon/Profile-Menu.png'
+import LazyImage from '@src/Shared/LazyImage/LazyImage'
 
 function BookingList() {
     const navigate = useNavigate();
@@ -100,7 +102,7 @@ function BookingList() {
             render: (name: string, row: any) => (
                 <div className="w-full flex  items-start justify-start">
                    <div className="flex items-center gap-1 w-full">
-                   <img src={ProfileImg} className='w-8 h-8' alt="john" />
+                   <LazyImage src={ProfileImg} className='w-8 h-8' alt="john" />
                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] sm:text-[10px] md:text-[10px]'>{row.consultors}</p>
                    </div>
                 </div>
@@ -205,7 +207,7 @@ function BookingList() {
             width: 50,
             render: (name: string, row: any) => (
                 <div className="w-full flex items-center justify-end gap-3 ">
-                    <CustomButton icon={<img src={viewbtn} className='w-4' />} handleButtonClick={() => navigate(`/order_managment/listing/listing_profile/${row.phone}`)} type={'button'} />
+                    <CustomButton icon={<LazyImage src={viewbtn} className='w-4' />} handleButtonClick={() => navigate(`/order_managment/listing/listing_profile/${row.phone}`)} type={'button'} />
                 </div>
             )
         }
@@ -216,23 +218,24 @@ function BookingList() {
             <CustomCard styleClass={'p-5'}>
                 <div role="presentation" className='mb-3'>
                     <Breadcrumbs aria-label="breadcrumb" className='opacity-[0.3]'>
-                        <Link underline="hover" color="inherit" href='#' className='text-sm'>
+                    <Link to='/dashboard' className='text-sm hover:border-b-2 hover:border-gray-500'>
                             Dashboard
                         </Link>
-                        <Typography color="" className='text-[10px]'>Vendor Managment</Typography>
+                        <Typography color="" className='text-[10px]'>Orders Management</Typography>
+                        <Typography color="" className='text-[10px]'>Booking</Typography>
                     </Breadcrumbs>
                     <div className="flex items-center justify-between">
-                        <h5 className='text-2xl sm:text-lg font-medium text-[rgba(5, 25, 23, 1)]'>Ecommerce Vendor Managment</h5>
+                        <h5 className='text-2xl sm:text-lg font-medium text-[rgba(5, 25, 23, 1)]'>Booking Managment</h5>
                     </div>
                 </div>
                 <div className="w-full flex items-center gap-6 pb-2">
                     <div className='cursor-pointer relative top-0'>
-                        <img src={filledicon} className='text-2xl text-gray-400 font-thin' onClick={handleDrop} />
+                        <LazyImage src={filledicon} className='text-2xl text-gray-400 font-thin' handleClick={handleDrop} />
 
                         {drop && <div className="w-[60vw] sm:w-[90vw] md:w-[50vw] absolute top-10 z-50 border border-gray-300  ">
                             <CustomCard styleClass='p-2'>
-                                <div className='flex gap-0 sm:overflow-x-auto'>
-                                    <div className='text-left sm:w-full flex flex-col gap-1 w-full'>
+                                <div className='flex gap-0 sm:gap-4 sm:w-full sm:overflow-x-auto'>
+                                    <div className='text-left sm:w-full flex flex-col sm:items-start gap-1 w-full'>
                                         <h5 className='ml-3 text-black-900 sm:text-[12px] md:text-[12px] font-semibold '>Category</h5>
                                         {
                                             ['Computers & Tablets',
@@ -253,7 +256,7 @@ function BookingList() {
                                             ))
                                         }
                                     </div>
-                                    <div className=" text-left flex flex-col w-full ">
+                                    <div className=" text-left flex flex-col w-full sm:w-full sm:items-center ">
                                         <h5 className='ml-3 text-black-900 text-[13px] sm:text-[12px] md:text-[12px] font-semibold '>Booking Type</h5>
                                         {
                                             ['Appointment', 'Consulation'].map((status) => (
@@ -269,7 +272,7 @@ function BookingList() {
                                             ))
                                         }
                                     </div>
-                                    <div className=" text-left flex flex-col w-full ">
+                                    <div className=" text-left flex flex-col w-full sm:w-full sm:items-center ">
                                         <h5 className='ml-3 text-black-900 sm:text-[12px] md:text-[12px] font-semibold '>Status</h5>
                                         {
                                             ['Shipped', 'Delived', 'Pending', 'In Transit'].map((status) => (
@@ -285,20 +288,12 @@ function BookingList() {
                                             ))
                                         }
                                     </div>
-                                    <div className="flex flex-col w-full">
+                                    <div className="flex flex-col w-full sm:w-full sm:items-end">
                                         <div className=" text-left">
                                             <h5 className='text-black-900 sm:text-[12px] md:text-[12px] font-semibold '>Start Date</h5>
                                             <div className='flex flex-col  items-left'>
                                                 <div className='flex items-center py-2'>
-                                                    <input type="text" placeholder='Select Start Date' className='border-b-2  placeholder:text-sm ' />
-                                                    <FaRegCalendarDays className='text-gray-500' onClick={()=>setstartShowCalendar(prevDrop => !prevDrop)} />
-                                                </div>
-                                                <div>
-                                                    {startshowcalendar && <Calendar
-                                                    onChange={onChange} 
-                                                    value={value} 
-                                                    />}
-
+                                                    <input type="date" placeholder='Select Start Date' className='border-b-2  placeholder:text-sm ' />
                                                 </div>
                                             </div>
                                         </div>
@@ -306,15 +301,7 @@ function BookingList() {
                                             <h5 className='text-black-900 sm:text-[12px] md:text-[12px] font-semibold '>End Date</h5>
                                             <div className='flex flex-col  items-left'>
                                                 <div className='flex items-center py-2'>
-                                                    <input type="text" placeholder='Select Start Date' className='border-b-2  placeholder:text-sm ' />
-                                                    <FaRegCalendarDays className='text-gray-500' onClick={() => setEndShowCalendar(prevDrop => !prevDrop)} />
-                                                </div>
-                                                <div>
-                                                    {endshowcalendar && <Calendar
-                                                    onChange={onChange} 
-                                                    value={value} 
-                                                    />}
-
+                                                    <input type="date" placeholder='Select Start Date' className='border-b-2   outline-transparent placeholder:text-gray-500 cursor-pointer' />
                                                 </div>
                                             </div>
                                         </div>
@@ -329,10 +316,10 @@ function BookingList() {
                         </div>}
                     </div>
                     <div className='w-full'>
-                        <Search type={'search'} placeholder={'Start typing to search  for user'} icon={<img src={Searchicon} className='w-[28px] opacity-[1]' />} styleClass={'sm:placeholder:text-xs px-3 sm:w-50'} />
+                        <Search type={'search'} placeholder={'Start typing to search  for user'} icon={<LazyImage src={Searchicon} className='w-[28px] opacity-[1]' />} styleClass={'sm:placeholder:text-xs px-3 sm:w-50'} />
                     </div>
                 </div>
-                <div className="flex gap-5 sm:gap-1 sm:overflow-x-auto">
+                <div className="flex gap-10 sm:gap-1 sm:overflow-x-auto">
                     {
 
                         ListingTab.map((item, index) => (

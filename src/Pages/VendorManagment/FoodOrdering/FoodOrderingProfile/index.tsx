@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Breadcrumbs, Link, Typography } from '@mui/material';
+import { Breadcrumbs,Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 import CustomCard from '@src/Shared/Card/CustomCard';
 import SeperatorLine from '@src/Shared/SeperatorLine/SeperatorLine';
 import { profileTypes } from '@src/Shared/enum/enum';
@@ -27,8 +28,8 @@ function FoodOrderingProfile() {
       <CustomCard styleClass={'p-5 sticky'}>
         <div role="presentation" className='mb-3'>
           <Breadcrumbs aria-label="breadcrumb" className='opacity-[0.3]'>
-            <Link underline="hover" color="inherit" href='/dashboard' className='text-sm'>
-              Dashboard
+          <Link   to='/dashboard' className='text-sm hover:border-b-2 hover:border-gray-500'>
+          Dashboard
             </Link>
             <Typography color="" className='text-[10px]'>Vendor Managment</Typography>
           </Breadcrumbs>

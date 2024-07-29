@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Breadcrumbs, Link, Switch, Typography } from '@mui/material';
+import { Breadcrumbs,Switch, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 import CustomCard from '@src/Shared/Card/CustomCard';
 import SeperatorLine from '@src/Shared/SeperatorLine/SeperatorLine';
 import Search from '@src/Shared/Search/Search';
@@ -10,6 +11,7 @@ import CustomButton from '@src/Shared/CustomButton';
 import Searchicon from '@src/assets/icon/search-icon.svg';
 import filledicon from '@src/assets/icon/filter-icon.svg';
 import { useNavigate } from 'react-router-dom';
+import LazyImage from '@src/Shared/LazyImage/LazyImage';
 
 function OnlineConsulationList() {
     const [drop, setDrop] = useState(false);
@@ -154,7 +156,7 @@ function OnlineConsulationList() {
                         // onChange={}
                         inputProps={{ 'aria-label': 'controlled' }}
                     />
-                    <CustomButton icon={<img src={viewbtn} className='w-4' />} handleButtonClick={() => navigate(`#`)} type={'button'} />
+                    <CustomButton icon={<LazyImage src={viewbtn} className='w-4' />} handleButtonClick={() => navigate(`#`)} type={'button'} />
                 </div>
             )
         }
@@ -164,8 +166,8 @@ function OnlineConsulationList() {
          <CustomCard styleClass={'p-5 '}>
          <div role="presentation" className='mb-3'>
                 <Breadcrumbs aria-label="breadcrumb" className='opacity-[0.3]'>
-                    <Link underline="hover" color="inherit" href='#' className='text-sm'>
-                        Dashboard
+                <Link   to='/dashboard' className='text-sm hover:border-b-2 hover:border-gray-500'>
+                Dashboard
                     </Link>
                     <Typography color="" className='text-[10px]'>Vendor Managment</Typography>
                 </Breadcrumbs>
@@ -175,7 +177,7 @@ function OnlineConsulationList() {
             </div>
             <div className="w-full flex items-center">
                 <div className='px-2 py-1 cursor-pointer relative top-0'>
-                    <img src={filledicon} className='text-2xl text-gray-400 font-thin' onClick={handleDrop} />
+                    <LazyImage src={filledicon} className='text-2xl text-gray-400 font-thin' handleClick={handleDrop} />
 
                     {drop && <div className="w-72 sm:w-28 md:w-28 absolute top-10 z-50">
                         {

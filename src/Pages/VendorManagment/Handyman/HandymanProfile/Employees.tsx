@@ -9,6 +9,7 @@ import Search from '@src/Shared/Search/Search';
 import { useNavigate } from 'react-router-dom';
 import { Switch } from '@mui/material';
 import { Table } from '@src/Shared/Table/Table';
+import LazyImage from '@src/Shared/LazyImage/LazyImage';
 
 function Employees() {
     const navigate = useNavigate();
@@ -182,7 +183,7 @@ function Employees() {
 
             <div className="w-full flex items-center">
                 <div className='px-2 py-1 cursor-pointer relative top-0'>
-                    <img src={filledicon} className='text-2xl text-gray-400 font-thin' onClick={handleDrop} />
+                    <LazyImage src={filledicon} className='text-2xl text-gray-400 font-thin' handleClick={handleDrop} />
 
                     {drop && <div className="w-72 absolute top-10 z-50">
                         {

@@ -15,6 +15,7 @@ import Popup from '@src/Shared/Popup/Popup';
 import { Link, useNavigate } from 'react-router-dom';
 import DeleteCut from '@src/assets/icon/delete-cut.svg'
 import searchicon from '@src/assets/icon/search-icon.svg';
+import LazyImage from '@src/Shared/LazyImage/LazyImage';
 
 function UserManagmentList() {
     const [isdeletepop, setisDeletePop] = React.useState(false);
@@ -112,8 +113,8 @@ function UserManagmentList() {
                         inputProps={{ 'aria-label': 'controlled' }}
                     />
 
-                    <CustomButton type={'button'} handleButtonClick={() => navigate(`/user_management/profile/${row.id}`)} icon={<img src={viewbtn} className='w-4' />} />
-                    <CustomButton type={'button'} icon={<img src={deletebtn}  onClick={() => setisDeletePop(true)} className='w-4' />} />
+                    <CustomButton type={'button'} handleButtonClick={() => navigate(`/user_management/profile/${row.id}`)} icon={<LazyImage src={viewbtn} className='w-4' />} />
+                    <CustomButton type={'button'} icon={<LazyImage src={deletebtn}  handleClick={() => setisDeletePop(true)} className='w-4' />} />
                 </div>
             )
         }
@@ -152,7 +153,7 @@ function UserManagmentList() {
             <CustomCard styleClass={' p-5 '}>
                 <div role="presentation" className='mb-3' >
                     <Breadcrumbs aria-label="breadcrumb" className='opacity-[0.3]'>
-                        <Link  color="gray" to='#' className='text-sm'>
+                        <Link   to='/dashboard' className='text-sm hover:border-b-2 hover:border-gray-500'>
                             Dashboard
                         </Link>
                         <Typography color="" className='text-sm'>User</Typography>

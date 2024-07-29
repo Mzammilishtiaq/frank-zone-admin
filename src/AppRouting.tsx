@@ -29,6 +29,7 @@ import ListingProfile from './Pages/OrderManagment/Listing/ListingProfile/Listin
 import ListingList from './Pages/OrderManagment/Listing/ListingList';
 import Booking from './Pages/OrderManagment/Booking';
 import BookingList from './Pages/OrderManagment/Booking/BookingList';
+import Dashboard from './Pages/Dashboard';
 
 const routes = [
   {
@@ -55,6 +56,10 @@ const routes = [
     path: '/',
     component: <HomeContainer />,
     children: [
+      {
+        path: '/dashboard',
+        component: <Dashboard />
+      },
       {
         path: '/user_management',
         component: <UserMangment />,
@@ -142,29 +147,29 @@ const routes = [
         ]
       },
       {
-        path: 'order_managment',
-        component: <OrderManagment />, 
-        children:[
+        path: '/order_managment',
+        component: <OrderManagment />,
+        children: [
           {
-            path:'listing',
-            component:<Listing/>,
-            children:[
+            path: 'listing',
+            component: <Listing />,
+            children: [
               {
-                path:'listing_list',
-                component:<ListingList/>
+                path: 'listing_list',
+                component: <ListingList />
               },
               {
-                path:'listing_profile/:id',
-                component:<ListingProfile/>
+                path: 'listing_profile/:id',
+                component: <ListingProfile />
               }
             ]
-          },{
-            path:'booking',
-            component:<Booking/>,
-            children:[
+          }, {
+            path: 'booking',
+            component: <Booking />,
+            children: [
               {
-                path:'booking_list',
-                component:<BookingList/>
+                path: 'booking_list',
+                component: <BookingList />
               }
             ]
           }
@@ -187,7 +192,7 @@ function AppRouting() {
                 children?.map(({ path, component, children }) => (
                   <Route path={path} element={component} key={Math.random()}>
                     {
-                      children && children.map(({ path, component, children }:any) => (
+                      children && children.map(({ path, component, children }: any) => (
                         <Route path={path} element={component} key={Math.random()}>
                           {
                             children && children.map(({ path, component }: any) => (
