@@ -3,6 +3,9 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      height:{
+        97:"50rem"
+      },
       fontFamily: {
         poppins: ["Poppins"]
 
@@ -36,6 +39,7 @@ export default {
           700: "#8CB4FC",
           800: "#7580F233",
           900: "#7580F2",
+          901: "#27B1A4"
         }, gray: {
           400: "#ACACAC",
           500: "#707070",
@@ -61,8 +65,14 @@ export default {
       opacity: {
         1: "1",
         0.1: "0.1",
+        0.2: "0.2",
         0.3: "0.3",
-        0.7: "0.7"
+        0.4: "0.4",
+        0.5: "0.5",
+        0.6: "0.6",
+        0.7: "0.7",
+        0.8: "0.8",
+        0.9: "0.9"
       },
       screens: {
         sm: { min: "350px", max: "767px" },

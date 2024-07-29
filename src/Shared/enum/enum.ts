@@ -2,13 +2,26 @@ export const profileTypes = {
     vendor_details: 'Vendor Details',
     questionnaire: 'Questionnaire',
     documents_verification: 'Documents Verification',
-    products:"Products",
-    reviews_ratings:"Reviews & Ratings"
+    products: "Products",
+    reviews_ratings: "Reviews & Ratings",
+    employees: "Employees",
+    Specialities: "Specialities"
 };
-// export const profileTypes = {
-//     vendor_details: 0,
-//     questionnaire: 1,
-//     documents_verification: 3,
-//     products:4,
-//     reviews_ratings:5
-// };
+export const Status = {
+    pending: "PENDING",
+    approved: "APPROVED",
+    delivered: "DEVLIVERED",
+    rejected: "REJECTED",
+    shipped: "SHIPPED",
+    in_transit: "IN TRANSIT"
+};
+
+export const booking_type = {
+    appointment: "APPOINTMENT",
+    consultation: "CONSULTATION"
+}
+
+export const usermanagement_type = {
+    ratingreview: "REVIEW & RATING",
+    chat: "CHAT"
+}

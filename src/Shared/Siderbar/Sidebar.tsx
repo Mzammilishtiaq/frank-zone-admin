@@ -149,46 +149,46 @@ export default function Sidebar(props: Props) {
         icon_white: vendormaniconwhite,
         more_items: [
           {
-            link: '/vendor_managment/ecommerce_shop',
+            link: '/vendor_managment/ecommerce_shop/ecommerce_shop_list',
             title: 'Ecommerce Shop',
             icon: <></>
           },
           {
-            link: '/vendor_managment/food_ordering',
+            link: '/vendor_managment/food_order/food_order_list',
             title: 'Food Ordering',
             icon: <></>
           },
           {
-            link: '/vendor_managment/health_beauty',
+            link: '/vendor_managment/health_beauty/health_beauty_list',
             title: 'Health & Beauty',
             icon: <></>,
 
 
           }, {
-            link: '/vendor_managment/handyman',
+            link: '/vendor_managment/handyman/handymanlist',
             title: 'Handyman',
             icon: <></>,
           }, {
-            link: '/vendor_managment/online_consulation',
+            link: '/vendor_managment/online_consulation/online_consulation_list',
             title: 'Online Consultation',
             icon: <></>,
           },
         ],
       }, {
-        link: '/orders_managment',
+        link: '/order_managment',
         title: 'Orders Managemnt',
         icon: carticonblack,
         icon_white: carticonwhite,
         more_items: [
           {
-            link: '#',
-            // link: '/listing',
+            // link: '#',
+            link: '/order_managment/listing/listing_list',
             title: 'Listing',
             icon: <></>
           },
           {
-            link: '#',
-            // link: '/booking',
+            // link: '#',
+            link: '/order_managment/booking/booking_list',
             title: 'Booking',
             icon: <></>,
           },
@@ -340,32 +340,34 @@ export default function Sidebar(props: Props) {
         }}
       >
         <Toolbar className='flex justify-between bg-white relative top-0'>
-          <div className="flex gap-x-2 items-center">
-            <img src={searchicon} className='w-[28px] sm:hidden' onClick={() => handlesearchbar()} />
-            <p className='text-gray-300 font-bold sm:hidden'>Ctrl K</p>
-            <input type="search" placeholder='Search anything...' className='text-black-900 placeholder:text-gray-300 placeholder:font-semibold outline-transparent sm:placeholder:text-sm px-3 sm:w-50' />
-          </div>
-          <div className='flex items-center'>
-            <IconButton
+          <div className="flex gap-x-2  items-center">
+          <IconButton
               color="inherit"
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
               sx={{
                 marginRight: 'auto',
-                marginLeft: '10px',
+                marginLeft: '0px',
                 color: 'black',
                 display: { sm: 'none' },
               }}
+              className=''
             >
               <GiHamburgerMenu />
             </IconButton>
+            <img src={searchicon} className='w-[28px] sm:hidden' onClick={() => handlesearchbar()} />
+            <p className='text-gray-300 font-bold sm:hidden'>Ctrl K</p>
+            <input type="search" placeholder='Search anything...' className='text-black-900 placeholder:text-gray-300 placeholder:font-semibold outline-transparent sm:placeholder:text-sm px-3 sm:w-50 sm:hidden' />
+          </div>
+          <div className='flex items-center'>
+            
 
             <div className="inline-flex items-center gap-2 sm:gap-1">
-              <FaRegQuestionCircle className="text-black-900 text-4xl px-1" />
+              <FaRegQuestionCircle className="text-black-900 text-4xl md:text-2xl sm:text-2xl px-1" />
               <div className='relative cursor-pointer' onClick={() => navigate('/settings/AllNotifications')}>
                 <p className='text-white text-[8px] bg-red-500 rounded-full h-5 w-5 sm:h-3 sm:w-3 absolute flex justify-center items-center -top-1'>{notificationCount}</p>
-                <img src={notificationblack} className=" px-1 sm:-pl-2 " />
+                <img src={notificationblack} className=" px-1 sm:-pl-2 sm:w-5 sm:h-5 " />
               </div>
             </div>
 
@@ -379,7 +381,7 @@ export default function Sidebar(props: Props) {
               onClick={handleClickDropdown}
             >
               <div className="flex items-center justify-around cursor-pointer">
-                <img src={profilelogo} alt="" className="h-10 w-10 sm:w-7 sm:h-7   border-2 rounded-full" onClick={() => setisDropdownOpen(true)} />
+                <img src={profilelogo} alt="" className="h-10 w-10 sm:w-10 sm:h-10 md:w-7 md:h-7   border-2 rounded-full" onClick={() => setisDropdownOpen(true)} />
               </div>
             </Typography>
             <Popover
@@ -400,7 +402,7 @@ export default function Sidebar(props: Props) {
               <div className="w-64">
                 <div className="flex flex-col justify-center items-center my-4">
                   <div
-                    className="flex pl-3 w-full font-semibold text-sm mt-3 cursor-pointer"
+                    className="flex w-full font-semibold text-sm mt-3 cursor-pointer"
                     onClick={() => {
                       setisDropdownOpen(false);
                       navigate('/profile');

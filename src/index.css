@@ -14,7 +14,10 @@ font-family: "Poppins" !important;
   scrollbar-width: 10px;
   scrollbar-color: var(--secondary) var(--primary);
 }
-
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;

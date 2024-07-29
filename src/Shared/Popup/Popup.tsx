@@ -69,11 +69,11 @@ function Popup({
                                         <Spinner />
                                     </div>
                                 )}
-                                {!isLoading && (
+                                {/* {!isLoading && (
                                     <div className={`${Style.closeIcon} mt-3`} onClick={closePopup}>
                                         <Close height={15} />
                                     </div>
-                                )}
+                                )} */}
                             </div>
                         </DialogTitle>
                     )}

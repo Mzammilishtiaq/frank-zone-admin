@@ -2,7 +2,6 @@ import * as React from 'react';
 import CustomCard from '@src/Shared/Card/CustomCard'
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
-import Link from '@mui/material/Link';
 import SeperatorLine from '@src/Shared/SeperatorLine/SeperatorLine';
 import Search from '@src/Shared/Search/Search';
 import { Table } from '@src/Shared/Table/Table';
@@ -13,7 +12,7 @@ import CustomButton from '@src/Shared/CustomButton';
 import { Switch } from '@mui/material';
 import Data1 from '@src/assets/data.json';
 import Popup from '@src/Shared/Popup/Popup';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import DeleteCut from '@src/assets/icon/delete-cut.svg'
 import searchicon from '@src/assets/icon/search-icon.svg';
 
@@ -24,7 +23,7 @@ function UserManagmentList() {
         {
             title: (
                 <div className='w-full flex items-start justify-start'>
-                    <span className="font-semibold text-black-900 text-[15px] opacity-[1]">{'ID'}</span>
+                    <span className="font-semibold text-black-900 text-[15px] opacity-[1] sm:text-sm md:text-sm">{'ID'}</span>
                 </div>
             ),
             dataIndex: 'index',
@@ -32,14 +31,14 @@ function UserManagmentList() {
             width: 100,
             render: (name: string, row: any) => (
                 <div className="w-full flex items-start justify-start">
-                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px]'>{row.id}</p>
+                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] sm:text-[10px] md:text-[10px]'>{row.id}</p>
                 </div>
             )
         },
         {
             title: (
                 <div className='w-full flex items-center justify-center'>
-                    <span className="font-semibold text-black-900 text-[15px] opacity-[1]">{'Name'}</span>
+                    <span className="font-semibold text-black-900 text-[15px] opacity-[1] sm:text-sm md:text-sm">{'Name'}</span>
                 </div>
             ),
             dataIndex: 'name',
@@ -47,14 +46,14 @@ function UserManagmentList() {
             width: 100,
             render: (name: string, row: any) => (
                 <div className="w-full flex items-center justify-center">
-                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate' title={row.name}>{row.name}</p>
+                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate sm:text-[10px] md:text-[10px]' title={row.name}>{row.name}</p>
                 </div>
             )
         },
         {
             title: (
                 <div className='w-full flex items-center justify-center'>
-                    <span className="font-semibold text-black-900 text-[15px] opacity-[1]">{'Phone'}</span>
+                    <span className="font-semibold text-black-900 text-[15px] opacity-[1] sm:text-sm md:text-sm">{'Phone'}</span>
                 </div>
             ),
             dataIndex: 'id',
@@ -62,14 +61,14 @@ function UserManagmentList() {
             width: 150,
             render: (name: string, row: any) => (
                 <div className="w-full flex items-center justify-center">
-                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate' title={row.phone}>{row.phone}</p>
+                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate sm:text-[10px] md:text-[10px]' title={row.phone}>{row.phone}</p>
                 </div>
             )
         },
         {
             title: (
                 <div className='w-full flex items-center justify-center'>
-                    <span className="font-semibold text-black-900 text-[15px] opacity-[1]">{'Email'}</span>
+                    <span className="font-semibold text-black-900 text-[15px] opacity-[1] sm:text-sm md:text-sm">{'Email'}</span>
                 </div>
             ),
             dataIndex: 'id',
@@ -77,14 +76,14 @@ function UserManagmentList() {
             width: 200,
             render: (name: string, row: any) => (
                 <div className="w-full flex items-center justify-center">
-                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate' title={row.email}>{row.email}</p>
+                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate sm:text-[10px] md:text-[10px]' title={row.email}>{row.email}</p>
                 </div>
             )
         },
         {
             title: (
                 <div className='w-full flex items-center justify-center'>
-                    <span className="font-semibold text-black-900 text-[15px] opacity-[1]">{'Address'}</span>
+                    <span className="font-semibold text-black-900 text-[15px] opacity-[1] sm:text-sm md:text-sm">{'Address'}</span>
                 </div>
             ),
             dataIndex: 'id',
@@ -92,14 +91,14 @@ function UserManagmentList() {
             width: 150,
             render: (name: string, row: any) => (
                 <div className="w-full flex items-center justify-center">
-                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate' title={row.address}>{row.address}</p>
+                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate sm:text-[10px] md:text-[10px]' title={row.address}>{row.address}</p>
                 </div>
             )
         },
         {
             title: (
                 <div className='w-full flex items-end justify-center ml-5'>
-                    <span className="font-semibold text-black-900 text-[15px] opacity-[1]">{'Action'}</span>
+                    <span className="font-semibold text-black-900 text-[15px] opacity-[1] sm:text-sm md:text-sm">{'Action'}</span>
                 </div>
             ),
             dataIndex: 'id',
@@ -114,7 +113,7 @@ function UserManagmentList() {
                     />
 
                     <CustomButton type={'button'} handleButtonClick={() => navigate(`/user_management/profile/${row.id}`)} icon={<img src={viewbtn} className='w-4' />} />
-                    <CustomButton type={'button'} icon={<img src={deletebtn} className='w-4' />} />
+                    <CustomButton type={'button'} icon={<img src={deletebtn}  onClick={() => setisDeletePop(true)} className='w-4' />} />
                 </div>
             )
         }
@@ -122,8 +121,8 @@ function UserManagmentList() {
     return (
         <div className=''>
             <Popup isOpen={isdeletepop} handleClose={() => setisDeletePop(false)} isShowHeader={true} >
-                <div className={``}><div className="flex flex-col justify-center items-center gap-3 w-[599px]">
-                    <img src={DeleteCut} className="h-[124px] mt-6" />
+                <div className={``}><div className="flex flex-col justify-center items-center gap-3 ">
+                    <img src={DeleteCut} className="h-[100px] mt-6" />
                     <h4 className="font-[900] font-sans mt-5 text-[20px]">Are you sure?</h4>
                     <div className="flex flex-col justify-center items-center ">
                         <p className="font-medium ">
@@ -144,7 +143,7 @@ function UserManagmentList() {
                             // handleButtonClick={handleDelete}
                             label={'Yes, Disable'}
                             type={'button'}
-                            styleClass={'btn-red w-full !mt-0 !rounded-xl !font-medium ml-2 bg-red-600 text-white py-5 px-4 font-semibold'}
+                            styleClass={'btn-red w-full !mt-0 !rounded-xl !font-medium ml-2 bg-red-600 text-white py-4 px-4 font-semibold'}
                         />
                     </div>
                 </div>
@@ -153,12 +152,12 @@ function UserManagmentList() {
             <CustomCard styleClass={' p-5 '}>
                 <div role="presentation" className='mb-3' >
                     <Breadcrumbs aria-label="breadcrumb" className='opacity-[0.3]'>
-                        <Link underline="hover" color="gray" href='/dashboard' className='text-sm'>
+                        <Link  color="gray" to='#' className='text-sm'>
                             Dashboard
                         </Link>
                         <Typography color="" className='text-sm'>User</Typography>
                     </Breadcrumbs>
-                    <h5 className='text-2xl font-semibold text-[rgba(5, 25, 23, 1)]'>User Management</h5>
+                    <h5 className='text-2xl font-medium text-[rgba(5, 25, 23, 1)]'>User Management</h5>
                 </div>
                 <Search icon={<img src={searchicon} className='w-[28px] opacity-[1]' />} type={'search'} placeholder={'Start typing to search for user'} styleClass={'sm:placeholder:text-xs sm:w-68'} />
                 <Table

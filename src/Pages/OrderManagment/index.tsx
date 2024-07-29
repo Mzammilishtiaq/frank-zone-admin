@@ -2,12 +2,12 @@ import ShellContainer from '@src/Containers/ShellContainer'
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 
-function Index() {
+function OrderManagment() {
   return (
-    <ShellContainer  styleClass={'gap-4 !h-full sm:px-0   !min-h-screen no-scrollbar'}>
+    <ShellContainer  styleClass={'gap-4 !h-full sm:px-0   !min-h-screen'}>
         <Outlet/>
     </ShellContainer>
   )
 }
 
-export default Index
+export default OrderManagment

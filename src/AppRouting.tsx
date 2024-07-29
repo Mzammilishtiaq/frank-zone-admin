@@ -7,15 +7,28 @@ import NewPassword from '@src/Pages/Auth/NewPassword';
 import HomeContainer from './Containers/HomeContainer';
 import UserMangment from './Pages/UserManagment/Index';
 import UserMangmentList from './Pages/UserManagment/UserManagmentList';
-import UserManagmentProfile from './Pages/UserManagment/UserManagmentProfile';
+import UserManagmentProfile from './Pages/UserManagment/UserManagmentProfile/index';
 import VendorManagment from './Pages/VendorManagment/index';
-import EcommerceShop from './Pages/VendorManagment/EcommerceShop';
-import FoodOrdering from './Pages/VendorManagment/FoodOrdering';
-import HealthBeauty from './Pages/VendorManagment/HealthBeauity';
-import Handyman from './Pages/VendorManagment/Handman';
-import OnlineConsulation from './Pages/VendorManagment/onlineConsulation';
-import ProfileVendor from './Pages/VendorManagment/VendorManagmentDetail';
-
+import EcommerceShop from './Pages/VendorManagment/EcommerceShop/index';
+import EcommerceShopList from './Pages/VendorManagment/EcommerceShop/EcommerceShopList';
+import EcommerceShopProfile from './Pages/VendorManagment/EcommerceShop/EcommerceShopProfile/index';
+import FoodOrdering from './Pages/VendorManagment/FoodOrdering/index';
+import FoodOrderingList from '@src/Pages/VendorManagment/FoodOrdering/FoodOrderingList';
+import HealthBeauty from './Pages/VendorManagment/HealthBeauity/index';
+import HealthBeautyList from './Pages/VendorManagment/HealthBeauity/HealthBeauityList';
+import HealthBeautyProfile from './Pages/VendorManagment/HealthBeauity/HealthBeauityProfile/index';
+import Handyman from './Pages/VendorManagment/Handyman';
+import OnlineConsulation from './Pages/VendorManagment/OnlineConsulation/index';
+import OnlineConsulationList from './Pages/VendorManagment/OnlineConsulation/OnlineConsulationList';
+import HandymanProfile from './Pages/VendorManagment/Handyman/HandymanProfile';
+import HandymanList from './Pages/VendorManagment/Handyman/HandymanList';
+import FoodOrderingProfile from './Pages/VendorManagment/FoodOrdering/FoodOrderingProfile';
+import OrderManagment from '@src/Pages/OrderManagment/index';
+import Listing from './Pages/OrderManagment/Listing';
+import ListingProfile from './Pages/OrderManagment/Listing/ListingProfile/ListingProfile';
+import ListingList from './Pages/OrderManagment/Listing/ListingList';
+import Booking from './Pages/OrderManagment/Booking';
+import BookingList from './Pages/OrderManagment/Booking/BookingList';
 
 const routes = [
   {
@@ -43,45 +56,118 @@ const routes = [
     component: <HomeContainer />,
     children: [
       {
-        path:'/user_management',
-        component:<UserMangment/>,
-        children:[
+        path: '/user_management',
+        component: <UserMangment />,
+        children: [
           {
-            path:'',
-            component:<UserMangmentList/>
+            path: '',
+            component: <UserMangmentList />
           }, {
-            path:'profile/:id',
-            component:<UserManagmentProfile/>
+            path: 'profile/:id',
+            component: <UserManagmentProfile />
           }
         ]
       },
       {
-        path:'/vendor_managment',
-        component:<VendorManagment/>,
+        path: '/vendor_managment',
+        component: <VendorManagment />,
+        children: [
+          {
+            path: 'ecommerce_shop',
+            component: <EcommerceShop />,
+            children: [
+              {
+                path: 'ecommerce_shop_list',
+                component: <EcommerceShopList />
+
+              },
+              {
+                path: 'ecommerce_shop_profile/:id',
+                component: <EcommerceShopProfile />
+              }
+            ]
+          },
+          {
+            path: 'food_order',
+            component: <FoodOrdering />,
+            children: [
+              {
+                path: 'food_order_list',
+                component: <FoodOrderingList />
+              },
+              {
+                path: 'food_order_profile/:id',
+                component: <FoodOrderingProfile />
+              }
+            ]
+          },
+          {
+            path: 'health_beauty',
+            component: <HealthBeauty />,
+            children: [
+              {
+                path: "health_beauty_list",
+                component: <HealthBeautyList />
+              },
+              {
+                path: "health_beauty_profile/:id",
+                component: <HealthBeautyProfile />
+              }
+            ]
+          },
+          {
+            path: 'handyman',
+            component: <Handyman />,
+            children: [
+              {
+                path: 'handymanlist',
+                component: <HandymanList />
+              },
+              {
+                path: 'handyprofile/:id',
+                component: <HandymanProfile />
+              }
+            ]
+          },
+          {
+            path: 'online_consulation',
+            component: <OnlineConsulation />,
+            children: [
+              {
+                path: 'online_consulation_list',
+                component: <OnlineConsulationList />
+              }
+            ]
+          }
+        ]
+      },
+      {
+        path: 'order_managment',
+        component: <OrderManagment />, 
         children:[
           {
-            path:'ecommerce_shop',
-            component:<EcommerceShop/>,
-          },
-          {
-            path:'food_ordering',
-            component:<FoodOrdering/>,
-          },
-          {
-            path:'health_beauty',
-            component:<HealthBeauty/>,
-          }, {
-            path:'handyman',
-            component:<Handyman/>,
+            path:'listing',
+            component:<Listing/>,
+            children:[
+              {
+                path:'listing_list',
+                component:<ListingList/>
+              },
+              {
+                path:'listing_profile/:id',
+                component:<ListingProfile/>
+              }
+            ]
           },{
-            path:'online_consulation',
-            component:<OnlineConsulation/>
-          },{
-            path:'profile/:id',
-            component:<ProfileVendor/>
+            path:'booking',
+            component:<Booking/>,
+            children:[
+              {
+                path:'booking_list',
+                component:<BookingList/>
+              }
+            ]
           }
-
-          
         ]
       }
     ]
@@ -98,13 +184,18 @@ function AppRouting() {
           routes.map(({ path, component, children }) => (
             <Route path={path} element={component} key={Math.random()}>
               {
-                children?.map(({ path, component,children }) => (
+                children?.map(({ path, component, children }) => (
                   <Route path={path} element={component} key={Math.random()}>
-                    {children &&
-                                        children?.length > 0 &&
-                                        children.map(({path,component})=>(
-                                          <Route path={path} element={component} key={Math.random()}/>
-                                        ))}
+                    {
+                      children && children.map(({ path, component, children }:any) => (
+                        <Route path={path} element={component} key={Math.random()}>
+                          {
+                            children && children.map(({ path, component }: any) => (
+                              <Route key={Math.random()} path={path} element={component} />
+                            ))
+                          }
+                        </Route>
+                      ))}
                   </Route>
                 ))
               }
