@@ -12,10 +12,30 @@ import CustomButton from '@src/Shared/CustomButton';
 import filledicon from '@src/assets/icon/filter-icon.svg';
 import { useNavigate } from 'react-router-dom';
 import LazyImage from '@src/Shared/LazyImage/LazyImage';
-
+interface filterType {
+    searchValue: any;
+    offset: any;
+    limit: any;
+    order: string;
+}
 function EcommerceShopList() {
     const navigate = useNavigate();
     const [drop, setDrop] = useState(false);
+    const [filterValue, setFilterValue] = useState<filterType>({
+        searchValue: '',
+        offset: 0,
+        limit: 10,
+        order: 'asc',
+    })
+    const handleChangePage = (event: any) => {
+        console.log(event);
+        setFilterValue({ ...filterValue, offset: event });
+    };
+
+    const handleChangeRowsPerPage = (event: any) => {
+        console.log(event);
+        setFilterValue({ ...filterValue, limit: event });
+    };
     function handleDrop(): void {
         setDrop(prevDrop => !prevDrop)
     }
@@ -51,6 +71,24 @@ function EcommerceShopList() {
             phone: "222233384",
             email: "alukhan@gmail.com",
             status: 'APPROVED'
+        }, {
+            firstname: "ali5",
+            lastname: "khan5",
+            phone: "22223338455",
+            email: "alukhan55@gmail.com",
+            status: 'REJECTED'
+        }, {
+            firstname: "ali5",
+            lastname: "khan5",
+            phone: "22223338455",
+            email: "alukhan55@gmail.com",
+            status: 'REJECTED'
+        }, {
+            firstname: "ali5",
+            lastname: "khan5",
+            phone: "22223338455",
+            email: "alukhan55@gmail.com",
+            status: 'REJECTED'
         }, {
             firstname: "ali5",
             lastname: "khan5",
@@ -167,8 +205,8 @@ function EcommerceShopList() {
             <CustomCard styleClass={'p-5 '}>
                 <div role="presentation" className='mb-3'>
                     <Breadcrumbs aria-label="breadcrumb" className='opacity-[0.3]'>
-                    <Link   to='/dashboard' className='text-sm hover:border-b-2 hover:border-gray-500'>
-                    Dashboard
+                        <Link to='/dashboard' className='text-sm hover:border-b-2 hover:border-gray-500'>
+                            Dashboard
                         </Link>
                         <Typography color="" className='text-[10px]'>Vendor Managment</Typography>
                     </Breadcrumbs>
@@ -198,8 +236,8 @@ function EcommerceShopList() {
                     tableLayout="fixed"
                     columns={column as any}
                     emptyText={'No data found'}
-                    data={Data1 as any}
-                    rowKey="id"
+                    data={Data1}
+                    // rowKey="phone"
                     scroll={{ x: 1000 }}
                     sticky={true}
                     className=""
@@ -207,7 +245,12 @@ function EcommerceShopList() {
                         className: '',
                     })}
                 />
-                <Pagination />
+                <Pagination
+                    handleChangePage={handleChangePage}
+                    handleChangeRowsPerPage={handleChangeRowsPerPage}
+                    totalCount={Data1.length}
+                />
+
             </CustomCard>
         </>
     )

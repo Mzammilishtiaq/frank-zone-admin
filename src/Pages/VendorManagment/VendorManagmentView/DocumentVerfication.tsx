@@ -10,7 +10,7 @@ import CircleCross from '@src/assets/icon/circlecross-icon.svg'
 import LazyImage from '@src/Shared/LazyImage/LazyImage'
 import TextArea from '@src/Shared/TextArea/TextArea'
 
-function EcommerceShopDocumentVefication() {
+function DocumentVerfication() {
     const [deletepopup, setDeletePopup] = useState(false);
     const [imgpopup, setImgPopup] = useState(false);
     const [imgpopupdata, setImgPopupData] = useState('');
@@ -177,6 +177,6 @@ function EcommerceShopDocumentVefication() {
     )
 }
 
-export default EcommerceShopDocumentVefication
+export default DocumentVerfication
 
 

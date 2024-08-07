@@ -3,27 +3,30 @@ import React from 'react';
 import Profileimg from '@src/assets/icon/Profile-Menu.png';
 import Bannerimg from '@src/assets/image/banner.png';
 import LazyImage from '@src/Shared/LazyImage/LazyImage';
+import Noimage from '@assets/image/NoImage.png';
 
 
-function EcommerceShopDetail() {
+function VendorDetail({vendordetail}:any) {
+  console.log('VendorDetailData ==', vendordetail)
+
   return (
     <>
       <div className="profiledetail">
         <div className=" flex flex-col gap-2 py-5">
           <h5 className='font-semibold text-black-900 text-xl sm:text-lg'>Profile Details</h5>
           <div className="flex sm:flex-col md:flex-col items-center justify-start gap-5">
-            <LazyImage src={Profileimg} className='w-40 sm:w-20 md:w-20' alt="" />
+            <LazyImage src={vendordetail.image || Noimage} className='w-40 h-40 rounded-full sm:w-20 sm:h-20 md:w-20 md:h-20' alt="" />
             <div className='sm:items-start sm:justify-start sm:px-0 sm:border-r-0 sm:w-full
             md:items-start md:justify-start md:px-0 md:border-r-0 md:w-full
               flex flex-col gap-3 px-14 border-r-2 border-black-900 border-opacity-0.1'>
-              <div className='text-black-900'><span className='text-lg sm:text-sm md:text-sm font-medium '> First Name:</span> <span className=' text-gray-500 font-medium ml-4 sm:text-sm md:text-sm'>Admin</span></div>
-              <div className='text-black-900'><span className='text-lg sm:text-sm md:text-sm font-medium '>Last Name:</span> <span className=' text-gray-500 font-medium ml-4 sm:text-sm md:text-sm'>Panel.</span></div>
+              <div className='text-black-900'><span className='text-lg sm:text-sm md:text-sm font-medium '> First Name:</span> <span className=' text-gray-500 font-medium ml-4 sm:text-sm md:text-sm'>{vendordetail.firstname || 'Empty data'}</span></div>
+              <div className='text-black-900'><span className='text-lg sm:text-sm md:text-sm font-medium '>Last Name:</span> <span className=' text-gray-500 font-medium ml-4 sm:text-sm md:text-sm'>{vendordetail.lastname || 'Empty data'}.</span></div>
             </div>
             <div className=' sm:items-start sm:justify-start sm:w-full sm:px-0
             md:items-start md:justify-start md:w-full md:px-0
              flex flex-col gap-3 px-14'>
-              <p className='text-black-900 '><span className='text-lg sm:text-sm md:text-sm font-medium '>Email:</span> <span className=' sm:text-sm md:text-sm text-gray-500 font-medium ml-4'>John Doe</span></p>
-              <p className='text-black-900 '><span className='text-lg sm:text-sm md:text-sm font-medium '>Phone Number:</span> <span className=' sm:text-sm md:text-sm text-gray-500 font-medium ml-4'>+49 878493483</span></p>
+              <p className='text-black-900 '><span className='text-lg sm:text-sm md:text-sm font-medium '>Email:</span> <span className=' sm:text-sm md:text-sm text-gray-500 font-medium ml-4'>{vendordetail.email || 'Empty data'}</span></p>
+              <p className='text-black-900 '><span className='text-lg sm:text-sm md:text-sm font-medium '>Phone Number:</span> <span className=' sm:text-sm md:text-sm text-gray-500 font-medium ml-4'>{vendordetail.phone || 'Empty data'}</span></p>
             </div>
           </div>
         </div>
@@ -82,4 +85,4 @@ function EcommerceShopDetail() {
   )
 }
 
-export default EcommerceShopDetail;
+export default VendorDetail;

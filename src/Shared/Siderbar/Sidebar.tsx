@@ -1,7 +1,6 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
@@ -10,19 +9,6 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Accordion, AccordionSummary, Popover, Typography } from '@mui/material';
 import Logo from '@src/assets/image/Logo.svg';
 import { MdArrowDropDown } from "react-icons/md";
-import { LuLayoutDashboard } from "react-icons/lu";
-import { FaUserCog } from "react-icons/fa";
-import { TbRulerOff, TbUserDollar } from "react-icons/tb";
-import { BsCartCheck } from "react-icons/bs";
-import { PiSealPercent } from "react-icons/pi";
-import { LuClipboardList } from "react-icons/lu";
-import { TbTruckDelivery } from "react-icons/tb";
-import { IoMdInformationCircleOutline } from "react-icons/io";
-import { CiMail } from "react-icons/ci";
-import { MdOutlineNotificationsActive } from "react-icons/md";
-import { RiExchangeDollarFill } from "react-icons/ri";
-import { IoSettingsOutline } from "react-icons/io5";
-import { FaRegQuestionCircle } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import profilelogo from '@src/assets/icon/Profile-Menu.png';
 import searchicon from '@src/assets/icon/search-icon.svg';
@@ -52,6 +38,10 @@ import usermaniconwhite from '@src/assets/icon/sidebar-icon/white-icon/user-mana
 import vendormaniconwhite from '@src/assets/icon/sidebar-icon/white-icon/vendor-managment-icon-white.svg';
 import LazyImage from '../LazyImage/LazyImage';
 import QuestionIconImg from '@src/assets/icon/question-icon.svg'
+import { STORAGE } from '../utils/Const/index';
+import { Logout } from '../utils/authService/authService';
+import NoImage from '@assets/image/NoImage.png'
+
 
 const drawerWidth = 240;
 
@@ -62,10 +52,10 @@ const SidebarItem = ({ item, dataIndex }: any) => {
   return (
     <Link key={dataIndex} to={item?.link}>
       <div
-        className={`py-3 px-5 flex gap-x-3 mb-2 cursor-pointer  ${splitLocation[1] === item.link.replace('/', '') ? 'bg-black-900' : 'bg-transparent'
+        className={`py-3 px-5 flex items-center gap-x-3 mb-2 cursor-pointer  ${splitLocation[1] === item.link.replace('/', '') ? 'bg-black-900' : 'bg-transparent'
           }`}
       >
-        {splitLocation[1] == item.link.replace('/', '') ? <LazyImage src={item.icon_white} className='w-[20px]' /> : <img src={item.icon} className='w-[20px]' />}
+        {splitLocation[1] == item.link.replace('/', '') ? <LazyImage src={item.icon_white} className='w-[18px]' /> : <img src={item.icon} className='w-[18px]' />}
         <p className={`text-black-900 text-[14px] ${splitLocation[1] == item.link.replace('/', '') ? 'text-white' : ''}`}>
           {' '}
           {item.title}
@@ -79,19 +69,26 @@ const SidebarMoreItem = ({ item, dataIndex }: any) => {
   const activeRoute = useLocation();
   const splitLocation = activeRoute.pathname.split('/');
   return (
-    <Accordion key={dataIndex} className="!bg-transparent !shadow-none !border-transparent !border-t-0 !outline-none">
+    <Accordion key={dataIndex} className="!bg-transparent !shadow-none !border-transparent !border-0 !outline-none !outline-transparent"
+    sx={{
+      borderTop: 'none', // Remove the top border
+      '&:before': {
+        display: 'none', // This removes the default top border
+      },
+    }}
+    >
       <AccordionSummary
-        className={`!h-12 !min-h-0 ${splitLocation[1] == item.link.replace('/', '')
+        className={`!border-0  !h-12 !min-h-0 ${splitLocation[1] == item.link.replace('/', '')
           ? '!bg-black-900 !text-white '
           : '!bg-transparent !shadow-none !border-transparent !outline-none'
           }`}
-        expandIcon={<MdArrowDropDown className={`${splitLocation[1] == item.link.replace('/', '')
+        expandIcon={<MdArrowDropDown className={`!border-0 ${splitLocation[1] == item.link.replace('/', '')
           ? '!bg-transparent !text-white '
           : '!bg-transparent !shadow-none !border-transparent !outline-none'
           }`} />}
       >
         <div className="flex items-center gap-3 px-1 text-[14px]">
-          {splitLocation[1] == item.link.replace('/', '') ? <LazyImage src={item.icon_white} className='w-[20px]' /> : <img src={item.icon} className='w-[20px]' />}
+          {splitLocation[1] == item.link.replace('/', '') ? <LazyImage src={item.icon_white} className='w-[18px]' /> : <LazyImage src={item.icon} className='w-[18px]' />}
           {item.title}
         </div>
       </AccordionSummary>
@@ -117,7 +114,11 @@ interface Props {
    */
   window?: () => Window;
 }
-
+const _initialValues1 = {
+  image: '',
+  name: '',
+  email: '',
+};
 export default function Sidebar(props: Props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -127,7 +128,25 @@ export default function Sidebar(props: Props) {
   const [notificationCount, setNotificationCount] = React.useState(0)
   const [isdropdownopen, setisDropdownOpen] = React.useState(false)
   const [topsearch, setTopSearch] = React.useState(false)
+  const [initialvalue, setInitialValue] = React.useState(_initialValues1)
   const navigate = useNavigate();
+  let _data:any = localStorage.getItem(STORAGE)
+  React.useEffect(() => {
+const data = JSON.parse(_data)
+let initialData = {
+  image: data?.image_url,
+  name: data?.name,
+  email: data?.email,
+}
+setInitialValue(initialData)
+console.log('sidebar', initialvalue)
+}, [_data])
+
+const handleLogout= ()=>{
+  Logout().then(()=>{
+    navigate('/');
+  })
+}
 
   const getSiderbar = () => {
     let _siderbar = [
@@ -151,23 +170,23 @@ export default function Sidebar(props: Props) {
         icon_white: vendormaniconwhite,
         more_items: [
           {
-            link: '/vendor_managment/ecommerce_shop/ecommerce_shop_list',
+            link: '/vendor_managment/?module_id=1',
             title: 'Ecommerce Shop',
             icon: <></>
           },
           {
-            link: '/vendor_managment/food_order/food_order_list',
+            link: '/vendor_managment/?module_id=2',
             title: 'Food Ordering',
             icon: <></>
           },
           {
-            link: '/vendor_managment/health_beauty/health_beauty_list',
+            link: '/vendor_managment/?module_id=3',
             title: 'Health & Beauty',
             icon: <></>,
 
 
           }, {
-            link: '/vendor_managment/handyman/handymanlist',
+            link: '/vendor_managment/?module_id=4',
             title: 'Handyman',
             icon: <></>,
           }, {
@@ -328,10 +347,6 @@ export default function Sidebar(props: Props) {
     setisDropdownOpen(true);
   }
 
-  function setIsOpenSignoutPopup(arg0: boolean): void {
-    throw new Error('Function not implemented.');
-  }
-
   return (
     <>
       <AppBar
@@ -341,7 +356,7 @@ export default function Sidebar(props: Props) {
           ml: { sm: `${showHideNavbar ? drawerWidth : '0'}px` },
         }}
       >
-        <Toolbar className='flex justify-between bg-white relative top-0'>
+        <Toolbar className='flex justify-between items-center bg-white relative top-0'>
           <div className="flex gap-x-2  items-center">
             <IconButton
               color="inherit"
@@ -358,16 +373,16 @@ export default function Sidebar(props: Props) {
             >
               <GiHamburgerMenu />
             </IconButton>
-            <LazyImage src={searchicon} className='w-[28px] sm:hidden' handleClick={() => handlesearchbar()} />
-            <p className='text-gray-300 font-bold sm:hidden'>Ctrl K</p>
-            <input type="search" placeholder='Search anything...' className='text-black-900 placeholder:text-gray-300 placeholder:font-semibold outline-transparent sm:placeholder:text-sm px-3 sm:w-50 sm:hidden' />
+            <LazyImage src={searchicon} className='w-[20px] sm:hidden' handleClick={() => handlesearchbar()} />
+            <p className='text-gray-500 font-medium sm:hidden'>Ctrl K</p>
+            <input type="search" placeholder='Search anything...' className='text-black-900 placeholder:text-gray-500 placeholder:font-medium outline-transparent sm:placeholder:text-sm px-3 sm:w-50 sm:hidden' />
           </div>
-          <div className='flex items-center'>
+          <div className='flex items-center gap-2'>
 
 
             <div className="inline-flex items-center gap-2 sm:gap-1">
               <LazyImage src={QuestionIconImg} alt="" className='px-1 sm:-pl-2 sm:w-5 sm:h-5 ' />
-              <div className='relative cursor-pointer' onClick={() => navigate('/settings/AllNotifications')}>
+              <div className='relative cursor-pointer' onClick={() => navigate('#')}>
                 <p className='text-white text-[8px] bg-red-500 rounded-full h-5 w-5 sm:h-3 sm:w-3 absolute flex justify-center items-center -top-1'>{notificationCount}</p>
                 <LazyImage src={notificationblack} className=" px-1 sm:-pl-2 sm:w-5 sm:h-5 " />
               </div>
@@ -382,8 +397,8 @@ export default function Sidebar(props: Props) {
               aria-describedby={'simple-popover'}
               onClick={handleClickDropdown}
             >
-              <div className="flex items-center justify-around cursor-pointer">
-                <img src={profilelogo} alt="" className="h-10 w-10 sm:w-10 sm:h-10 md:w-7 md:h-7   border-2 rounded-full" onClick={() => setisDropdownOpen(true)} />
+              <div className="flex items-center justify-between cursor-pointer">
+                <LazyImage src={initialvalue?.image || NoImage} alt="" className="h-10 w-10 sm:w-7 sm:h-7 md:w-8 md:h-8   border-2 rounded-full" handleClick={() => setisDropdownOpen(true)} />
               </div>
             </Typography>
             <Popover
@@ -411,18 +426,18 @@ export default function Sidebar(props: Props) {
                     }}
                   >
                     <LazyImage
-                      src={profilelogo}
+                      src={initialvalue.image || NoImage}
                       // size={"small"}
-                      className="w-10   border-2 rounded-full"
+                      className="rounded-full w-11 h-9"
                     />
 
 
                     <div className="flex flex-col w-full ml-3">
-                      <p className="text-black-900 font-light text-sm">
-                        Muzammil ishtiaq
+                      <p className="text-black-900 font-light text-sm capitalize">
+                        {initialvalue.name}
                       </p>
-                      <p className="text-black-900 text-opacity-30 font-normal text-[9px] sm:text-[11px]  w-40 break-words">
-                        tomuzammilishtiaq@gmail.com
+                      <p className="text-black-900 text-opacity-30 font-normal sm:text-[9px] text-[11px]  w-40 break-words">
+                        {initialvalue.email}
                       </p>
                     </div>
                   </div>
@@ -452,7 +467,7 @@ export default function Sidebar(props: Props) {
                     </p>
                     {/* <SeperatorLine className="!border-gray-800"></SeperatorLine> */}
                     <p
-                      onClick={() => setIsOpenSignoutPopup(true)}
+                      onClick={handleLogout}
                       className="text-xs font-light text-red-100 pl-3 pt-2 cursor-pointer"
                     >
                       Sign Out
@@ -475,28 +490,39 @@ export default function Sidebar(props: Props) {
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
-          style={{ scrollbarWidth: "none" }}
           container={container}
           variant="temporary"
           open={mobileOpen}
-          onTransitionEnd={handleDrawerTransitionEnd}
-          onClose={handleDrawerClose}
+          onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+              keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, backgroundColor: '#FFFFF', boxShadow: '#00000029' },
+              display: { xs: 'block', sm: 'none' },
+              '& .MuiDrawer-paper': {
+                  // boxSizing: 'border-box',
+                  width: drawerWidth,
+                  backgroundColor: '#FFFFFF',
+                  // // boxShadow: '#00000029',
+                  // position:'relative',
+                  // top:'30px'
+              },
           }}
         >
           {drawer}
         </Drawer>
         <Drawer
-          style={{ scrollbarWidth: "none" }}
-          variant="permanent"
+          variant="persistent"
           sx={{
-            display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: showHideNavbar ? drawerWidth : '0', backgroundColor: '#FFFFF', boxShadow: '#00000029' },
+              display: { xs: 'none', sm: 'block' },
+              '& .MuiDrawer-paper': {
+                  // boxSizing: 'border-box',
+                  width: showHideNavbar ? drawerWidth : '0',
+                  backgroundColor: '#FFFFFF',
+                  // boxShadow: '#00000029',
+                  // position:'relative',
+                  // top:'30px'
+              },
           }}
           open={showHideNavbar}
         >

@@ -28,8 +28,8 @@ function EcommerceShopProfile() {
       <CustomCard styleClass={'p-5 sticky'}>
         <div role="presentation" className='mb-3'>
           <Breadcrumbs aria-label="breadcrumb" className='opacity-[0.3]'>
-          <Link   to='/dashboard' className='text-sm hover:border-b-2 hover:border-gray-500'>
-          Dashboard
+            <Link to='/dashboard' className='text-sm hover:border-b-2 hover:border-gray-500'>
+              Dashboard
             </Link>
             <Typography color="" className='text-[10px]'>Ecommerce Vendors Management</Typography>
           </Breadcrumbs>

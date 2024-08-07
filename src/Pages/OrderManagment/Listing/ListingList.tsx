@@ -1,4 +1,4 @@
-import { Breadcrumbs, Switch, Typography } from '@mui/material'
+import { Breadcrumbs, Checkbox, Switch, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
 import CustomCard from '@src/Shared/Card/CustomCard'
 import CustomButton from '@src/Shared/CustomButton'
@@ -14,6 +14,7 @@ import LazyImage from '@src/Shared/LazyImage/LazyImage'
 
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { GrPowerReset } from 'react-icons/gr'
 
 function ListingList() {
     const navigate = useNavigate();
@@ -202,9 +203,87 @@ function ListingList() {
                     <div className='cursor-pointer relative top-0'>
                         <LazyImage src={filledicon} className='text-2xl text-gray-400 font-thin' handleClick={handleDrop} />
 
-                        {drop && <div className="w-72 absolute top-10 z-50">
-                            <p className='border border-black-900 border-opacity-0.3 text-black-900 text-opacity-0.3 p-2 bg-white '>Approved</p>
-                            <p className='border border-black-900 border-opacity-0.3  text-black-900 text-opacity-0.3 p-2 bg-white'>Rejected</p>
+                        {drop && <div className="w-[60vw] sm:w-[90vw] md:w-[50vw] absolute top-10 z-50 border border-gray-300  ">
+                            <CustomCard styleClass='p-2'>
+                                <div className='flex gap-0 sm:gap-4 sm:w-full sm:overflow-x-auto'>
+                                    <div className='text-left sm:w-full flex flex-col sm:items-start gap-1 w-full'>
+                                        <h5 className='ml-3 text-black-900 sm:text-[12px] md:text-[12px] font-semibold '>Category</h5>
+                                        {
+                                            ['Computers & Tablets',
+                                                'Cell Phones & Accessies',
+                                                'TV & Home Theater',
+                                                'Cameras & Photo',
+                                                'Kitchen & Photo'
+                                            ].map((cateitem) => (
+                                                <div className='flex items-center w-full'>
+                                                    <Checkbox
+                                                        // checked={checked}
+                                                        // onChange={handleChange}
+                                                        inputProps={{ 'aria-label': 'controlled' }}
+                                                        sx={{ '& .MuiSvgIcon-root': { fontSize: 13 } }}
+                                                    />
+                                                    <p className='text-[13px] sm:text-[8px] md:text-[10px] sm:w-full'>{cateitem}</p>
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                    <div className=" text-left flex flex-col w-full sm:w-full sm:items-center ">
+                                        <h5 className='ml-3 text-black-900 text-[13px] sm:text-[12px] md:text-[12px] font-semibold '>Booking Type</h5>
+                                        {
+                                            ['Appointment', 'Consulation'].map((status) => (
+                                                <div className='flex  items-center'>
+                                                    <Checkbox
+                                                        // checked={checked}
+                                                        // onChange={handleChange}
+                                                        inputProps={{ 'aria-label': 'controlled' }}
+                                                        sx={{ '& .MuiSvgIcon-root': { fontSize: 13 } }}
+                                                    />
+                                                    <p className='text-[13px] sm:text-[10px] md:text-[10px]'>{status}</p>
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                    <div className=" text-left flex flex-col w-full sm:w-full sm:items-center ">
+                                        <h5 className='ml-3 text-black-900 sm:text-[12px] md:text-[12px] font-semibold '>Status</h5>
+                                        {
+                                            ['Shipped', 'Delived', 'Pending', 'In Transit'].map((status) => (
+                                                <div className='flex  items-center'>
+                                                    <Checkbox
+                                                        // checked={checked}
+                                                        // onChange={handleChange}
+                                                        inputProps={{ 'aria-label': 'controlled' }}
+                                                        sx={{ '& .MuiSvgIcon-root': { fontSize: 13 } }}
+                                                    />
+                                                    <p className='text-[13px] sm:text-[10px] md:text-[10px]'>{status}</p>
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                    <div className="flex flex-col w-full sm:w-full sm:items-end">
+                                        <div className=" text-left">
+                                            <h5 className='text-black-900 sm:text-[12px] md:text-[12px] font-semibold '>Start Date</h5>
+                                            <div className='flex flex-col  items-left'>
+                                                <div className='flex items-center py-2'>
+                                                    <input type="date" placeholder='Select Start Date' className='border-b-2  placeholder:text-sm ' />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className=" text-left">
+                                            <h5 className='text-black-900 sm:text-[12px] md:text-[12px] font-semibold '>End Date</h5>
+                                            <div className='flex flex-col  items-left'>
+                                                <div className='flex items-center py-2'>
+                                                    <input type="date" placeholder='Select Start Date' className='border-b-2   outline-transparent placeholder:text-gray-500 cursor-pointer' />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='flex items-end justify-end gap-2'>
+                                    <CustomButton type={'button'} labelClass='text-[13px] text-blue-900' label='Reset' icon={<GrPowerReset />} leftIconClass='text-[13px] text-blue-900' styleClass='' />
+                                    <CustomButton type={'button'} label='Apply Filter' labelClass='text-[10px] text-white' styleClass='bg-black-900 px-4 py-1' />
+                                </div>
+
+                            </CustomCard>
                         </div>}
                     </div>
                     <div className='w-full'>

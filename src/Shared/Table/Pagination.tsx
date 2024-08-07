@@ -1,30 +1,32 @@
 import { TablePagination } from '@mui/material';
-import React, { useState } from 'react';
-function Pagination({ handleChangePage, handleChangRowPage, totalCount = 0 }: any) {
-    const [rowPerPage, setrowPerPage] = useState<number>(10)
-    const [Page, setPage] = useState<number>(0)
-    const onhandlePage = (event: unknown, newPage: number) => {
-        handleChangePage(newPage);
-        setPage(newPage)
-        return newPage;
-    }
+import { useState } from 'react';
 
-    const onhandlChangeRowPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        let _rowPerPage = event.target.value;
-        handleChangRowPage(_rowPerPage)
-        setrowPerPage(parseInt(_rowPerPage));
-        setPage(0)
-    }
+const Pagination = ({ handleChangePage, handleChangeRowsPerPage, totalCount = 0 }: any) => {
+    const [rowsPerPage, setRowsPerPage] = useState<number>(10);
+    const [page, setPage] = useState<number>(0);
+    const onHandleChangePage = (event: unknown, newPage: number) => {
+        handleChangePage(newPage);
+        setPage(newPage);
+        return newPage;
+    };
+    const onHandleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+        let _rowsPerPage = event.target.value;
+        handleChangeRowsPerPage(_rowsPerPage);
+        setRowsPerPage(parseInt(_rowsPerPage));
+        setPage(0);
+    };
+
     return (
         <TablePagination
-        rowsPerPageOptions={[2, 5, 10, 25, 100]}
-        component="div"
-        count={totalCount}
-        rowsPerPage={rowPerPage}
-        page={Page}
-        onPageChange={onhandlePage}
-        onRowsPerPageChange={onhandlChangeRowPage}
-    />    )
-}
+            rowsPerPageOptions={[2, 5, 10, 25, 100]}
+            component="div"
+            count={totalCount}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={onHandleChangePage}
+            onRowsPerPageChange={onHandleChangeRowsPerPage}
+        />
+    );
+};
 
-export default Pagination
+export default Pagination;

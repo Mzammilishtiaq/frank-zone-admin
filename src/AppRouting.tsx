@@ -30,27 +30,36 @@ import ListingList from './Pages/OrderManagment/Listing/ListingList';
 import Booking from './Pages/OrderManagment/Booking';
 import BookingList from './Pages/OrderManagment/Booking/BookingList';
 import Dashboard from './Pages/Dashboard';
+import  AuthGuide from '@src/Shared/utils/authGuide/authGuide';
+import VendorManagmentList from './Pages/VendorManagment/VendorManagmentList';
+import VendorManagmentProfile from './Pages/VendorManagment/VendorManagmentView';
 
 const routes = [
   {
-    path: '/login',
+    path: '/',
     component: <Login />,
+    protectedPath:false
   },
   {
     path: '/login',
     component: <Login />,
+    protectedPath:false
+
   },
   {
     path: '/forgotpassword',
     component: <ForgotPassword />,
+    protectedPath:false
   },
   {
     path: '/verificationcode',
     component: <VerificationCode />,
+    protectedPath:false
   },
   {
     path: '/newpassword',
     component: <NewPassword />,
+    protectedPath:false
   },
   {
     path: '/',
@@ -58,11 +67,14 @@ const routes = [
     children: [
       {
         path: '/dashboard',
-        component: <Dashboard />
+        component: <Dashboard />,
+        protectedPath:true
+
       },
       {
         path: '/user_management',
         component: <UserMangment />,
+        protectedPath:true,
         children: [
           {
             path: '',
@@ -76,64 +88,68 @@ const routes = [
       {
         path: '/vendor_managment',
         component: <VendorManagment />,
+        protectedPath:true,
         children: [
-          {
-            path: 'ecommerce_shop',
-            component: <EcommerceShop />,
-            children: [
-              {
-                path: 'ecommerce_shop_list',
-                component: <EcommerceShopList />
+          {path:'',component:<VendorManagmentList/>},
+          {path:'vendor_details/:id',component:<VendorManagmentProfile/>},
+          {path:'vendor_details/?module_id',component:<VendorManagmentProfile/>},
+          // {
+          //   path: 'ecommerce_shop',
+          //   component: <EcommerceShop />,
+          //   children: [
+          //     {
+          //       path: 'ecommerce_shop_list',
+          //       component: <EcommerceShopList />
 
-              },
-              {
-                path: 'ecommerce_shop_profile/:id',
-                component: <EcommerceShopProfile />
-              }
-            ]
-          },
-          {
-            path: 'food_order',
-            component: <FoodOrdering />,
-            children: [
-              {
-                path: 'food_order_list',
-                component: <FoodOrderingList />
-              },
-              {
-                path: 'food_order_profile/:id',
-                component: <FoodOrderingProfile />
-              }
-            ]
-          },
-          {
-            path: 'health_beauty',
-            component: <HealthBeauty />,
-            children: [
-              {
-                path: "health_beauty_list",
-                component: <HealthBeautyList />
-              },
-              {
-                path: "health_beauty_profile/:id",
-                component: <HealthBeautyProfile />
-              }
-            ]
-          },
-          {
-            path: 'handyman',
-            component: <Handyman />,
-            children: [
-              {
-                path: 'handymanlist',
-                component: <HandymanList />
-              },
-              {
-                path: 'handyprofile/:id',
-                component: <HandymanProfile />
-              }
-            ]
-          },
+          //     },
+          //     {
+          //       path: 'ecommerce_shop_profile/:id',
+          //       component: <EcommerceShopProfile />
+          //     }
+          //   ]
+          // },
+          // {
+          //   path: 'food_order',
+          //   component: <FoodOrdering />,
+          //   children: [
+          //     {
+          //       path: 'food_order_list',
+          //       component: <FoodOrderingList />
+          //     },
+          //     {
+          //       path: 'food_order_profile/:id',
+          //       component: <FoodOrderingProfile />
+          //     }
+          //   ]
+          // },
+          // {
+          //   path: 'health_beauty',
+          //   component: <HealthBeauty />,
+          //   children: [
+          //     {
+          //       path: "health_beauty_list",
+          //       component: <HealthBeautyList />
+          //     },
+          //     {
+          //       path: "health_beauty_profile/:id",
+          //       component: <HealthBeautyProfile />
+          //     }
+          //   ]
+          // },
+          // {
+          //   path: 'handyman',
+          //   component: <Handyman />,
+          //   children: [
+          //     {
+          //       path: 'handymanlist',
+          //       component: <HandymanList />
+          //     },
+          //     {
+          //       path: 'handyprofile/:id',
+          //       component: <HandymanProfile />
+          //     }
+          //   ]
+          // },
           {
             path: 'online_consulation',
             component: <OnlineConsulation />,
@@ -149,6 +165,7 @@ const routes = [
       {
         path: '/order_managment',
         component: <OrderManagment />,
+        protectedPath:true,
         children: [
           {
             path: 'listing',
@@ -189,8 +206,10 @@ function AppRouting() {
           routes.map(({ path, component, children }) => (
             <Route path={path} element={component} key={Math.random()}>
               {
-                children?.map(({ path, component, children }) => (
-                  <Route path={path} element={component} key={Math.random()}>
+                children?.map(({ path,protectedPath, component,children }) => (
+                  <Route path={path} element={
+                  <AuthGuide protectedPath={protectedPath}>{component}</AuthGuide>
+                  } key={Math.random()}>
                     {
                       children && children.map(({ path, component, children }: any) => (
                         <Route path={path} element={component} key={Math.random()}>

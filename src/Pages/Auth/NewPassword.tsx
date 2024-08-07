@@ -20,7 +20,7 @@ function NewPassword() {
                 <div className="inline-flex">
                     <img src={Logo} className='w-44' alt="" />
                 </div>
-                <CustomCard styleClass='sm:w-[20rem] md:w-[25rem] sm:px-5 items-center justify-center w-9/12 px-10 py-6 text-left'>
+                <CustomCard styleClass='sm:w-[20rem] md:w-[25rem] sm:px-5 items-center justify-center w-9/12 px-10 py-6 text-left !shadow-xl'>
                     <img src={verfiyicon} className='w-12' alt="" />
                     <div className='text-xl font-bold tracking-wide font-sans'>Forgot Password</div>
                     <p className='text-sm font-medium text-center opacity-85 font-sans'>Enter Your Email Address, We'll Send You An OTP To Reset You Password</p>

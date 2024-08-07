@@ -105,3 +105,7 @@ font-family: "Poppins" !important;
 /* .react-calendar__navigation button {
   @apply p-2 rounded-md hover:bg-gray-100;
 } */
+
+.css-1086bdv-MuiPaper-root-MuiAccordion-root {
+  position: unset;
+}

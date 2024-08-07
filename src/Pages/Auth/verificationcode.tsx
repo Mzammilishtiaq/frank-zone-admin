@@ -22,7 +22,7 @@ function verificationcode() {
                 <div className="inline-flex">
                     <img src={Logo} alt="" className='w-44' />
                 </div>
-                <CustomCard styleClass={'sm:w-[20rem] md:w-[25rem] sm:px-5 items-center justify-center w-9/12 px-10 py-6 text-left'}>
+                <CustomCard styleClass={'sm:w-[20rem] md:w-[25rem] sm:px-5 items-center justify-center w-9/12 px-10 py-6 text-left !shadow-xl'}>
                     <img src={verfiyicon} alt="" className='w-12' />
                     <div className='text-xl font-bold text-black-900 tracking-wide'>Verification Code</div>
                     <p className='text-sm font-medium text-center opacity-85 font-sans'>Please Enter The 6-Digit Verification Code Sent To johndoe@gmail.com.</p>

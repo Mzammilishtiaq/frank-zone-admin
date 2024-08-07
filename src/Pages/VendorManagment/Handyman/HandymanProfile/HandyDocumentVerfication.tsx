@@ -8,6 +8,7 @@ import backcard from '@src/assets/image/back.jpeg'
 import passport from '@src/assets/image/passport.jpg'
 import CircleCross from '@src/assets/icon/circlecross-icon.svg'
 import LazyImage from '@src/Shared/LazyImage/LazyImage'
+import TextArea from '@src/Shared/TextArea/TextArea'
 
 function HandyDocumentVerfication() {
     const [deletepopup, setDeletePopup] = useState(false);
@@ -124,16 +125,16 @@ function HandyDocumentVerfication() {
     return (
         <div>
             <Popup isOpen={deletepopup} handleClose={() => setDeletePopup(false)} isShowHeader={true}>
-                <div className="flex flex-col justify-center items-center gap-3">
-                    <LazyImage src={CircleCross} className="h-[70px] mt-6" />
+            <div className="flex flex-col items-center gap-7 m-5">
+                    <LazyImage src={CircleCross} className="h-[70px]" />
                     <h5 className="font-bold text-2xl mt-5">Rejection</h5>
                     <div className="flex flex-col justify-center items-center">
                         <p className="font-medium text-sm text-gray-400 ">
                             Kindly Give Reason For Rejection
                         </p>
                     </div>
-
-                    <div className="space-y-3 mt-8 flex justify-around w-4/5">
+                    <TextArea name={''} placeholder='Enter Your Reason Here...' className='w-full'/>
+                    <div className="space-y-3 flex justify-around w-4/5">
                         <CustomButton
                             handleButtonClick={() => setDeletePopup(false)}
                             label={'Close'}
@@ -152,8 +153,8 @@ function HandyDocumentVerfication() {
                 </div>
             </Popup>
             <Popup isOpen={imgpopup} handleClose={() => setImgPopup(false)} isShowHeader={true}>
-                <div className="flex flex-col justify-center items-center gap-3">
-                    <LazyImage src={imgpopupdata} className='h-[220px] mt-6' />
+                <div className="flex flex-col justify-center items-center">
+                    <LazyImage src={imgpopupdata} className='h-full w-full p-5' />
                 </div>
             </Popup>
 

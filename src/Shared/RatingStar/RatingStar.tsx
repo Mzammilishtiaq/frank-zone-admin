@@ -1,25 +1,31 @@
-import React from 'react';
-import ReactStars from  'react-rating-stars-component';
+import React from "react";
+import { BsStarFill,BsStarHalf,BsStar } from "react-icons/bs";
 
-export interface RatingProps{
-  size:any;
+function RatingStar({ value }:any) {
+  return (
+    <>
+      <span>
+        {value >= 1 ? (<BsStarFill className="text-yellow-300"/>) : 
+          value >= 0.5 ?(<BsStarHalf className="text-yellow-300"/>): (<BsStar className="text-yellow-300"/>)}
+      </span>
+      <span>
+        {value >= 2 ? (<BsStarFill className="text-yellow-300"/>) : 
+          value >= 1.5 ?(<BsStarHalf className="text-yellow-300"/>): (<BsStar className="text-yellow-300"/>)}
+      </span>
+      <span>
+        {value >= 3 ? (<BsStarFill className="text-yellow-300"/>) : 
+          value >= 2.5 ?(<BsStarHalf className="text-yellow-300"/>): (<BsStar className="text-yellow-300"/>)}
+      </span>
+      <span>
+        {value >= 4 ? (<BsStarFill className="text-yellow-300"/>) : 
+          value >= 3.5 ?(<BsStarHalf/>): (<BsStar className="text-yellow-300"/>)}
+      </span>
+      <span>
+        {value >= 5 ? (<BsStarFill className="text-yellow-300"/>) : 
+          value >= 4.5 ?(<BsStarHalf className="text-yellow-300"/>): (<BsStar className="text-yellow-300"/>)}
+      </span>
+    </>
+  );
 }
-function RatingStar({size}:RatingProps) {
-    const ratingChanged = (newRating: any) => {
-        console.log(newRating);
-    };
-    // const starSize = window.innerWidth < 768 ? 20 : 40;
 
-    return (
-      <div style={{ maxWidth: '300px', margin: 'auto',display:'flex' }}>
-        <ReactStars
-          count={5}
-          onChange={ratingChanged}
-          size={size}
-          activeColor="#ffd700"
-        />
-      </div>
-    );
-}
-
-export default RatingStar
+export default RatingStar;
