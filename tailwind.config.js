@@ -75,10 +75,11 @@ export default {
         0.9: "0.9"
       },
       screens: {
+        xs: { min: "200px", max: "349px" },
         sm: { min: "350px", max: "767px" },
         // => @media (min-width: 640px and max-width: 767px) { ... }
         md: { min: "768px", max: "1100px" },
-        lg: "1101px",
+        lg: { min: "1101px", max: "1439px" },
         xl: "1440px",
       },
     },

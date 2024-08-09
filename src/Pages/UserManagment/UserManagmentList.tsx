@@ -20,6 +20,7 @@ import { backendCall } from '@src/Shared/utils/BackendService/backendCall';
 import { Spinner } from '@src/Shared/Spinner/Spinner';
 import { handleToastMessage } from '@src/Shared/toastify';
 import { UserManagmentModel } from '@src/Shared/Models/UserManage/UserManagmentModel';
+import Input from '@src/Shared/Input/Input';
 
 export interface filterType {
     searchValue?: string;
@@ -45,13 +46,7 @@ function UserManagmentList() {
     //         FetchUserManagmentData();
     // }, [])
 
-    React.useEffect(() => {
-        const delayDebounceFn = setTimeout(() => {
-            FetchUserManagmentData();
-        }, 600);
 
-        return () => clearTimeout(delayDebounceFn);
-    }, [filterValue])
 
     console.log('userdatalist==', userdatalist)
     const handleChangePage = (event: any) => {
@@ -64,10 +59,18 @@ function UserManagmentList() {
         setFilterValue({ ...filterValue, limit: event });
     };
 
+    React.useEffect(() => {
+        const delayDebounceFn = setTimeout(() => {
+            FetchUserManagmentData();
+        }, 600);
+
+        return () => clearTimeout(delayDebounceFn);
+    }, [filterValue])
+
     const FetchUserManagmentData = () => {
         setIsLoading(true)
         backendCall({
-            url: `/api/admin/user_management?limit=${filterValue.limit}&offset=${filterValue.offset}&order=desc`,
+            url: `/api/admin/user_management?limit=${filterValue.limit}&offset=${filterValue.offset}&order=desc&text=${filterValue.searchValue}`,
             method: 'GET',
             dataModel: UserManagmentModel,
         }).then((res) => {
@@ -260,9 +263,9 @@ function UserManagmentList() {
                         </Link>
                         <Typography color="" className='text-sm'>User</Typography>
                     </Breadcrumbs>
-                    <h5 className='text-2xl font-medium text-[rgba(5, 25, 23, 1)]'>User Management</h5>
+                    <h5 className='text-2xl font-medium text-[rgba(5, 25, 23, 1)] xs:text-sm'>User Management</h5>
                 </div>
-                <Search icon={<img src={searchicon} className='w-[28px] opacity-[1]' />} type={'search'} placeholder={'Start typing to search for user'} styleClass={'sm:placeholder:text-xs sm:w-68'} />
+                <Input leftIcon={<img src={searchicon} className='w-[28px] opacity-[1] xs:w-5' />} type={'text'} placeholder={'Start typing to search for user'} className={'sm:placeholder:text-xs xs:placeholder:text-[5px] sm:w-68'} name={'searchValue'} onChange={(e) => setFilterValue({ ...filterValue, searchValue: e.target.value })} />
                 <Spinner classname='my-3' size={'25'} isLoading={isLoading} />
                 <Table
                     tableLayout="fixed"

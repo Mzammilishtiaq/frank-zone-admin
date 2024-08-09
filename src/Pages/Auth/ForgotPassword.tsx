@@ -20,10 +20,10 @@ function ForgotPassword() {
                 <div className="inline-flex">
                     <img src={Logo} alt="frank zone logo" className='w-44' />
                 </div>
-                <CustomCard styleClass={'sm:w-[20rem] md:w-[25rem] sm:px-5 items-center justify-center w-9/12 px-10 py-6 text-left !shadow-xl'}>
+                <CustomCard styleClass={'xs:w-[15rem]  xs:px-5 sm:w-[20rem] md:w-[25rem] sm:px-5 items-center justify-center w-9/12 px-10 py-6 text-left !shadow-xl'}>
                     <img src={forgoticon} alt="" className='w-12' />
-                    <div className='text-xl font-bold tracking-wide font-sans'>Forgot Password</div>
-                    <p className='text-sm font-medium text-center opacity-85 font-sans'>Enter Your Email Address, We'll Send You An OTP To Reset You Password</p>
+                    <div className='text-xl font-bold tracking-wide font-sans xs:text-sm'>Forgot Password</div>
+                    <p className='text-sm font-medium text-center opacity-85 font-sans xs:text-xs'>Enter Your Email Address, We'll Send You An OTP To Reset You Password</p>
                     <Formik
                         initialValues={{ email: '' }}
                         onSubmit={handleSubmit}

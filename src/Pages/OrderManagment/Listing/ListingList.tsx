@@ -15,14 +15,36 @@ import LazyImage from '@src/Shared/LazyImage/LazyImage'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { GrPowerReset } from 'react-icons/gr'
+import Input from '@src/Shared/Input/Input'
+import { backendCall } from '@src/Shared/utils/BackendService/backendCall'
+import { handleToastMessage } from '@src/Shared/toastify'
+import { OrderManagementModel } from '@src/Shared/Models/OrderManage/OrderManagementModel'
+import moment from 'moment'
+import { Spinner } from '@src/Shared/Spinner/Spinner'
+interface filterType {
+    searchValue: any;
+    offset: any;
+    limit: any;
+    order: string;
+    accountState: string
+}
 
 function ListingList() {
     const navigate = useNavigate();
     const [drop, setDrop] = useState(false);
+    const [orderdata, setOrderData]= useState([]) as any
     function handleDrop(): void {
         setDrop(prevDrop => !prevDrop)
     }
     const [activeTab, setActiveTab] = useState('All');
+    const [isloading, seIsLoading] = useState(false)
+    const [filterValue, setFilterValue] = useState<filterType>({
+        searchValue: '',
+        offset: 0,
+        limit: 10,
+        order: 'asc',
+        accountState: ''
+    })
 
     const handleTab = (item: string) => {
         setActiveTab(item)
@@ -30,46 +52,92 @@ function ListingList() {
     const ListingTab = [
         "All", "Ecommerce", "Food", "Health & Beauty"
     ]
-    let Data1: any = [
-        {
-            firstname: "ali",
-            lastname: "khan",
-            phone: "222233384",
-            email: "alukhan@gmail.comalukhan@gmail.comalukhan@gmail.comalukhan@gmail.comalukhan@gmail.comalukhan@gmail.comalukhan@gmail.comalukhan@gmail.comalukhan@gmail.comalukhan@gmail.comalukhan@gmail.com",
-            status: 'PENDING'
-        },
-        {
-            firstname: "ali2",
-            lastname: "khan2",
-            phone: "22223338422",
-            email: "alukhan2@gmail.com",
-            status: 'REJECTED'
-        }, {
-            firstname: "ali3",
-            lastname: "khan3",
-            phone: "22223338433",
-            email: "alukhan3@gmail.com",
-            status: 'DELIVERED'
-        }, {
-            firstname: "ali4",
-            lastname: "khan4",
-            phone: "22223338444",
-            email: "alukhan4@gmail.com",
-            status: 'PENDING'
-        }, {
-            firstname: "ali",
-            lastname: "khan",
-            phone: "222233384",
-            email: "alukhan@gmail.com",
-            status: 'SHIPPED'
-        }, {
-            firstname: "ali5",
-            lastname: "khan5",
-            phone: "22223338455",
-            email: "alukhan55@gmail.com",
-            status: 'IN TRANSIT'
-        }
-    ]
+    // let Data1: any = [
+    //     {
+    //         firstname: "ali",
+    //         lastname: "khan",
+    //         phone: "222233384",
+    //         email: "alukhan@gmail.comalukhan@gmail.comalukhan@gmail.comalukhan@gmail.comalukhan@gmail.comalukhan@gmail.comalukhan@gmail.comalukhan@gmail.comalukhan@gmail.comalukhan@gmail.comalukhan@gmail.com",
+    //         status: 'PENDING'
+    //     },
+    //     {
+    //         firstname: "ali2",
+    //         lastname: "khan2",
+    //         phone: "22223338422",
+    //         email: "alukhan2@gmail.com",
+    //         status: 'REJECTED'
+    //     }, {
+    //         firstname: "ali3",
+    //         lastname: "khan3",
+    //         phone: "22223338433",
+    //         email: "alukhan3@gmail.com",
+    //         status: 'DELIVERED'
+    //     }, {
+    //         firstname: "ali4",
+    //         lastname: "khan4",
+    //         phone: "22223338444",
+    //         email: "alukhan4@gmail.com",
+    //         status: 'PENDING'
+    //     }, {
+    //         firstname: "ali",
+    //         lastname: "khan",
+    //         phone: "222233384",
+    //         email: "alukhan@gmail.com",
+    //         status: 'SHIPPED'
+    //     }, {
+    //         firstname: "ali5",
+    //         lastname: "khan5",
+    //         phone: "22223338455",
+    //         email: "alukhan55@gmail.com",
+    //         status: 'IN TRANSIT'
+    //     }
+    // ]
+
+const handleChangePage= (event:any)=>{
+    setFilterValue({...filterValue, offset:event})
+}
+const handleChangeRowsPerPage = (event: any) => {
+    console.log(event);
+    setFilterValue({ ...filterValue, limit: event });
+};
+console.log('order data == ', orderdata)
+    useEffect(() => {
+        let delttime = setTimeout(() => {
+            FetchOrderApi();
+        }, 600);
+
+        return () => clearTimeout(delttime)
+    }, [filterValue])
+    const FetchOrderApi = () => {
+        seIsLoading(true)
+        backendCall({
+            url: `/api/admin/order_management/?limit=${filterValue.limit}&offset=${filterValue.offset}&order=desc`,
+            method: 'GET',
+            dataModel: OrderManagementModel
+        }).then((res) => {
+            if (res != res.error) {
+                handleToastMessage('success', res.message)
+                setOrderData(res.data)
+                seIsLoading(false)
+            } else {
+                handleToastMessage('error', res.message)
+                seIsLoading(false)
+            }
+        })
+    }
+
+    const handleupdate = (e:any, id:any)=>{
+        let action = e.target.checked ? 1 : 0;
+        backendCall({
+            url:`/api/admin/order_management/${id}/status?action=${action}`,
+            method:'PUT'
+        }).then((res)=>{
+            if(res != res.error){
+                handleToastMessage('success', res.message)
+                FetchOrderApi()
+            }
+        })
+    }
 
     const column = [
         {
@@ -83,14 +151,14 @@ function ListingList() {
             width: 50,
             render: (name: string, row: any) => (
                 <div className="w-full flex items-start justify-start">
-                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] sm:text-[10px] md:text-[10px]'>{row.phone}</p>
+                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] sm:text-[10px] md:text-[10px]'>#{row.id}</p>
                 </div>
             )
         },
         {
             title: (
                 <div className='w-full flex items-center justify-center'>
-                    <span className="font-semibold text-black-900 text-[15px] opacity-[1] sm:text-sm md:text-sm">{'Category'}</span>
+                    <span className="font-semibold text-black-900 text-[15px] opacity-[1] sm:text-sm md:text-sm">{'Name'}</span>
                 </div>
             ),
             dataIndex: 'index',
@@ -98,13 +166,13 @@ function ListingList() {
             width: 50,
             render: (name: string, row: any) => (
                 <div className="w-full flex items-center justify-center">
-                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate sm:text-[10px] md:text-[10px]'>{row.lastname}</p>
+                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate sm:text-[10px] md:text-[10px]'>{row?.name || '-'}</p>
                 </div>
             )
-        }, {
+        },{
             title: (
                 <div className='w-full flex items-center justify-center'>
-                    <span className="font-semibold text-black-900 text-[15px] opacity-[1] sm:text-sm md:text-sm">{'Customer'}</span>
+                    <span className="font-semibold text-black-900 text-[15px] opacity-[1] sm:text-sm md:text-sm">{'Quantity'}</span>
                 </div>
             ),
             dataIndex: 'index',
@@ -112,10 +180,11 @@ function ListingList() {
             width: 50,
             render: (name: string, row: any) => (
                 <div className="w-full flex items-center justify-center">
-                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate sm:text-[10px] md:text-[10px]'>{row.phone}</p>
+                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate sm:text-[10px] md:text-[10px]'>{row?.quantity || '-'}</p>
                 </div>
             )
-        }, {
+        },
+          {
             title: (
                 <div className='w-full flex items-center justify-center'>
                     <span className="font-semibold text-black-900 text-[15px] opacity-[1] sm:text-sm md:text-sm">{'Item'}</span>
@@ -126,13 +195,13 @@ function ListingList() {
             width: 50,
             render: (name: string, row: any) => (
                 <div className="w-full flex items-center justify-center">
-                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate sm:text-[10px] md:text-[10px]' title={row.email}>{row.email}</p>
+                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate sm:text-[10px] md:text-[10px]' title={row.email}>{row?.items || '-'}</p>
                 </div>
             )
         }, {
             title: (
                 <div className='w-full flex items-center justify-center'>
-                    <span className="font-semibold text-black-900 text-[15px] opacity-[1] sm:text-sm md:text-sm">{'Price'}</span>
+                    <span className="font-semibold text-black-900 text-[15px] opacity-[1] sm:text-sm md:text-sm">{'Date'}</span>
                 </div>
             ),
             dataIndex: 'index',
@@ -140,34 +209,11 @@ function ListingList() {
             width: 50,
             render: (name: string, row: any) => (
                 <div className="w-full flex items-center justify-center">
-                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate sm:text-[10px] md:text-[10px]' title={row.email}>{row.email}</p>
+                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate sm:text-[10px] md:text-[10px]'>{moment(row.email).utc().format('DD-MM-YYYY')}</p>
                 </div>
             )
         },
-
         {
-            title: (
-                <div className='w-full flex items-center justify-center'>
-                    <span className="font-semibold text-black-900 text-[15px] opacity-[1] sm:text-sm md:text-sm">{'Status'}</span>
-                </div>
-            ),
-            dataIndex: 'index',
-            key: 'index',
-            width: 50,
-            render: (name: string, row: any) => (
-                <div className="flex items-center justify-center px-3">
-                    <p className={
-                        row.status && row.status === 'PENDING' ? 'text-white bg-yellow-200  rounded px-5 py-1 font-normal sm:text-[10px] md:text-[10px]'
-                            : row.status == 'REJECTED' ? 'text-white  bg-red-500  rounded px-5 py-1 font-normal sm:text-[10px] md:text-[10px]'
-                                : row.status == 'IN TRANSIT' ? 'text-white  bg-blue-900  rounded px-5 py-1 font-normal sm:text-[10px] md:text-[10px]'
-                                    : row.status == 'SHIPPED' ? 'text-white  bg-pink-100  rounded px-5 py-1 font-normal sm:text-[10px] md:text-[10px]'
-                                        : 'text-white bg-green-500  rounded px-5 py-1 font-normal'
-                    }>
-                        {row.status?.charAt(0).toUpperCase() + row.status?.slice(1)?.toLowerCase()}
-                    </p>
-                </div>
-            )
-        }, {
             title: (
                 <div className='w-full flex items-end justify-center ml-5'>
                     <span className="font-semibold text-black-900 text-[15px] opacity-[1] sm:text-sm md:text-sm">{'Action'}</span>
@@ -178,11 +224,129 @@ function ListingList() {
             width: 50,
             render: (name: string, row: any) => (
                 <div className="w-full flex items-center justify-end gap-3 -ml-14">
-                    <CustomButton icon={<LazyImage src={viewbtn} className='w-4' />} handleButtonClick={() => navigate(`/order_managment/listing/listing_profile/${row.phone}`)} type={'button'} />
+                     <Switch
+                        checked={row.is_active == 1}
+                        onChange={(e)=>handleupdate(e,row?.id)}
+                        inputProps={{ 'aria-label': 'controlled' }}
+                    />
+                    <CustomButton icon={<LazyImage src={viewbtn} className='w-4' />} handleButtonClick={() => navigate(`/order_managment/listing/listing_profile/${row.id}`)} type={'button'} />
                 </div>
             )
         }
     ]
+
+    // const column = [
+    //     {
+    //         title: (
+    //             <div className='w-full flex items-start justify-start'>
+    //                 <span className="font-semibold text-black-900 text-[15px] opacity-[1] sm:text-sm md:text-sm">{'Order ID'}</span>
+    //             </div>
+    //         ),
+    //         dataIndex: 'index',
+    //         key: 'index',
+    //         width: 50,
+    //         render: (name: string, row: any) => (
+    //             <div className="w-full flex items-start justify-start">
+    //                 <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] sm:text-[10px] md:text-[10px]'>{row.phone}</p>
+    //             </div>
+    //         )
+    //     },
+    //     {
+    //         title: (
+    //             <div className='w-full flex items-center justify-center'>
+    //                 <span className="font-semibold text-black-900 text-[15px] opacity-[1] sm:text-sm md:text-sm">{'Category'}</span>
+    //             </div>
+    //         ),
+    //         dataIndex: 'index',
+    //         key: 'index',
+    //         width: 50,
+    //         render: (name: string, row: any) => (
+    //             <div className="w-full flex items-center justify-center">
+    //                 <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate sm:text-[10px] md:text-[10px]'>{row.lastname}</p>
+    //             </div>
+    //         )
+    //     }, {
+    //         title: (
+    //             <div className='w-full flex items-center justify-center'>
+    //                 <span className="font-semibold text-black-900 text-[15px] opacity-[1] sm:text-sm md:text-sm">{'Customer'}</span>
+    //             </div>
+    //         ),
+    //         dataIndex: 'index',
+    //         key: 'index',
+    //         width: 50,
+    //         render: (name: string, row: any) => (
+    //             <div className="w-full flex items-center justify-center">
+    //                 <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate sm:text-[10px] md:text-[10px]'>{row.phone}</p>
+    //             </div>
+    //         )
+    //     }, {
+    //         title: (
+    //             <div className='w-full flex items-center justify-center'>
+    //                 <span className="font-semibold text-black-900 text-[15px] opacity-[1] sm:text-sm md:text-sm">{'Item'}</span>
+    //             </div>
+    //         ),
+    //         dataIndex: 'index',
+    //         key: 'index',
+    //         width: 50,
+    //         render: (name: string, row: any) => (
+    //             <div className="w-full flex items-center justify-center">
+    //                 <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate sm:text-[10px] md:text-[10px]' title={row.email}>{row.email}</p>
+    //             </div>
+    //         )
+    //     }, {
+    //         title: (
+    //             <div className='w-full flex items-center justify-center'>
+    //                 <span className="font-semibold text-black-900 text-[15px] opacity-[1] sm:text-sm md:text-sm">{'Price'}</span>
+    //             </div>
+    //         ),
+    //         dataIndex: 'index',
+    //         key: 'index',
+    //         width: 50,
+    //         render: (name: string, row: any) => (
+    //             <div className="w-full flex items-center justify-center">
+    //                 <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate sm:text-[10px] md:text-[10px]' title={row.email}>{row.email}</p>
+    //             </div>
+    //         )
+    //     },
+
+    //     {
+    //         title: (
+    //             <div className='w-full flex items-center justify-center'>
+    //                 <span className="font-semibold text-black-900 text-[15px] opacity-[1] sm:text-sm md:text-sm">{'Status'}</span>
+    //             </div>
+    //         ),
+    //         dataIndex: 'index',
+    //         key: 'index',
+    //         width: 50,
+    //         render: (name: string, row: any) => (
+    //             <div className="flex items-center justify-center px-3">
+    //                 <p className={
+    //                     row.status && row.status === 'PENDING' ? 'text-white bg-yellow-200  rounded px-5 py-1 font-normal sm:text-[10px] md:text-[10px]'
+    //                         : row.status == 'REJECTED' ? 'text-white  bg-red-500  rounded px-5 py-1 font-normal sm:text-[10px] md:text-[10px]'
+    //                             : row.status == 'IN TRANSIT' ? 'text-white  bg-blue-900  rounded px-5 py-1 font-normal sm:text-[10px] md:text-[10px]'
+    //                                 : row.status == 'SHIPPED' ? 'text-white  bg-pink-100  rounded px-5 py-1 font-normal sm:text-[10px] md:text-[10px]'
+    //                                     : 'text-white bg-green-500  rounded px-5 py-1 font-normal'
+    //                 }>
+    //                     {row.status?.charAt(0).toUpperCase() + row.status?.slice(1)?.toLowerCase()}
+    //                 </p>
+    //             </div>
+    //         )
+    //     }, {
+    //         title: (
+    //             <div className='w-full flex items-end justify-center ml-5'>
+    //                 <span className="font-semibold text-black-900 text-[15px] opacity-[1] sm:text-sm md:text-sm">{'Action'}</span>
+    //             </div>
+    //         ),
+    //         dataIndex: 'index',
+    //         key: 'index',
+    //         width: 50,
+    //         render: (name: string, row: any) => (
+    //             <div className="w-full flex items-center justify-end gap-3 -ml-14">
+    //                 <CustomButton icon={<LazyImage src={viewbtn} className='w-4' />} handleButtonClick={() => navigate(`/order_managment/listing/listing_profile/${row.phone}`)} type={'button'} />
+    //             </div>
+    //         )
+    //     }
+    // ]
 
     return (
         <>
@@ -287,9 +451,10 @@ function ListingList() {
                         </div>}
                     </div>
                     <div className='w-full'>
-                        <Search type={'search'} placeholder={'Start typing to search  for user'} icon={<LazyImage src={Searchicon} className='w-[28px] opacity-[1]' />} styleClass={'sm:placeholder:text-xs px-3 sm:w-50'} />
+                        <Input type={'text'} placeholder={'Start typing to search  for user'} leftIcon={<LazyImage src={Searchicon} className='w-[28px] opacity-[1]' />} className={'sm:placeholder:text-xs px-3 sm:w-50'} name='searchValue' />
                     </div>
                 </div>
+                <Spinner isLoading={isloading}/>
                 <div className="flex gap-10 sm:gap-2 sm:overflow-x-auto">
                     {
 
@@ -305,7 +470,7 @@ function ListingList() {
                     tableLayout="fixed"
                     columns={column as any}
                     emptyText={'No data found'}
-                    data={Data1 as any}
+                    data={orderdata.rows as any}
                     rowKey="id"
                     scroll={{ x: 1000 }}
                     sticky={true}
@@ -314,7 +479,11 @@ function ListingList() {
                         className: '',
                     })}
                 />
-                <Pagination />
+                <Pagination 
+                 handleChangePage={handleChangePage}
+                 handleChangeRowsPerPage={handleChangeRowsPerPage}
+                 totalCount={orderdata.count}
+                />
             </CustomCard>
         </>
     )

@@ -1,7 +1,7 @@
 import CustomButton from '@src/Shared/CustomButton'
 import Popup from '@src/Shared/Popup/Popup'
 import { Table } from '@src/Shared/Table/Table'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { VscCheck, VscChromeClose } from 'react-icons/vsc'
 import frontcard from '@src/assets/image/front.jpeg'
 import backcard from '@src/assets/image/back.jpeg'
@@ -9,14 +9,54 @@ import passport from '@src/assets/image/passport.jpg'
 import CircleCross from '@src/assets/icon/circlecross-icon.svg'
 import LazyImage from '@src/Shared/LazyImage/LazyImage'
 import TextArea from '@src/Shared/TextArea/TextArea'
+import { backendCall } from '@src/Shared/utils/BackendService/backendCall'
+import { handleToastMessage } from '@src/Shared/toastify'
+import { VendorDocumentModel } from '@src/Shared/Models/UserVendor/VendorDocumentModel'
+import moment from 'moment'
+interface imgpopupdataType {
+    img: string;
+    name: string;
+}
 
-function DocumentVerfication() {
+function DocumentVerfication({ vendorid }: any) {
     const [deletepopup, setDeletePopup] = useState(false);
     const [imgpopup, setImgPopup] = useState(false);
-    const [imgpopupdata, setImgPopupData] = useState('');
-    const handlepopimg = (imgurl: any) => {
-        setImgPopupData(imgurl)
+    const [imgpopupdata, setImgPopupData] = useState<imgpopupdataType>({
+        img: '',
+        name: ''
+    });
+    const [documentverficationdata, setDocumentVerficationData] = useState([]) as any;
+    const [isLoading, setIsLoading] = useState(false);
+    const handlepopimg = (imgurl: any, item: any) => {
+        setImgPopupData({
+           ...imgpopupdata, img:imgurl, name: item
+        })
         setImgPopup(true)
+    }
+
+
+    console.log('documentverficationdata ==', documentverficationdata)
+    useEffect(() => {
+        FetchVendorShopDetailApi();
+    }, [])
+
+    const FetchVendorShopDetailApi = () => {
+        setIsLoading(true)
+        backendCall({
+            url: `/api/admin/vendor_management/${vendorid.id}/documents`,
+            method: 'GET',
+            dataModel: VendorDocumentModel
+        }).then((res) => {
+            //   console.log('res detail ventor document verfication ==', res)
+            if (res != res.error) {
+                setIsLoading(false)
+                setDocumentVerficationData(res.data)
+                handleToastMessage('success', res.message);
+            } else {
+                setIsLoading(false)
+                handleToastMessage('error', res?.message)
+            }
+        })
     }
 
 
@@ -52,7 +92,7 @@ function DocumentVerfication() {
             key: "name",
             render: ((name: string, row: any) => (
                 <div className='w-full flex items-start justify-start'>
-                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate' title={row.docname}>{row.docname}</p>
+                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px]' title={row.name}>{row.name}</p>
                 </div>
             ))
         }, {
@@ -65,7 +105,7 @@ function DocumentVerfication() {
             key: "name",
             render: ((name: string, row: any) => (
                 <div className='w-full flex items-center justify-center'>
-                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate' title={row.date}>{row.date}</p>
+                    <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px]'>{moment(row?.date).utc().format('DD-MM-YYYY')}</p>
                 </div>
             ))
         }, {
@@ -98,9 +138,9 @@ function DocumentVerfication() {
             dataindex: "name",
             key: "name",
             render: ((name: string, row: any) => (
-                <div className='w-full flex items-center justify-between mx-3'>
-                        <LazyImage src={row.img} className='h-7 w-7'/>
-                    <CustomButton type={"button"} handleButtonClick={() => handlepopimg(row.img)} styleClass='hover:border-b-2 border-gray-300 rounded-none text-[10px]' label={row.filelabel} />
+                <div className='w-full flex items-center justify-evenly mx-3'>
+                    <LazyImage src={row.image} className='h-7 w-7' />
+                    <CustomButton type={"button"} handleButtonClick={() => handlepopimg(row.image, row.name)} styleClass='hover:border-b-2 border-gray-300 rounded-none text-[10px]' label={row.name + ' Url'} />
                 </div>
             ))
         }, {
@@ -114,8 +154,8 @@ function DocumentVerfication() {
             render: ((name: string, row: any) => {
                 return (
                     <div className={`w-full flex items-center justify-end gap-1`}>
-                        <VscCheck className={` bg-green-500 text-white text-[20px] rounded-full p-1 w-6 h-6 ${row.status !== 'PENDING' ? '!text-gray-800 !bg-gray-300 pointer-events-none opacity-50' : ''}`} />
-                        <VscChromeClose className={`bg-red-500 text-white text-[20px] rounded-full p-1 w-6 h-6 ${row.status !== 'PENDING' ? '!text-gray-800 !bg-gray-300 pointer-events-none opacity-50' : ''}`}
+                        <VscCheck className={` bg-green-500 text-white text-[20px] rounded-full p-1 w-6 h-6 cursor-pointer ${row.status !== 'PENDING' ? '!text-gray-800 !bg-gray-300 pointer-events-none opacity-50' : ''}`} />
+                        <VscChromeClose className={`bg-red-500 text-white text-[20px] rounded-full p-1 w-6 h-6 cursor-pointer ${row.status !== 'PENDING' ? '!text-gray-800 !bg-gray-300 pointer-events-none opacity-50' : ''}`}
                             onClick={() => setDeletePopup(true)}
                         />
                     </div>
@@ -127,14 +167,14 @@ function DocumentVerfication() {
         <div>
             <Popup isOpen={deletepopup} handleClose={() => setDeletePopup(false)} isShowHeader={true}>
                 <div className="flex flex-col items-center gap-7 m-5">
-                    <LazyImage src={CircleCross} className="h-[70px]" />
+                    <LazyImage src={CircleCross} className="h-32" />
                     <h5 className="font-bold text-2xl mt-5">Rejection</h5>
                     <div className="flex flex-col justify-center items-center">
                         <p className="font-medium text-sm text-gray-400 ">
                             Kindly Give Reason For Rejection
                         </p>
                     </div>
-                    <TextArea name={''} placeholder='Enter Your Reason Here...' className='w-full'/>
+                    <TextArea name={''} placeholder='Enter Your Reason Here...' className='w-full' />
                     <div className="space-y-3 flex justify-around w-4/5">
                         <CustomButton
                             handleButtonClick={() => setDeletePopup(false)}
@@ -154,8 +194,9 @@ function DocumentVerfication() {
                 </div>
             </Popup>
             <Popup isOpen={imgpopup} handleClose={() => setImgPopup(false)} isShowHeader={true}>
-                <div className="flex flex-col justify-center items-center">
-                    <LazyImage src={imgpopupdata} className='h-full w-full p-5' />
+                <div className="flex flex-col gap-6 text-center items-center justify-center p-6 w-full">
+                    <LazyImage src={imgpopupdata.img} className='' />
+                    <h5 className='text-black-900 font-medium'>{imgpopupdata.name}</h5>
                 </div>
             </Popup>
 
@@ -164,8 +205,8 @@ function DocumentVerfication() {
                 tableLayout="fixed"
                 columns={DocumentColumn as any}
                 emptyText={'No data found'}
-                data={Data1 as any}
-                rowKey="id"
+                data={documentverficationdata.rows as any}
+                rowKey="item_id"
                 scroll={{ x: 1000 }}
                 sticky={true}
                 className="custom-table"

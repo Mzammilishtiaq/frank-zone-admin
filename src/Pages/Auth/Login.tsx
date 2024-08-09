@@ -56,9 +56,9 @@ const Login = () => {
                 <div className="inline-flex">
                     <img src={Logo} className='w-44' alt="" />
                 </div>
-                <CustomCard styleClass=' sm:w-[20rem] md:w-[25rem] sm:px-5 items-center justify-center w-9/12 px-10 py-6 text-left !shadow-xl'>
+                <CustomCard styleClass='xs:w-[15rem]  xs:px-5 sm:w-[20rem] md:w-[25rem] sm:px-5 items-center justify-center w-9/12 px-10 py-6 text-left !shadow-xl'>
                     <h5 className='text-2xl font-semibold tracking-wide '>Get Started</h5>
-                    <p className='font-medium text-center opacity-90 text-black-900'>Frankzone Super Admin Hub: Unifying Excellence Across Six Spectrums</p>
+                    <p className='font-medium text-center opacity-90 text-black-900 xs:text-xs'>Frankzone Super Admin Hub: Unifying Excellence Across Six Spectrums</p>
                     <Formik
                         initialValues={initialValues}
                         validationSchema={FormSchema}

@@ -103,23 +103,33 @@ function ListingProfile() {
 
                   <div className='w-full flex flex-col items-start justify-center gap-2 sm:border-r-0 md:border-r-0 sm:py-0 md:py-0 border-r-2 py-5'>
                     <p className='flex gap-5'>
-                      <span className='text-black-900 sm:text-xs md:text-xs font-medium'>Date:</span>
-                      <span className='text-black-900 sm:text-xs md:text-xs text-opacity-0.5 font-medium'>01-02-2024</span>
+                      <span className='text-black-900 sm:text-xs md:text-xs font-medium'>Quantity:</span>
+                      <span className='text-black-900 sm:text-xs md:text-xs text-opacity-0.5 font-medium'>x1</span>
                     </p>
                     <p className='flex gap-5'>
-                      <span className='text-black-900 sm:text-xs md:text-xs font-medium'>Time:</span>
-                      <span className='text-black-900 sm:text-xs md:text-xs text-opacity-0.5 font-medium'>07:30 Pm</span>
+                      <span className='text-black-900 sm:text-xs md:text-xs font-medium'>Total Price:</span>
+                      <span className='text-black-900 sm:text-xs md:text-xs text-opacity-0.5 font-medium'>620.23$</span>
                     </p>
                     <p className='flex gap-5'>
-                      <span className='text-black-900 sm:text-xs md:text-xs font-medium'>Delivery Type:</span>
-                      <span className='text-black-900 sm:text-xs md:text-xs text-opacity-0.5 font-medium'>Delivery</span>
+                      <span className='text-black-900 sm:text-xs md:text-xs font-medium'>Color:</span>
+                      <span className='text-black-900 sm:text-xs md:text-xs text-opacity-0.5 font-medium'>Red</span>
                     </p>
                   </div>
 
-                  <div className='w-full py-5 sm:py-0 md:py-0 flex flex-col items-start justify-center'>
+                  <div className='w-full flex flex-col items-start justify-center gap-2  sm:py-0 md:py-0  py-5'>
                     <p className='flex gap-5'>
-                      <span className='text-black-900 sm:text-xs md:text-xs font-medium'>Address:</span>
-                      <span className='text-black-900 sm:text-xs md:text-xs text-opacity-0.5 font-medium'>Dr. John Doe Is Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed Diam Nonumy Eirmod Tempor Invidunt Ut Labore Et Dolore Magna Aliquyre</span>
+                      <span className='text-black-900 sm:text-xs md:text-xs font-medium'>Product Name:</span>
+                      <span className='text-black-900 sm:text-xs md:text-xs text-opacity-0.5 font-medium'>Rounded Chair</span>
+                    </p>
+
+                    <p className='flex gap-5'>
+                      <span className='text-black-900 sm:text-xs md:text-xs font-medium'>Category:</span>
+                      <span className='text-black-900 sm:text-xs md:text-xs text-opacity-0.5 font-medium'>Fruniture</span>
+                    </p>
+
+                    <p className='flex gap-5'>
+                      <span className='text-black-900 sm:text-xs md:text-xs font-medium'>Size:</span>
+                      <span className='text-black-900 sm:text-xs md:text-xs text-opacity-0.5 font-medium'>Medium</span>
                     </p>
                   </div>
                 </div>

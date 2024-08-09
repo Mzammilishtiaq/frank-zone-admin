@@ -62,18 +62,12 @@ function VendorManagmentList() {
     }
 
     useEffect(() => {
-        FetchUserManagmentData();
-    }, [])
-    useEffect(() => {
-        FetchUserManagmentData();
-    }, [moduleid]);
-    useEffect(() => {
-        const delattime = setTimeout(() => {
+        const delaytime = setTimeout(() => {
             FetchUserManagmentData();
         }, 600)
 
-        return () => clearTimeout(delattime)
-    }, [filterValue])
+        return () => clearTimeout(delaytime)
+    }, [filterValue,moduleid])
 
 
     // api fetching
@@ -266,13 +260,13 @@ function VendorManagmentList() {
             <CustomCard styleClass={'p-5 '}>
                 <div role="presentation" className='mb-3'>
                     <Breadcrumbs aria-label="breadcrumb" className='opacity-[0.3]'>
-                        <Link to='/dashboard' className='text-sm hover:border-b-2 hover:border-gray-500'>
+                        <Link to='/dashboard' className='text-sm hover:border-b-2 xs:text-xs hover:border-gray-500'>
                             Dashboard
                         </Link>
-                        <Typography color="" className='text-[10px]'>Vendor Management</Typography>
+                        <p className='text-[10px] xs:text-xs'>Vendor Management</p>
                     </Breadcrumbs>
                     <div className="flex items-center justify-between">
-                        <h5 className='text-2xl sm:text-lg font-medium text-[rgba(5, 25, 23, 1)]'>{searchParams.get('module_id') == '1' ? 'Ecommerce' : searchParams.get('module_id') == '2' ? 'Food' : searchParams.get('module_id') == '3' ? 'Health & Beauty' : 'Handyman'} Vendors Management</h5>
+                        <h5 className='text-2xl sm:text-lg font-medium xs:text-xs text-[rgba(5, 25, 23, 1)]'>{searchParams.get('module_id') == '1' ? 'Ecommerce' : searchParams.get('module_id') == '2' ? 'Food' : searchParams.get('module_id') == '3' ? 'Health & Beauty' : 'Handyman'} Vendors Management</h5>
                     </div>
                 </div>
                 <div className="w-full flex items-center">

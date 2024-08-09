@@ -8,7 +8,7 @@ import Toolbar from '@mui/material/Toolbar';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Accordion, AccordionSummary, Popover, Typography } from '@mui/material';
 import Logo from '@src/assets/image/Logo.svg';
-import { MdArrowDropDown } from "react-icons/md";
+import { MdArrowBackIos, MdArrowDropDown } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
 import profilelogo from '@src/assets/icon/Profile-Menu.png';
 import searchicon from '@src/assets/icon/search-icon.svg';
@@ -52,11 +52,11 @@ const SidebarItem = ({ item, dataIndex }: any) => {
   return (
     <Link key={dataIndex} to={item?.link}>
       <div
-        className={`py-3 px-5 flex items-center gap-x-3 mb-2 cursor-pointer  ${splitLocation[1] === item.link.replace('/', '') ? 'bg-black-900' : 'bg-transparent'
+        className={`py-3 px-5 flex items-center gap-x-3 xs:gap-x-2 mb-2 cursor-pointer  ${splitLocation[1] === item.link.replace('/', '') ? 'bg-black-900' : 'bg-transparent'
           }`}
       >
-        {splitLocation[1] == item.link.replace('/', '') ? <LazyImage src={item.icon_white} className='w-[18px]' /> : <img src={item.icon} className='w-[18px]' />}
-        <p className={`text-black-900 text-[14px] ${splitLocation[1] == item.link.replace('/', '') ? 'text-white' : ''}`}>
+        {splitLocation[1] == item.link.replace('/', '') ? <LazyImage src={item.icon_white} className='w-[18px] xs:w-[15px]' /> : <img src={item.icon} className='w-[18px] xs:w-[15px]' />}
+        <p className={`text-black-900 text-[14px] xs:text-[12px] ${splitLocation[1] == item.link.replace('/', '') ? 'text-white' : ''}`}>
           {' '}
           {item.title}
         </p>
@@ -87,15 +87,15 @@ const SidebarMoreItem = ({ item, dataIndex }: any) => {
           : '!bg-transparent !shadow-none !border-transparent !outline-none'
           }`} />}
       >
-        <div className="flex items-center gap-3 px-1 text-[14px]">
-          {splitLocation[1] == item.link.replace('/', '') ? <LazyImage src={item.icon_white} className='w-[18px]' /> : <LazyImage src={item.icon} className='w-[18px]' />}
+        <div className="flex items-center gap-3 px-1 text-[14px] xs:text-[12px]">
+          {splitLocation[1] == item.link.replace('/', '') ? <LazyImage src={item.icon_white} className='w-[18px] xs:w-[15px]' /> : <LazyImage src={item.icon} className='w-[18px] xs:text-[15px]' />}
           {item.title}
         </div>
       </AccordionSummary>
       {item.more_items.map((elem: any, index: any) => (
         <Link key={index} to={elem.link}>
           <p
-            className={`text-left text-[14px] ml-6 pl-2 py-2 mt-2 mb-1 hover:bg-gray-400 hover:text-white ${activeRoute.pathname == elem.link ? 'bg-gray-300 text-white' : ''
+            className={`text-left text-[14px] xs:text-[12px] ml-6 pl-2 py-2 mt-2 mb-1 hover:bg-gray-400 hover:text-white ${activeRoute.pathname == elem.link ? 'bg-gray-300 text-white' : ''
               }`}
           >
             {elem.title}
@@ -180,17 +180,19 @@ const handleLogout= ()=>{
             icon: <></>
           },
           {
-            link: '/vendor_managment/?module_id=3',
+            // link: '/vendor_managment/',
+            link: '#',
             title: 'Health & Beauty',
             icon: <></>,
 
 
           }, {
-            link: '/vendor_managment/?module_id=4',
+            link: '#',
+            // link: '/vendor_managment/?module_id=4',
             title: 'Handyman',
             icon: <></>,
           }, {
-            link: '/vendor_managment/online_consulation/online_consulation_list',
+            link: '/vendor_managment/?module_id=4',
             title: 'Online Consultation',
             icon: <></>,
           },
@@ -324,9 +326,12 @@ const handleLogout= ()=>{
 
   const drawer = (
     <div className='' >
-      <Toolbar>
+      <Toolbar >
         {/* <Logo className="w-9/12 cursor-pointer" /> */}
-        <LazyImage src={Logo} alt="" className='mt-5' />
+        <div className=" xs:flex xs:items-center xs:gap-3">
+        <MdArrowBackIos className='mt-3 xs:text-2xl sm:hidden md:hidden lg:hidden xl:hidden' onClick={()=>setMobileOpen(false)} />
+        <LazyImage src={Logo} alt="" className='mt-5 xs:w-36' />
+        </div>
       </Toolbar>
       <List className="top-7">
         {sidebaritem.map((item: { more_items: any; }, index: any) => {
@@ -373,18 +378,18 @@ const handleLogout= ()=>{
             >
               <GiHamburgerMenu />
             </IconButton>
-            <LazyImage src={searchicon} className='w-[20px] sm:hidden' handleClick={() => handlesearchbar()} />
-            <p className='text-gray-500 font-medium sm:hidden'>Ctrl K</p>
-            <input type="search" placeholder='Search anything...' className='text-black-900 placeholder:text-gray-500 placeholder:font-medium outline-transparent sm:placeholder:text-sm px-3 sm:w-50 sm:hidden' />
+            <LazyImage src={searchicon} className='w-[20px] sm:hidden xs:hidden' handleClick={() => handlesearchbar()} />
+            <p className='text-gray-500 font-medium sm:hidden xs:hidden'>Ctrl K</p>
+            <input type="search" placeholder='Search anything...' className='text-black-900 placeholder:text-gray-500 placeholder:font-medium outline-transparent sm:placeholder:text-sm px-3 sm:w-50 sm:hidden xs:hidden' />
           </div>
           <div className='flex items-center gap-2'>
 
 
             <div className="inline-flex items-center gap-2 sm:gap-1">
-              <LazyImage src={QuestionIconImg} alt="" className='px-1 sm:-pl-2 sm:w-5 sm:h-5 ' />
+              <LazyImage src={QuestionIconImg} alt="" className='px-1 sm:-pl-2 sm:w-5 sm:h-5 xs:h-4 ' />
               <div className='relative cursor-pointer' onClick={() => navigate('#')}>
-                <p className='text-white text-[8px] bg-red-500 rounded-full h-5 w-5 sm:h-3 sm:w-3 absolute flex justify-center items-center -top-1'>{notificationCount}</p>
-                <LazyImage src={notificationblack} className=" px-1 sm:-pl-2 sm:w-5 sm:h-5 " />
+                <p className='text-white text-[8px] bg-red-500 rounded-full h-5 w-5 sm:h-3 sm:w-3 xs:w-3 xs:h-3 absolute flex justify-center items-center -top-1'>{notificationCount}</p>
+                <LazyImage src={notificationblack} className=" px-1 sm:-pl-2 sm:w-5 sm:h-5 xs:h-4" />
               </div>
             </div>
 
@@ -398,7 +403,7 @@ const handleLogout= ()=>{
               onClick={handleClickDropdown}
             >
               <div className="flex items-center justify-between cursor-pointer">
-                <LazyImage src={initialvalue?.image || NoImage} alt="" className="h-10 w-10 sm:w-7 sm:h-7 md:w-8 md:h-8   border-2 rounded-full" handleClick={() => setisDropdownOpen(true)} />
+                <LazyImage src={initialvalue?.image || NoImage} alt="" className="h-10 w-10 sm:w-7 sm:h-7 xs:w-6 xs:h-6 md:w-8 md:h-8   border-2 rounded-full" handleClick={() => setisDropdownOpen(true)} />
               </div>
             </Typography>
             <Popover

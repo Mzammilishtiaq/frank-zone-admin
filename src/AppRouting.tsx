@@ -150,16 +150,16 @@ const routes = [
           //     }
           //   ]
           // },
-          {
-            path: 'online_consulation',
-            component: <OnlineConsulation />,
-            children: [
-              {
-                path: 'online_consulation_list',
-                component: <OnlineConsulationList />
-              }
-            ]
-          }
+          // {
+          //   path: 'online_consulation',
+          //   component: <OnlineConsulation />,
+          //   children: [
+          //     {
+          //       path: 'online_consulation_list',
+          //       component: <OnlineConsulationList />
+          //     }
+          //   ]
+          // }
         ]
       },
       {

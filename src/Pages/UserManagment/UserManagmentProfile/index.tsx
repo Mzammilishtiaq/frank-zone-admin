@@ -166,7 +166,8 @@ function UserManagmentProfile() {
 
 
     return (
-        <><Popup isOpen={isdeletepop} handleClose={() => setisDeletePop(false)} isShowHeader={true} >
+        <>
+        <Popup isOpen={isdeletepop} handleClose={() => setisDeletePop(false)} isShowHeader={true} >
         <div className={``}><div className="flex flex-col justify-center items-center gap-3 ">
             <img src={DeleteCut} className="h-[100px] mt-6" />
             <h4 className="font-[900] font-sans mt-5 text-[20px]">Are you sure?</h4>
@@ -194,17 +195,17 @@ function UserManagmentProfile() {
             </div>
         </div>
         </div>
-    </Popup>
+         </Popup>
         <CustomCard styleClass='p-5 sticky'>
             <div role="presentation" >
                 <Breadcrumbs aria-label="breadcrumb" className='opacity-[0.3] text-gray-500'>
-                    <Link to='/dashboard' className='text-sm hover:border-b-2 hover:border-gray-500'>
+                    <Link to='/dashboard' className='text-sm xs:text-[10px] hover:border-b-2 hover:border-gray-500'>
                         Dashboard
                     </Link>
-                    <Typography color="">User Management</Typography>
+                    <p color="" className='xs:text-[10px]'>User Management</p>
                 </Breadcrumbs>
                 <div className="flex items-center justify-between">
-                    <h5 className='text-2xl font-medium'>Users Management</h5>
+                    <h5 className='text-2xl font-medium xs:text-xs'>Users Management</h5>
                     <Switch
                         checked={userdetaildata?.status == 'ACTIVE'}
                         onChange={(e) => activePopoup(e, userdetaildata.id)}
@@ -214,33 +215,33 @@ function UserManagmentProfile() {
             </div>
             <SeperatorLine className='opacity-[0.1] -ml-[20px] -mt-2' />
             {<Spinner size='25' isLoading={isLoading} />}
-            <div className="
+            <div className=" xs:flex-col xs:items-start xs:justify-start  xs:w-full
             sm:flex-col sm:items-start sm:justify-start  sm:w-full
             md:flex-col md:items-start md:justify-start md:w-full
             w-full flex  items-center justify-center  
             ">
 
-                <div className='
+                <div className='xs:flex-col xs:border-r-0 xs:mx-0 xs:mb-4 xs:w-full
                 sm:flex-col sm:border-r-0 sm:mx-0 sm:mb-4 sm:w-full
                 md:flex-col md:border-r-0 md:mx-0 md:mb-4 md:w-full
                 flex items-center justify-center-center gap-2 w-3/6  border-r-2 border-opacity-[0.1] border-black-900 mx-5 '>
-                    <LazyImage src={userdetaildata?.image || NoImage} className='w-28 h-28 sm:w-20 sm:h-20 rounded-full' alt="" />
-                    <div className="flex flex-col gap-3 sm:w-full">
-                        <div className=' flex gap-3 text-sm'> <span className='font-semibold text-black-900 text-opacity-[1] '>User Name:</span> <span className='text-gray-500'>{userdetaildata?.name || 'Null'}</span> </div>
-                        <div className='flex gap-3 text-sm'><span className='font-semibold text-black-900 '> Phone Number:</span> <span className='text-gray-500'>{userdetaildata?.phone || 'Null'}</span></div>
+                    <LazyImage src={userdetaildata?.image || NoImage} className='w-28 h-28 sm:w-20 sm:h-20 xs:w-10 xs:h-10 rounded-full' alt="" />
+                    <div className="flex flex-col gap-3 sm:w-full xs:w-full">
+                        <div className=' flex gap-3 text-sm xs:text-xs'> <span className='font-semibold text-black-900 text-opacity-[1] '>User Name:</span> <span className='text-gray-500'>{userdetaildata?.name || 'Null'}</span> </div>
+                        <div className='flex gap-3 text-sm xs:text-xs'><span className='font-semibold text-black-900 '> Phone Number:</span> <span className='text-gray-500'>{userdetaildata?.phone || 'Null'}</span></div>
                     </div>
                 </div>
-                <div className='flex w-3/5 mx-5 sm:mx-0 gap-3 text-xs sm:w-full'>
+                <div className='flex w-3/5 mx-5 sm:mx-0 xs:mx-0 gap-3 text-xs sm:w-full xs:w-full'>
                     <span className='font-semibold text-black-900 text-opacity-[1]'>Address:</span>
                     <span className='text-gray-900 text-opacity-[0.9]'>{userdetaildata?.address || 'Null'}</span>
                 </div>
             </div>
 
-            <div className="text-left px-4 pt-4 flex">
+            <div className="text-left px-4 xs:px-0 pt-4 flex xs:gap-2">
                 {
                     ['REVIEW & RATING', 'CHAT'].map((item: string) => (
                         <p
-                            className={`text-gray-900  flex cursor-pointer mx-3 ${activeTabId === item
+                            className={`text-gray-900  flex xs:gap-2 cursor-pointer mx-3 xs:mx-0 xs:text-xs ${activeTabId === item
                                 ? 'border-gray-500 border-b-2 !text-black-900 font-medium'
                                 : null
                                 }`}
