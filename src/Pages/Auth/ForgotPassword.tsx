@@ -7,8 +7,19 @@ import Logo from '@assets/image/Logo.svg';
 import forgoticon from '@assets/icon/forgot-icon.svg';
 import { Formik, Form, Field, ErrorMessage, FormikHelpers, FormikValues } from 'formik'
 import { useNavigate } from 'react-router-dom';
-
+import LazyImage from '@src/Shared/LazyImage/LazyImage';
+import * as Yup from 'yup'
+export interface initialSchemaValues {
+    email: string;
+}
 function ForgotPassword() {
+    const FormSchema = Yup.object().shape({
+        email: Yup.string().label('Email').required(),
+    });
+
+    const initialValue:initialSchemaValues = {
+        email:''
+    }
     const navigate = useNavigate()
     const handleSubmit = () => {
         console.log('forgot password')
@@ -18,14 +29,15 @@ function ForgotPassword() {
         <ContentContainer styleClass={'login-bg-gradient'}>
             <div className="flex flex-col items-center justify-center gap-5">
                 <div className="inline-flex">
-                    <img src={Logo} alt="frank zone logo" className='w-44' />
+                    <LazyImage src={Logo} alt="frank zone logo" className='w-44' />
                 </div>
                 <CustomCard styleClass={'xs:w-[15rem]  xs:px-5 sm:w-[20rem] md:w-[25rem] sm:px-5 items-center justify-center w-9/12 px-10 py-6 text-left !shadow-xl'}>
-                    <img src={forgoticon} alt="" className='w-12' />
+                    <LazyImage src={forgoticon} alt="" className='w-12' />
                     <div className='text-xl font-bold tracking-wide font-sans xs:text-sm'>Forgot Password</div>
                     <p className='text-sm font-medium text-center opacity-85 font-sans xs:text-xs'>Enter Your Email Address, We'll Send You An OTP To Reset You Password</p>
                     <Formik
-                        initialValues={{ email: '' }}
+                      initialValues={initialValue}
+                      validationSchema={FormSchema}
                         onSubmit={handleSubmit}
                     >
                                                 {({ errors, handleChange, handleBlur, touched, values, setFieldValue }) => (
@@ -35,6 +47,7 @@ function ForgotPassword() {
                                     id="email"
                                     name="email"
                                     label="Email"
+                                    labelClassName='flex gap-1'
                                     type="email"
                                     variant="outline"
                                     placeholder="Enter Email ID"

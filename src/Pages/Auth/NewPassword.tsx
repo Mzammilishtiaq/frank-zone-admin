@@ -7,8 +7,21 @@ import { Form, Formik, FormikHelpers, FormikValues } from 'formik';
 import Input from '@src/Shared/Input/Input';
 import CustomButton from '@src/Shared/CustomButton';
 import { useNavigate } from 'react-router-dom';
-
+import * as Yup from 'yup';
+export interface initialSchemaValues {
+    newpassword: string;
+    confirmpassword:string;
+}
 function NewPassword() {
+    // debugger
+    const FormSchema = Yup.object().shape({
+        newpassword: Yup.string().label('New Password').required(),
+        confirmpassword: Yup.string().label('Confirm Password').required().oneOf([Yup.ref('newpassword')], 'Passwords not match'),
+    });
+    const initialValues:initialSchemaValues={
+        newpassword: '',
+        confirmpassword:''
+    }
     const navigate = useNavigate();
     const handleSubmit = () => {
         console.log('new password')
@@ -26,29 +39,32 @@ function NewPassword() {
                     <p className='text-sm font-medium text-center opacity-85 font-sans'>Enter Your Email Address, We'll Send You An OTP To Reset You Password</p>
                     <Formik
                         onSubmit={handleSubmit}
-                        initialValues={{ newpassowrd: '', confirmpassword: '' }}
+                        initialValues={initialValues}
+                        validationSchema={FormSchema}
                     >
                         {({ errors, handleChange, handleBlur, touched, values, setFieldValue }) => (
 
                             <Form className='w-full flex flex-col items-center text-left justify-center gap-5 mx-16'>
                                 <Input
-                                    id="password"
-                                    name="newpassowrd"
+                                    id="newpassword"
+                                    name="newpassword"
                                     label="New Password"
+                                    labelClassName='flex gap-1'
                                     type="password"
                                     variant="outline"
                                     placeholder="Enter New Password"
                                     handldChange={handleChange}
                                     onBlur={handleBlur}
-                                    value={values.newpassowrd}
-                                    error={errors.newpassowrd}
-                                    touched={touched.newpassowrd}
+                                    value={values.newpassword}
+                                    error={errors.newpassword}
+                                    touched={touched.newpassword}
                                     className='w-full'
-                                />
+                                    />
                                 <Input
                                     id="confirmpassword"
                                     name="confirmpassword"
                                     label="Confirm Password"
+                                    labelClassName='flex gap-1'
                                     type="password"
                                     variant="outline"
                                     placeholder="Enter Confirm Password"

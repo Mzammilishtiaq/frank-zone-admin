@@ -70,6 +70,7 @@ const Login = () => {
                                     id="email"
                                     name="email"
                                     label="Email"
+                                    labelClassName='flex gap-1'
                                     type="email"
                                     variant="outline"
                                     placeholder="Enter Email ID"
@@ -83,6 +84,7 @@ const Login = () => {
                                 <Input
                                     name="password"
                                     label="Password"
+                                    labelClassName='flex gap-1'
                                     type="password"
                                     placeholder="Enter Password"
                                     variant="outline"

@@ -47,8 +47,8 @@ function verificationcode() {
                                 labelClass='text-white font-semibold'
                                 styleClass='bg-black-900 w-full !rounded-lg px-1 py-2' />
                             <div className="sm:w-full w-full flex flex-row items-center justify-center gap-2">
-                                <span className='xs:text-[9px] sm:text-[12px]'>Didn't received the email?</span>
-                                <Link className='sm:text-[12px] xs:text-[9px] text-blue-600 ' to={'/forgotpassword'}>Resend email</Link>
+                                <span className='xs:text-[9px] sm:text-[12px] md:text-[12px]'>Didn't received the email?</span>
+                                <Link className='sm:text-[10px] xs:text-[9px] md:text-[12px] text-blue-600 ' to={'/forgotpassword'}>Resend email</Link>
                             </div>
                         </Form>
                     </Formik>
