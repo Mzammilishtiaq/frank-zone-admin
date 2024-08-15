@@ -39,8 +39,8 @@ function VendorManagmentList() {
         order: 'asc',
         accountState: ''
     })
-    let moduleid = searchParams.get('module_id');
-    console.log('userdatalist === ', moduleid, userdatalist);
+    let moduleId = searchParams.get('module_id');
+    console.log('userdatalist === ', moduleId, userdatalist);
 
     const handleChangePage = (event: any) => {
         console.log(event);
@@ -67,14 +67,14 @@ function VendorManagmentList() {
         }, 600)
 
         return () => clearTimeout(delaytime)
-    }, [filterValue,moduleid])
+    }, [filterValue, moduleId])
 
 
     // api fetching
     const FetchUserManagmentData = () => {
         setIsLoading(true)
         backendCall({
-            url: moduleid ? `/api/admin/vendor_management/modules/${moduleid}?limit=${filterValue.limit}&offset=${filterValue.offset}&order=asc&text=${filterValue.searchValue}&accountStatus=${filterValue.accountState}` : '',
+            url: moduleId ? `/api/admin/vendor_management/modules/${moduleId}?limit=${filterValue.limit}&offset=${filterValue.offset}&order=asc&text=${filterValue.searchValue}&accountStatus=${filterValue.accountState}` : '',
             method: 'GET',
             dataModel: VendorManagmentListModel,
         }).then((res) => {
@@ -82,7 +82,7 @@ function VendorManagmentList() {
             if (res && !res.error) {
                 setIsLoading(false)
                 setUserDataList(res.data)
-                handleToastMessage('success', res?.message)
+                // handleToastMessage('success', res?.message)
             } else {
                 setIsLoading(false)
                 handleToastMessage('error', res?.message)
@@ -248,13 +248,13 @@ function VendorManagmentList() {
                         // onChange={}
                         inputProps={{ 'aria-label': 'controlled' }}
                     />
-                    <CustomButton icon={<LazyImage src={viewbtn} className='w-4' />} handleButtonClick={() => navigate(`/vendor_managment/vendor_details/${row.id}`)} type={'button'} />
+                    <CustomButton icon={<LazyImage src={viewbtn} className='w-4' />} handleButtonClick={() => navigate(`/vendor_managment/vendor_details/${row.id}?module_id=${moduleId}`)} type={'button'} />
                 </div>
             )
         }
     ]
 
-    
+
     return (
         <>
             <CustomCard styleClass={'p-5 '}>
@@ -263,10 +263,10 @@ function VendorManagmentList() {
                         <Link to='/dashboard' className='text-sm hover:border-b-2 xs:text-xs hover:border-gray-500'>
                             Dashboard
                         </Link>
-                        <p className='text-[10px] xs:text-xs'>Vendor Management</p>
+                        <p className='text-sm xs:text-xs'>Vendor Management</p>
                     </Breadcrumbs>
                     <div className="flex items-center justify-between">
-                        <h5 className='text-2xl sm:text-lg font-medium xs:text-xs text-[rgba(5, 25, 23, 1)]'>{searchParams.get('module_id') == '1' ? 'Ecommerce' : searchParams.get('module_id') == '2' ? 'Food' : searchParams.get('module_id') == '3' ? 'Health & Beauty' : 'Handyman'} Vendors Management</h5>
+                        <h5 className='text-2xl sm:text-lg font-medium xs:text-xs text-[rgba(5, 25, 23, 1)]'>{moduleId == '1' ? 'Ecommerce' : moduleId == '2' ? 'Food' : moduleId == '4' ? 'OnLine Consultation' : ''} Vendors Management</h5>
                     </div>
                 </div>
                 <div className="w-full flex items-center">

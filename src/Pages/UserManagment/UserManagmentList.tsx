@@ -86,35 +86,37 @@ function UserManagmentList() {
         })
     }
 
-    // const handleChange = async (event: any, id: number, status: any) => {
-    //     if (status == 'ACTIVE') {
-    //         setisDeletePop(true)
-    //         // handleDisable(event, id)
-    //         var events = event;
-    //         var ids= id;
-    //     } else {
-    //         setisDeletePop(false)
-    //     }
+   
 
 
     // }
     const activePopoup = (event: any, id: any) => {
-        setisDeletePop(true)
-        const action = event.target.checked ? 'ACTIVE' : 'INACTIVE';
-        setDisableId(id);
-        setActionValue(action);
+        let isChecked = event.target.checked;
+        let action = 'ENABLE';
+        if (isChecked) {
+            handletoggle(id,action)
+        }else{
+            action = 'DISABLE';
+            setisDeletePop(true)
+            setDisableId(id);
+            setActionValue(action);
+
+        }
+      
     }
 
-    const handletoggle = () => {
+    const handletoggle = (id:any, action:any) => {
         backendCall({
-            url: `/api/admin/user_management/${disableid}/status?action=${actionvalue}`,
+            url: `/api/admin/user_management/${id || disableid}/status?action=${action || actionvalue}`,
             method: 'PUT',
         }).then((res) => {
             console.log('user managment TOGGLE ==', res)
             if (res && !res.error) {
                 setIsLoading(false)
                 FetchUserManagmentData();
-                // handleToastMessage('success', res?.message)
+                setisDeletePop(false)
+                handleToastMessage('success', res?.message)
+
             } else {
                 setIsLoading(false)
                 handleToastMessage('error', res?.message)

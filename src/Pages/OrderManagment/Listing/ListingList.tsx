@@ -116,7 +116,6 @@ console.log('order data == ', orderdata)
             dataModel: OrderManagementModel
         }).then((res) => {
             if (res != res.error) {
-                handleToastMessage('success', res.message)
                 setOrderData(res.data)
                 seIsLoading(false)
             } else {
@@ -127,7 +126,7 @@ console.log('order data == ', orderdata)
     }
 
     const handleupdate = (e:any, id:any)=>{
-        let action = e.target.checked ? 1 : 0;
+        let action = e.target.checked ? 'ENABLE' : 'DISABLE';
         backendCall({
             url:`/api/admin/order_management/${id}/status?action=${action}`,
             method:'PUT'
@@ -148,7 +147,7 @@ console.log('order data == ', orderdata)
             ),
             dataIndex: 'index',
             key: 'index',
-            width: 50,
+            width: 70,
             render: (name: string, row: any) => (
                 <div className="w-full flex items-start justify-start">
                     <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] sm:text-[10px] md:text-[10px]'>#{row.id}</p>
@@ -163,7 +162,7 @@ console.log('order data == ', orderdata)
             ),
             dataIndex: 'index',
             key: 'index',
-            width: 50,
+            width: 110,
             render: (name: string, row: any) => (
                 <div className="w-full flex items-center justify-center">
                     <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate sm:text-[10px] md:text-[10px]'>{row?.name || '-'}</p>
@@ -171,59 +170,59 @@ console.log('order data == ', orderdata)
             )
         },{
             title: (
-                <div className='w-full flex items-center justify-center'>
+                <div className='w-full flex items-start justify-start'>
                     <span className="font-semibold text-black-900 text-[15px] opacity-[1] sm:text-sm md:text-sm">{'Quantity'}</span>
                 </div>
             ),
             dataIndex: 'index',
             key: 'index',
-            width: 50,
+            width: 110,
             render: (name: string, row: any) => (
-                <div className="w-full flex items-center justify-center">
+                <div className="w-full flex items-start justify-start">
                     <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate sm:text-[10px] md:text-[10px]'>{row?.quantity || '-'}</p>
                 </div>
             )
         },
           {
             title: (
-                <div className='w-full flex items-center justify-center'>
+                <div className='w-full flex items-start justify-start'>
                     <span className="font-semibold text-black-900 text-[15px] opacity-[1] sm:text-sm md:text-sm">{'Item'}</span>
                 </div>
             ),
             dataIndex: 'index',
             key: 'index',
-            width: 50,
+            width: 110,
             render: (name: string, row: any) => (
-                <div className="w-full flex items-center justify-center">
+                <div className="w-full flex items-start justify-start">
                     <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate sm:text-[10px] md:text-[10px]' title={row.email}>{row?.items || '-'}</p>
                 </div>
             )
         }, {
             title: (
-                <div className='w-full flex items-center justify-center'>
+                <div className='w-full flex items-start justify-start'>
                     <span className="font-semibold text-black-900 text-[15px] opacity-[1] sm:text-sm md:text-sm">{'Date'}</span>
                 </div>
             ),
             dataIndex: 'index',
             key: 'index',
-            width: 50,
+            width: 110,
             render: (name: string, row: any) => (
-                <div className="w-full flex items-center justify-center">
+                <div className="w-full flex items-start justify-start">
                     <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate sm:text-[10px] md:text-[10px]'>{moment(row.email).utc().format('DD-MM-YYYY')}</p>
                 </div>
             )
         },
         {
             title: (
-                <div className='w-full flex items-end justify-center ml-5'>
+                <div className='w-full flex items-center justify-start ml-14'>
                     <span className="font-semibold text-black-900 text-[15px] opacity-[1] sm:text-sm md:text-sm">{'Action'}</span>
                 </div>
             ),
             dataIndex: 'index',
             key: 'index',
-            width: 50,
+            width: 110,
             render: (name: string, row: any) => (
-                <div className="w-full flex items-center justify-end gap-3 -ml-14">
+                <div className="w-full flex items-center justify-start  gap-3 ml-14">
                      <Switch
                         checked={row.is_active == 1}
                         onChange={(e)=>handleupdate(e,row?.id)}

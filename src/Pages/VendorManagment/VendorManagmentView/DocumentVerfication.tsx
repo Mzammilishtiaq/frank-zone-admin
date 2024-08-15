@@ -13,6 +13,7 @@ import { backendCall } from '@src/Shared/utils/BackendService/backendCall'
 import { handleToastMessage } from '@src/Shared/toastify'
 import { VendorDocumentModel } from '@src/Shared/Models/UserVendor/VendorDocumentModel'
 import moment from 'moment'
+import { Spinner } from '@src/Shared/Spinner/Spinner'
 interface imgpopupdataType {
     img: string;
     name: string;
@@ -29,7 +30,7 @@ function DocumentVerfication({ vendorid }: any) {
     const [isLoading, setIsLoading] = useState(false);
     const handlepopimg = (imgurl: any, item: any) => {
         setImgPopupData({
-           ...imgpopupdata, img:imgurl, name: item
+            ...imgpopupdata, img: imgurl, name: item
         })
         setImgPopup(true)
     }
@@ -40,6 +41,20 @@ function DocumentVerfication({ vendorid }: any) {
         FetchVendorShopDetailApi();
     }, [])
 
+    const handleupdateVendorShop = (id:any, type:any, action:any) => {
+        setIsLoading(true);
+        backendCall({
+            url: `/api/admin/vendor_management/documents/${id}/status?documentType=${type}&action=${action}`,
+            method: 'PUT',
+        }).then((res) => {
+            if (res != res.error) {
+                console.log(res)
+                FetchVendorShopDetailApi()
+            } else {
+
+            }
+        })
+    }
     const FetchVendorShopDetailApi = () => {
         setIsLoading(true)
         backendCall({
@@ -49,9 +64,9 @@ function DocumentVerfication({ vendorid }: any) {
         }).then((res) => {
             //   console.log('res detail ventor document verfication ==', res)
             if (res != res.error) {
-                setIsLoading(false)
                 setDocumentVerficationData(res.data)
-                handleToastMessage('success', res.message);
+                setIsLoading(false)
+                // handleToastMessage('success', res.message);
             } else {
                 setIsLoading(false)
                 handleToastMessage('error', res?.message)
@@ -154,7 +169,7 @@ function DocumentVerfication({ vendorid }: any) {
             render: ((name: string, row: any) => {
                 return (
                     <div className={`w-full flex items-center justify-end gap-1`}>
-                        <VscCheck className={` bg-green-500 text-white text-[20px] rounded-full p-1 w-6 h-6 cursor-pointer ${row.status !== 'PENDING' ? '!text-gray-800 !bg-gray-300 pointer-events-none opacity-50' : ''}`} />
+                        <VscCheck className={` bg-green-500 text-white text-[20px] rounded-full p-1 w-6 h-6 cursor-pointer ${row.status !== 'PENDING' ? '!text-gray-800 !bg-gray-300 pointer-events-none opacity-50' : ''}`} onClick={()=>handleupdateVendorShop(row.id,row.type,'PENDING')} />
                         <VscChromeClose className={`bg-red-500 text-white text-[20px] rounded-full p-1 w-6 h-6 cursor-pointer ${row.status !== 'PENDING' ? '!text-gray-800 !bg-gray-300 pointer-events-none opacity-50' : ''}`}
                             onClick={() => setDeletePopup(true)}
                         />
@@ -199,12 +214,12 @@ function DocumentVerfication({ vendorid }: any) {
                     <h5 className='text-black-900 font-medium'>{imgpopupdata.name}</h5>
                 </div>
             </Popup>
-
+            <Spinner isLoading={isLoading} />
 
             <Table
                 tableLayout="fixed"
                 columns={DocumentColumn as any}
-                emptyText={'No data found'}
+                emptyText={'No data found' || setIsLoading(false)}
                 data={documentverficationdata.rows as any}
                 rowKey="item_id"
                 scroll={{ x: 1000 }}

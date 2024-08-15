@@ -6,7 +6,7 @@ export class VendorDetailShopModel {
     ) { }
 
     static adapt(items: any): { rows: VendorDetailShopModel[] } {
-        console.log('model data shop',items)
+        console.log('model data shop', items)
         let data = items.map(
             (item: any) =>
                 new VendorDetailShopModel(
@@ -23,11 +23,13 @@ export class VendorDetailShopModel {
                         postalCode: shop?.postal_code,
                         tax_no: shop?.tax_no,
                         quotes: shop?.quotes,
-                        // imageUrl: shop?.image_url,
+                        imageUrl: shop?.image_url,
                         coverUrl: shop?.cover_url,
+                        isdefault:shop?.is_default
                     }))
                 )
         )
+
 
         return { rows: data }
     }
@@ -44,7 +46,8 @@ interface VendorShopItem {
     postalCode: string,
     taxNo: string,
     quotes: string,
-    // imageUrl: string,
+    imageUrl: string,
     coverUrl: string,
+    isdefault:number
 }
 

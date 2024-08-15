@@ -13,7 +13,6 @@ import { Spinner } from '@src/Shared/Spinner/Spinner';
 import { backendCall } from '@src/Shared/utils/BackendService/backendCall';
 import { handleToastMessage } from '@src/Shared/toastify';
 import { VendorDetailModel } from '@src/Shared/Models/UserVendor/VendorDetailModel';
-import { VendorDetailShopModel } from '@src/Shared/Models/UserVendor/VendorDetailShopModel';
 
 interface vendordetaildatatype {
   id: number,
@@ -26,7 +25,47 @@ interface vendordetaildatatype {
 function VendorManagmentProfile() {
   const [activeTab, setActiveTab] = useState('Vendor Details');
   const [searchParams, setSearchParams] = useSearchParams();
-  const [vendordetailshopdata, setVendorDetailShopData] = useState([]) as any;
+  const [emptymessage, setEmptyMessage] = useState('')
+  const [Ecommerce, setEcommerce] = useState([
+    "Vendor Details",
+    "Questionnaire",
+    "Documents Verification",
+    "Products",
+    "Reviews & Ratings",
+  ]
+
+  );
+  const [Foodorder, setFoodOrder] = useState([
+    "Vendor Details",
+    "Questionnaire",
+    "Documents Verification",
+    "Products",
+    "Reviews & Ratings",
+  ]);
+  const [healthbeauty, setHealthBeauty] = useState([
+    "Vendor Details",
+    "Questionnaire",
+    "Documents Verification",
+    "Products",
+    "Reviews & Ratings",
+  ]);
+  const [handyman, setHandyman] = useState([
+    "Vendor Details",
+    "Questionnaire",
+    "Documents Verification",
+    "Products",
+    "Reviews & Ratings",
+  ]);
+  const [Onlineconsulation, setOnlineConsulation] = useState([
+    "Vendor Details",
+    "Questionnaire",
+    "Documents Verification",
+    "Products",
+    "Reviews & Ratings",
+    "Specialities"
+  ]);
+  // const [vendordetailshopdata, setVendorDetailShopData] = useState([]);
+
   const [vendordetaildata, setVendorDetailData] = useState<vendordetaildatatype>({
     id: 1,
     firstname: '',
@@ -40,48 +79,26 @@ function VendorManagmentProfile() {
   const handleTab = (item: string) => {
     setActiveTab(item)
   }
-  const ProfileTab = [
-    "Vendor Details",
-    "Questionnaire",
-    "Documents Verification",
-    "Products",
-    "Reviews & Ratings",
-  ]
-  const { id} = useParams();
-  const moduleid = searchParams.get('module_id')
-  console.log('use parems',id,moduleid)
+  // const ProfileTab = [
+  //   "Vendor Details",
+  //   "Questionnaire",
+  //   "Documents Verification",
+  //   "Products",
+  //   "Reviews & Ratings",
+  //   'profile tab'
+  // ]
+  const { id } = useParams();
+  let moduleId: any = searchParams.get('module_id');
+
+  // useEffect(() => {
+  //   console.log('module id', moduleId)
+
+  // }, [])
 
 
-  // console.log('vendordetailquestionairepdata === ', vendordetailquestionairepdata)
 
 
-  // console.log('vendordetailshopdata === ', vendordetailshopdata)
-  useEffect(() => {
-    let dounpot = setTimeout(() => {
-      FetchVendorShopDetailApi();
-    }, 600)
-
-    return () => clearTimeout(dounpot)
-  }, [])
-
-  const FetchVendorShopDetailApi = () => {
-    setIsLoading(true)
-    backendCall({
-      url: `/api/admin/vendor_management/${vendordetaildata.id}/shop`,
-      method: 'GET',
-      dataModel: VendorDetailShopModel
-    }).then((res) => {
-      // console.log('res detail ventor shop ==', res)
-      if (res != res.error) {
-        setIsLoading(false)
-        setVendorDetailShopData(res.data)
-        handleToastMessage('success', res.message);
-      } else {
-        setIsLoading(false)
-        handleToastMessage('error', res?.message)
-      }
-    })
-  }
+  
 
   // vendor detail api 
   useEffect(() => {
@@ -90,7 +107,7 @@ function VendorManagmentProfile() {
     }, 600)
 
     return () => clearTimeout(dounpot)
-    
+
   }, [])
 
   const FetchVendorDetailApi = () => {
@@ -103,8 +120,8 @@ function VendorManagmentProfile() {
       if (res != res.error) {
         console.log('res detail ventor', res)
         setIsLoading(false)
-        setVendorDetailData(res.data)
-        handleToastMessage('success', res.message);
+        setVendorDetailData(res?.data)
+        // handleToastMessage('success', res.message);
       } else {
         setIsLoading(false)
         handleToastMessage('error', res?.message)
@@ -121,20 +138,37 @@ function VendorManagmentProfile() {
             <Link to='/dashboard' className='text-sm hover:border-b-2 xs:text-xs hover:border-gray-500'>
               Dashboard
             </Link>
-            <p  className='text-[10px] xs:text-xs'>Ecommerce Vendors Management</p>
+            <p className='text-sm xs:text-xs'>{moduleId == '1' ? 'Ecommerce' : moduleId == '2' ? 'Food' : moduleId == '4' ? 'Online Consultation' : ''} Vendors Management</p>
           </Breadcrumbs>
           <div className="flex items-center justify-between">
-            <h5 className='text-2xl sm:text-lg xs:text-xs font-medium text-[rgba(5, 25, 23, 1)]'>{searchParams.get('module_id') == '1' ? 'Ecommerce' : searchParams.get('module_id') == '2' ? 'Food' : searchParams.get('module_id') == '3' ? 'Health & Beauty' : 'Handyman'} Vendors Management</h5>
+            <h5 className='text-2xl sm:text-lg xs:text-xs font-medium text-[rgba(5, 25, 23, 1)]'>{moduleId == '1' ? 'Ecommerce' : moduleId == '2' ? 'Food' : moduleId == '4' ? 'Online Consultation' : ''} Vendors Management</h5>
           </div>
         </div>
         <SeperatorLine className='!border !border-black-900 !border-opacity-0.1 -ml-5 ' />
 
         <div className="flex gap-5 sm:gap-1 xs:overflow-x-auto sm:overflow-x-auto md:overflow-x-auto sm:w-[100vw] xs:w-[100vw]">
           {
-
-            ProfileTab.map((item, index) => (
+            moduleId === '1' && Ecommerce.map((item: any, index: any) => (
               <div className={`text-gray-900 flex sm:text-[8px] md:text-[10px] xs:text-[6px]  cursor-pointer pb-[5px] 
-                      ${activeTab === item ? 'border-black-900 border-b-2 text-black-900 font-medium' : null}`}
+                         ${activeTab === item ? 'border-black-900 border-b-2 text-black-900 font-medium' : null}`}
+                onClick={() => handleTab(item)} key={index}
+              >{item}</div>
+            ))
+          }
+
+          {
+            moduleId === '2' && Foodorder.map((item: any, index: any) => (
+              <div className={`text-gray-900 flex sm:text-[8px] md:text-[10px] xs:text-[6px]  cursor-pointer pb-[5px] 
+                         ${activeTab === item ? 'border-black-900 border-b-2 text-black-900 font-medium' : null}`}
+                onClick={() => handleTab(item)} key={index}
+              >{item}</div>
+            ))
+          }
+
+          {
+            moduleId === '4' && Onlineconsulation.map((item: any, index: any) => (
+              <div className={`text-gray-900 flex sm:text-[8px] md:text-[10px] xs:text-[6px]  cursor-pointer pb-[5px] 
+                         ${activeTab === item ? 'border-black-900 border-b-2 text-black-900 font-medium' : null}`}
                 onClick={() => handleTab(item)} key={index}
               >{item}</div>
             ))
@@ -142,11 +176,10 @@ function VendorManagmentProfile() {
         </div>
         <SeperatorLine className='!border !border-black-900 !border-opacity-0.1 -mt-[13px]  -ml-5' />
         {/* <Spinner isLoading={isloading} classname='my-3' /> */}
-
         <div className="overflow-y-auto lg:h-96 md:h-97 sm:h-[30rem]  no-scrollbar">
-          {activeTab === profileTypes?.vendor_details && <Detail vendordetail={vendordetaildata} vendordetailshop={vendordetailshopdata} />}
+          {activeTab === profileTypes?.vendor_details && <Detail vendordetail={vendordetaildata} vendordetailid={vendordetaildata} loading={isloading} />}
           {activeTab === profileTypes?.products && <Product />}
-          {activeTab === profileTypes?.questionnaire && <Question vendorid={vendordetaildata} />}
+          {activeTab === profileTypes?.questionnaire && <Question vendorid={vendordetaildata} moduleid={moduleId} />}
           {activeTab === profileTypes?.documents_verification && <DocumentVerfication vendorid={vendordetaildata} />}
           {activeTab === profileTypes?.reviews_ratings && <RatingReview vendorid={vendordetaildata} />}
         </div>
