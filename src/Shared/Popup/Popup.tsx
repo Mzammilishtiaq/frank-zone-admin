@@ -28,7 +28,7 @@ function Popup({
     width = 475,
     maxWidth = 900,
     isLoading = false,
-    borderRadius = 15,
+    borderRadius = 25,
     isFullScreen = false,
     isShowHeader = true,
     childClassName,

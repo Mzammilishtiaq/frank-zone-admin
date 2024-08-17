@@ -13,11 +13,17 @@ import { OrderProfileManagement, VendorIdModel } from '@src/Shared/Models/OrderM
 import NoImage from '@src/assets/image/NoImage.png';
 import moment from 'moment'
 import { Spinner } from '@src/Shared/Spinner/Spinner'
-
+interface vendoridType {
+  id: number,
+  phone: string
+}
 function ListingProfile() {
   const [isLoading, setIsLoading] = useState(false);
   const [orderData, setOrderData] = useState() as any;
-  const [vendorid, setVendorId] = useState() as any;
+  const [vendorid, setVendorId] = useState<vendoridType>({
+    id: 1,
+    phone: ''
+  });
 
   const { id } = useParams();
 
@@ -28,28 +34,37 @@ function ListingProfile() {
     }, 600)
 
     return () => clearTimeout(delaytime)
-  }, [])
+  }, [vendorid.id])
 
 
   console.log('vendor id ==', vendorid)
   useEffect(() => {
     let delaytime = setTimeout(() => {
-      FetchVendorShop();
+      FetchVendorDetailApi();
     }, 600)
 
     return () => clearTimeout(delaytime)
   }, [])
-  const FetchVendorShop = () => {
+
+  const FetchVendorDetailApi = () => {
+    setIsLoading(true)
     backendCall({
-      url: `/api/admin/vendor_management/${orderData.vendor_id}`,
+      url: `/api/admin/vendor_management/${id}`,
       method: 'GET',
       dataModel: VendorIdModel
     }).then((res) => {
       if (res != res.error) {
-        setVendorId(res.data)
+        console.log('res detail ventor', res)
+        setIsLoading(false)
+        setVendorId(res?.data)
+        // handleToastMessage('success', res.message);
+      } else {
+        setIsLoading(false)
+        handleToastMessage('error', res?.message)
       }
     })
   }
+
   const Fetchprofileapi = () => {
     setIsLoading(true)
     backendCall({
@@ -72,11 +87,12 @@ function ListingProfile() {
     <CustomCard styleClass={'sticky'}>
       <div role="presentation" className='mb-3 px-5 pt-5 pb-1'>
         <Breadcrumbs aria-label="breadcrumb" className='opacity-[0.3] '>
-          <Link to='/dashboard' className='text-sm hover:border-b-2 hover:border-gray-500'>
+          <Link to='/dashboard' className='text-sm xs:text-[10px] hover:!text-blue-902 cursor-pointer '>
             Dashboard
           </Link>
-          <Typography color="" className='text-[10px]'>Orders Management</Typography>
-          <Typography color="" className='text-[10px]'>Listing</Typography>
+          <p className='text-sm xs:text-[20px] hover:!text-blue-902 cursor-pointer'>Orders Management</p>
+          <Link to={'/order_managment/listing/listing_list'} className='text-sm xs:text-[10px] hover:!text-blue-902 cursor-pointer'>Listing</Link>
+          <p className='text-sm xs:text-[10px] hover:!text-blue-902 cursor-pointer'>Order Detail</p>
         </Breadcrumbs>
         <div className="flex items-center justify-between">
           <h5 className='text-2xl sm:text-lg md:text-sm font-medium text-[rgba(5, 25, 23, 1)]'>Health & Beauty Orders Listing</h5>
@@ -99,7 +115,7 @@ function ListingProfile() {
             </p>
             <p className='flex gap-5'>
               <span className='text-black-900 sm:text-xs md:text-xs font-medium'>Phone Number:</span>
-              <span className='text-black-900 sm:text-xs md:text-xs text-opacity-0.5 font-medium'>{vendorid?.phone}</span>
+              <span className='text-black-900 sm:text-xs md:text-xs text-opacity-0.5 font-medium'>{vendorid?.phone || 'empty data'}</span>
             </p>
           </div>
 

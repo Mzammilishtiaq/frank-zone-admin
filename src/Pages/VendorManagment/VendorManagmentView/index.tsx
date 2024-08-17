@@ -108,7 +108,7 @@ function VendorManagmentProfile() {
 
     return () => clearTimeout(dounpot)
 
-  }, [])
+  }, [vendordetaildata.id])
 
   const FetchVendorDetailApi = () => {
     setIsLoading(true)
@@ -135,10 +135,13 @@ function VendorManagmentProfile() {
       <CustomCard styleClass={'p-5 sticky'}>
         <div role="presentation" className='mb-3'>
           <Breadcrumbs aria-label="breadcrumb" className='opacity-[0.3]'>
-            <Link to='/dashboard' className='text-sm hover:border-b-2 xs:text-xs hover:border-gray-500'>
+            <Link to='/dashboard' className='text-sm hover:border-b-2 xs:text-xs hover:!text-blue-902 cursor-pointer'>
               Dashboard
             </Link>
-            <p className='text-sm xs:text-xs'>{moduleId == '1' ? 'Ecommerce' : moduleId == '2' ? 'Food' : moduleId == '4' ? 'Online Consultation' : ''} Vendors Management</p>
+            <Link to={moduleId == '1' ? '/vendor_managment/?module_id=1' : moduleId == '2' ? '/vendor_managment/?module_id=2' : moduleId == '4' ? '/vendor_managment/?module_id=4' : ''} className='text-sm hover:!text-blue-902 cursor-pointer'>
+            Vendors Management
+            </Link>
+            <p className='text-sm xs:text-xs hover:!text-blue-902 cursor-pointer'>{moduleId == '1' ? 'Ecommerce' : moduleId == '2' ? 'Food' : moduleId == '4' ? 'Online Consultation' : ''}</p>
           </Breadcrumbs>
           <div className="flex items-center justify-between">
             <h5 className='text-2xl sm:text-lg xs:text-xs font-medium text-[rgba(5, 25, 23, 1)]'>{moduleId == '1' ? 'Ecommerce' : moduleId == '2' ? 'Food' : moduleId == '4' ? 'Online Consultation' : ''} Vendors Management</h5>
@@ -177,11 +180,11 @@ function VendorManagmentProfile() {
         <SeperatorLine className='!border !border-black-900 !border-opacity-0.1 -mt-[13px]  -ml-5' />
         {/* <Spinner isLoading={isloading} classname='my-3' /> */}
         <div className="overflow-y-auto lg:h-96 md:h-97 sm:h-[30rem]  no-scrollbar">
-          {activeTab === profileTypes?.vendor_details && <Detail vendordetail={vendordetaildata} vendordetailid={vendordetaildata} loading={isloading} />}
+          {activeTab === profileTypes?.vendor_details && <Detail vendordetail={vendordetaildata} vendordetailid={vendordetaildata.id} loading={isloading} />}
           {activeTab === profileTypes?.products && <Product />}
-          {activeTab === profileTypes?.questionnaire && <Question vendorid={vendordetaildata} moduleid={moduleId} />}
-          {activeTab === profileTypes?.documents_verification && <DocumentVerfication vendorid={vendordetaildata} />}
-          {activeTab === profileTypes?.reviews_ratings && <RatingReview vendorid={vendordetaildata} />}
+          {activeTab === profileTypes?.questionnaire && <Question vendorid={vendordetaildata.id} moduleid={moduleId} />}
+          {activeTab === profileTypes?.documents_verification && <DocumentVerfication vendorid={vendordetaildata.id} />}
+          {activeTab === profileTypes?.reviews_ratings && <RatingReview vendorid={vendordetaildata.id} />}
         </div>
       </CustomCard>
     </div>

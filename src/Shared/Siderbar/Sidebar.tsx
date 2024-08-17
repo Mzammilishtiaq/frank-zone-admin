@@ -452,31 +452,13 @@ const handleLogout= ()=>{
                       Profile Settings
                     </p> */}
                     {/* <SeperatorLine className="!border-gray-800"></SeperatorLine> */}
-                    <p className="text-xs font-light text-black-900 pl-3 pt-2 cursor-pointer">
-                      Payment Method
-                    </p>
+                    <p className="text-xs font-light text-black-900 pl-3 pt-2 cursor-pointer hover:bg-gray-200 hover:py-1 hover:text-white">Payment Method</p>
                     {/* <SeperatorLine className="!border-gray-800"></SeperatorLine> */}
-                    <p
-                      className="text-xs font-light text-black-900 pl-3 pt-2 cursor-pointer"
-                      onClick={() => {
-                        setisDropdownOpen(false);
-                        navigate('/shorts');
-                      }}
-                    >
-                      Manage Shorts
-                    </p>
+                    <p className="text-xs font-light text-black-900 pl-3 pt-2 cursor-pointer hover:bg-gray-200 hover:py-1 hover:text-white">Manage Shorts</p>
                     {/* <SeperatorLine className="!border-gray-800"></SeperatorLine> */}
-                    <p
-                      className="text-xs font-light text-black-900 pl-3 pt-2 cursor-pointer">
-                      Settings
-                    </p>
+                    <p className="text-xs font-light text-black-900 pl-3 pt-2 cursor-pointer hover:bg-gray-200 hover:py-1 hover:text-white">Settings</p>
                     {/* <SeperatorLine className="!border-gray-800"></SeperatorLine> */}
-                    <p
-                      onClick={handleLogout}
-                      className="text-xs font-light text-red-100 pl-3 pt-2 cursor-pointer"
-                    >
-                      Sign Out
-                    </p>
+                    <p onClick={handleLogout} className="text-xs font-light text-red-100 pl-3 pt-2 cursor-pointer hover:bg-gray-200 hover:py-1 hover:text-white"> Sign Out</p>
                   </div>
                 </div>
                 <div className="flex justify-around items-center bg-grey-200"></div>

@@ -7,6 +7,7 @@ import React, { useState } from 'react'
 import filledicon from '@src/assets/icon/filter-icon.svg';
 import { GrPowerReset } from 'react-icons/gr'
 import Searchicon from '@src/assets/icon/search-icon.svg';
+import Input from '@src/Shared/Input/Input'
 
 
 function Products() {
@@ -185,9 +186,19 @@ function Products() {
           </CustomCard>
         </div>}
       </div>
-      <div className='w-full'>
-        <Search type={'search'} placeholder={'Start typing to search  for user'} icon={<img src={Searchicon} className='w-[28px] opacity-[1]' />} styleClass={''} />
-      </div>
+      <div className='w-full pb-3'>
+                        <Input
+                            name='searchvalue'
+                            id='searchvalue'
+                            type='text'
+                            placeholder='Start typing to search for user'
+                            className='sm:placeholder:text-xs px-3 sm:w-50'
+                            leftIcon={<img src={Searchicon} className='w-[28px] opacity-[1]' />}
+                            // inputClassName=''
+                            // onChange={(e: { target: { value: any; }; }) => setFilterValue({ ...filterValue, searchValue: e.target.value })}
+
+                        />
+                    </div>
     </div>
     <Table
       tableLayout="fixed"

@@ -17,6 +17,7 @@ import { handleToastMessage } from '@src/Shared/toastify';
 import Input from '@src/Shared/Input/Input';
 import { Spinner } from '@src/Shared/Spinner/Spinner';
 import { VendorManagmentListModel } from '@src/Shared/Models/UserVendor/VendorManagmentListModel';
+import NoRecored from '@src/Shared/NoRecored/NoRecored';
 
 
 interface filterType {
@@ -24,7 +25,7 @@ interface filterType {
     offset: any;
     limit: any;
     order: string;
-    accountState: string
+    accountState: any
 }
 function VendorManagmentList() {
     const navigate = useNavigate();
@@ -32,6 +33,7 @@ function VendorManagmentList() {
     const [searchParams, setSearchParams] = useSearchParams();
     const [isloading, setIsLoading] = useState(false);
     const [userdatalist, setUserDataList] = useState([]) as any;
+    const [emtypmessage, setEmptyMessage] = useState(false);
     const [filterValue, setFilterValue] = useState<filterType>({
         searchValue: '',
         offset: 0,
@@ -40,7 +42,6 @@ function VendorManagmentList() {
         accountState: ''
     })
     let moduleId = searchParams.get('module_id');
-    console.log('userdatalist === ', moduleId, userdatalist);
 
     const handleChangePage = (event: any) => {
         console.log(event);
@@ -51,15 +52,19 @@ function VendorManagmentList() {
         console.log(event);
         setFilterValue({ ...filterValue, limit: event });
     };
-    function handleDrop(): void {
-        setDrop(prevDrop => !prevDrop)
+        function handleDrop(): void {
+            setDrop(prevDrop => !prevDrop)
+    
     }
-    const handleFilterBtn = (item: any) => {
+    const handleFilterBtn = (item: string) => {
         setFilterValue({ ...filterValue, accountState: item });
-        console.log(item)
+        // console.log(item)
         setDrop(false)
 
     }
+
+    
+    // console.log('userdatalist === ', moduleId, userdatalist);
 
     useEffect(() => {
         const delaytime = setTimeout(() => {
@@ -79,10 +84,10 @@ function VendorManagmentList() {
             dataModel: VendorManagmentListModel,
         }).then((res) => {
             // console.log('user managment ==', res)
-            if (res && !res.error) {
-                setIsLoading(false)
-                setUserDataList(res.data)
-                // handleToastMessage('success', res?.message)
+            if (!res.error) {
+                    setIsLoading(false)
+                    setUserDataList(res.data)
+                    // handleToastMessage('success', res?.message)
             } else {
                 setIsLoading(false)
                 handleToastMessage('error', res?.message)
@@ -258,22 +263,22 @@ function VendorManagmentList() {
     return (
         <>
             <CustomCard styleClass={'p-5 '}>
-                <div role="presentation" className='mb-3'>
+                <div role="presentation" className=''>
                     <Breadcrumbs aria-label="breadcrumb" className='opacity-[0.3]'>
-                        <Link to='/dashboard' className='text-sm hover:border-b-2 xs:text-xs hover:border-gray-500'>
+                        <Link to='/dashboard' className='text-sm xs:text-xs hover:!text-blue-902 cursor-pointer'>
                             Dashboard
                         </Link>
-                        <p className='text-sm xs:text-xs'>Vendor Management</p>
+                        <p className='text-sm xs:text-xs hover:!text-blue-902 cursor-pointer'>Vendor Management</p>
                     </Breadcrumbs>
                     <div className="flex items-center justify-between">
                         <h5 className='text-2xl sm:text-lg font-medium xs:text-xs text-[rgba(5, 25, 23, 1)]'>{moduleId == '1' ? 'Ecommerce' : moduleId == '2' ? 'Food' : moduleId == '4' ? 'OnLine Consultation' : ''} Vendors Management</h5>
                     </div>
                 </div>
-                <div className="w-full flex items-center">
+                <div className="w-full flex items-center mb-0">
                     <div className='px-2 py-1 cursor-pointer relative top-0'>
                         <img src={filledicon} className='text-2xl text-gray-400 font-thin' onClick={handleDrop} />
 
-                        {drop && <div className="w-72 absolute top-10 z-50">
+                        {drop  && <div className="w-72 absolute top-10 z-50">
                             {
                                 statusName.map((item) => (
                                     <p className='border border-black-900 border-opacity-0.3 text-black-900 text-opacity-0.3 p-2 bg-white hover:bg-gray-100 sm:text-xs md:text-xs sm:p-1 md:p-1 capitalize' onClick={() => handleFilterBtn(item)}>{item}</p>
@@ -287,7 +292,7 @@ function VendorManagmentList() {
                             name='searchvalue'
                             id='searchvalue'
                             type='text'
-                            placeholder='Start typing to search  for user'
+                            placeholder='Start typing to search for user'
                             className='sm:placeholder:text-xs px-3 sm:w-50'
                             leftIcon={<img src={Searchicon} className='w-[28px] opacity-[1]' />}
                             // inputClassName=''
@@ -296,11 +301,13 @@ function VendorManagmentList() {
                         />
                     </div>
                 </div>
-                <Spinner isLoading={isloading} />
+
                 <Table
                     tableLayout="fixed"
                     columns={column as any}
-                    emptyText={'No data found'}
+                    emptyText={userdatalist?.count == 0   ? (<NoRecored />) :  (<div className="flex justify-center w-full my-3">
+                        <Spinner isLoading={isloading} />
+                    </div>)}
                     data={userdatalist.rows}
                     rowKey="id"
                     scroll={{ x: 1000 }}
@@ -313,7 +320,7 @@ function VendorManagmentList() {
                 <Pagination
                     handleChangePage={handleChangePage}
                     handleChangeRowsPerPage={handleChangeRowsPerPage}
-                    totalCount={userdatalist.count}
+                    totalCount={userdatalist?.count}
                 />
 
             </CustomCard>

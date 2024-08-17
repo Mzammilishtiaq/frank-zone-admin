@@ -14,6 +14,8 @@ import { handleToastMessage } from '@src/Shared/toastify'
 import { VendorDocumentModel } from '@src/Shared/Models/UserVendor/VendorDocumentModel'
 import moment from 'moment'
 import { Spinner } from '@src/Shared/Spinner/Spinner'
+import NoImage from '@assets/image/NoImage.png'
+import NoRecored from '@src/Shared/NoRecored/NoRecored'
 interface imgpopupdataType {
     img: string;
     name: string;
@@ -22,6 +24,7 @@ interface imgpopupdataType {
 function DocumentVerfication({ vendorid }: any) {
     const [deletepopup, setDeletePopup] = useState(false);
     const [imgpopup, setImgPopup] = useState(false);
+    const [emptymessage, setEmptyMessage] = useState(false)
     const [imgpopupdata, setImgPopupData] = useState<imgpopupdataType>({
         img: '',
         name: ''
@@ -36,12 +39,16 @@ function DocumentVerfication({ vendorid }: any) {
     }
 
 
-    console.log('documentverficationdata ==', documentverficationdata)
+    console.log('resdetailventordocumentverfication ==', documentverficationdata)
     useEffect(() => {
-        FetchVendorShopDetailApi();
-    }, [])
+        let dounpot = setTimeout(() => {
+            FetchVendorShopDetailApi();
+        }, 600)
 
-    const handleupdateVendorShop = (id:any, type:any, action:any) => {
+        return () => clearTimeout(dounpot)
+    }, [vendorid])
+
+    const handleupdateVendorShop = (id: any, type: any, action: any) => {
         setIsLoading(true);
         backendCall({
             url: `/api/admin/vendor_management/documents/${id}/status?documentType=${type}&action=${action}`,
@@ -58,15 +65,16 @@ function DocumentVerfication({ vendorid }: any) {
     const FetchVendorShopDetailApi = () => {
         setIsLoading(true)
         backendCall({
-            url: `/api/admin/vendor_management/${vendorid.id}/documents`,
+            url: `/api/admin/vendor_management/${vendorid}/documents`,
             method: 'GET',
             dataModel: VendorDocumentModel
         }).then((res) => {
-            //   console.log('res detail ventor document verfication ==', res)
-            if (res != res.error) {
-                setDocumentVerficationData(res.data)
-                setIsLoading(false)
-                // handleToastMessage('success', res.message);
+            //   console.log('resdetailventordocumentverfication ==', res)
+            if (!res.error) {
+                    setDocumentVerficationData(res)
+                    setIsLoading(false)
+                    // handleToastMessage('success', res.message);
+
             } else {
                 setIsLoading(false)
                 handleToastMessage('error', res?.message)
@@ -75,27 +83,29 @@ function DocumentVerfication({ vendorid }: any) {
     }
 
 
-    const Data1 = [
-        {
-            docname: "Front(Card)",
-            date: "04-06-2024",
-            status: "APPROVED",
-            filelabel: '@src/assets/image/front.jpeg',
-            img: frontcard
-        }, {
-            docname: "Back(Card)",
-            date: "04-06-2024",
-            status: "PENDING",
-            filelabel: '@src/assets/image/back.jpeg',
-            img: backcard
-        }, {
-            docname: "Passport(Card)",
-            date: "04-06-2024",
-            status: "APPROVED",
-            filelabel: '@src/assets/image/passport.jpg',
-            img: passport
-        }
-    ]
+    // const Data1 = [
+    //     {
+    //         docname: "Front(Card)",
+    //         date: "04-06-2024",
+    //         status: "APPROVED",
+    //         filelabel: '@src/assets/image/front.jpeg',
+    //         img: frontcard
+    //     }, {
+    //         docname: "Back(Card)",
+    //         date: "04-06-2024",
+    //         status: "PENDING",
+    //         filelabel: '@src/assets/image/back.jpeg',
+    //         img: backcard
+    //     }, {
+    //         docname: "Passport(Card)",
+    //         date: "04-06-2024",
+    //         status: "APPROVED",
+    //         filelabel: '@src/assets/image/passport.jpg',
+    //         img: passport
+    //     }
+    // ]
+
+
     const DocumentColumn = [
         {
             title: (
@@ -153,8 +163,8 @@ function DocumentVerfication({ vendorid }: any) {
             dataindex: "name",
             key: "name",
             render: ((name: string, row: any) => (
-                <div className='w-full flex items-center justify-evenly mx-3'>
-                    <LazyImage src={row.image} className='h-7 w-7' />
+                <div className='w-full flex items-center justify-between mx-3'>
+                    <LazyImage src={row?.image || NoImage} alt={row?.name} className='h-7 w-7' />
                     <CustomButton type={"button"} handleButtonClick={() => handlepopimg(row.image, row.name)} styleClass='hover:border-b-2 border-gray-300 rounded-none text-[10px]' label={row.name + ' Url'} />
                 </div>
             ))
@@ -169,7 +179,7 @@ function DocumentVerfication({ vendorid }: any) {
             render: ((name: string, row: any) => {
                 return (
                     <div className={`w-full flex items-center justify-end gap-1`}>
-                        <VscCheck className={` bg-green-500 text-white text-[20px] rounded-full p-1 w-6 h-6 cursor-pointer ${row.status !== 'PENDING' ? '!text-gray-800 !bg-gray-300 pointer-events-none opacity-50' : ''}`} onClick={()=>handleupdateVendorShop(row.id,row.type,'PENDING')} />
+                        <VscCheck className={` bg-green-500 text-white text-[20px] rounded-full p-1 w-6 h-6 cursor-pointer ${row.status !== 'PENDING' ? '!text-gray-800 !bg-gray-300 pointer-events-none opacity-50' : ''}`} onClick={() => handleupdateVendorShop(row.id, row.type, 'PENDING')} />
                         <VscChromeClose className={`bg-red-500 text-white text-[20px] rounded-full p-1 w-6 h-6 cursor-pointer ${row.status !== 'PENDING' ? '!text-gray-800 !bg-gray-300 pointer-events-none opacity-50' : ''}`}
                             onClick={() => setDeletePopup(true)}
                         />
@@ -178,6 +188,9 @@ function DocumentVerfication({ vendorid }: any) {
             })
         }
     ]
+
+
+
     return (
         <div>
             <Popup isOpen={deletepopup} handleClose={() => setDeletePopup(false)} isShowHeader={true}>
@@ -214,13 +227,19 @@ function DocumentVerfication({ vendorid }: any) {
                     <h5 className='text-black-900 font-medium'>{imgpopupdata.name}</h5>
                 </div>
             </Popup>
-            <Spinner isLoading={isLoading} />
+
 
             <Table
                 tableLayout="fixed"
                 columns={DocumentColumn as any}
-                emptyText={'No data found' || setIsLoading(false)}
-                data={documentverficationdata.rows as any}
+                emptyText={documentverficationdata?.data === null ? (
+                        <NoRecored />
+                ) : (
+                    <div className="flex justify-center w-full my-3">
+                        <Spinner isLoading={isLoading} />
+                    </div>
+                )}
+                data={documentverficationdata?.data?.rows}
                 rowKey="item_id"
                 scroll={{ x: 1000 }}
                 sticky={true}

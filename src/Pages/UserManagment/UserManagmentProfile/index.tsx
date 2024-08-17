@@ -212,10 +212,11 @@ function UserManagmentProfile() {
             <CustomCard styleClass='p-5 sticky'>
                 <div role="presentation" >
                     <Breadcrumbs aria-label="breadcrumb" className='opacity-[0.3] text-gray-500'>
-                        <Link to='/dashboard' className='text-sm xs:text-[10px] hover:border-b-2 hover:border-gray-500'>
+                        <Link to='/dashboard' className='text-sm xs:text-[10px] hover:!text-blue-902 cursor-pointer'>
                             Dashboard
                         </Link>
-                        <p color="" className='xs:text-[10px]'>User Management</p>
+                        <Link to={'/user_management'} className='text-sm xs:text-[10px] hover:!text-blue-902 cursor-pointer'>User Management</Link>
+                        <p className='xs:text-[10px] text-sm hover:!text-blue-902 cursor-pointer'>User</p>
                     </Breadcrumbs>
                     <div className="flex items-center justify-between">
                         <h5 className='text-2xl font-medium xs:text-xs'>Users Management</h5>

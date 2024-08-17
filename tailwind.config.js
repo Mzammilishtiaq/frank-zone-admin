@@ -3,8 +3,8 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      height:{
-        97:"50rem"
+      height: {
+        97: "50rem"
       },
       fontFamily: {
         poppins: ["Poppins"]
@@ -39,7 +39,8 @@ export default {
           700: "#8CB4FC",
           800: "#7580F233",
           900: "#7580F2",
-          901: "#27B1A4"
+          901: "#27B1A4",
+          902: "#1976d2"
         }, gray: {
           400: "#ACACAC",
           500: "#707070",
@@ -48,7 +49,7 @@ export default {
           800: "#F0F0F0",
           900: "#989898",
         }, red: { 100: "#F44336" },
-        yellow: { 100: "#ECC74F", 200: "#FFD960",300:"#ffd700" },
+        yellow: { 100: "#ECC74F", 200: "#FFD960", 300: "#ffd700" },
         green: {
           300: "#B9FBA4",
           400: "#008F45",

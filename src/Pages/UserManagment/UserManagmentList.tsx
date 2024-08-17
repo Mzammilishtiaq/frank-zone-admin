@@ -21,6 +21,7 @@ import { Spinner } from '@src/Shared/Spinner/Spinner';
 import { handleToastMessage } from '@src/Shared/toastify';
 import { UserManagmentModel } from '@src/Shared/Models/UserManage/UserManagmentModel';
 import Input from '@src/Shared/Input/Input';
+import NoRecored from '@src/Shared/NoRecored/NoRecored';
 
 export interface filterType {
     searchValue?: string;
@@ -29,12 +30,12 @@ export interface filterType {
     order?: string;
 }
 function UserManagmentList() {
-    let initialState = 'ACTIVE';
-    const [isdeletepop, setisDeletePop] = React.useState(false);
+    const [isdisablepop, setisDisablePop] = React.useState(false);
     const [userdatalist, setUserDataList] = React.useState([]) as any;
     const [isLoading, setIsLoading] = React.useState(false);
     const [actionvalue, setActionValue] = React.useState('')
     const [disableid, setDisableId] = React.useState('')
+    const [emtypmessage,setEmptyMessage]=React.useState(true)
     const [filterValue, setFilterValue] = React.useState<filterType>({
         searchValue: '',
         offset: 0,
@@ -45,8 +46,6 @@ function UserManagmentList() {
     // React.useEffect(() => {
     //         FetchUserManagmentData();
     // }, [])
-
-
 
     console.log('userdatalist==', userdatalist)
     const handleChangePage = (event: any) => {
@@ -75,7 +74,7 @@ function UserManagmentList() {
             dataModel: UserManagmentModel,
         }).then((res) => {
             // console.log('user managment ==', res)
-            if (res && !res.error) {
+            if (!res.error) {
                 setIsLoading(false)
                 setUserDataList(res.data)
                 // handleToastMessage('success', res?.message)
@@ -86,7 +85,7 @@ function UserManagmentList() {
         })
     }
 
-   
+
 
 
     // }
@@ -94,18 +93,18 @@ function UserManagmentList() {
         let isChecked = event.target.checked;
         let action = 'ENABLE';
         if (isChecked) {
-            handletoggle(id,action)
-        }else{
+            handletoggle(id, action)
+        } else {
             action = 'DISABLE';
-            setisDeletePop(true)
+            setisDisablePop(true)
             setDisableId(id);
             setActionValue(action);
 
         }
-      
+
     }
 
-    const handletoggle = (id:any, action:any) => {
+    const handletoggle = (id: any, action: any) => {
         backendCall({
             url: `/api/admin/user_management/${id || disableid}/status?action=${action || actionvalue}`,
             method: 'PUT',
@@ -114,7 +113,7 @@ function UserManagmentList() {
             if (res && !res.error) {
                 setIsLoading(false)
                 FetchUserManagmentData();
-                setisDeletePop(false)
+                setisDisablePop(false)
                 handleToastMessage('success', res?.message)
 
             } else {
@@ -221,58 +220,60 @@ function UserManagmentList() {
                     />
 
                     <CustomButton type={'button'} handleButtonClick={() => navigate(`/user_management/profile/${row.id}`)} icon={<LazyImage src={viewbtn} className='w-4' />} />
-                    <CustomButton type={'button'} icon={<LazyImage src={deletebtn} handleClick={() => setisDeletePop(true)} className='w-4' />} />
+                    <CustomButton type={'button'} icon={<LazyImage src={deletebtn}
+                        // handleClick={() => setisDeletePop(true)} 
+                        className='w-4' />} />
                 </div>
             )
         }
     ]
     return (
         <div className=''>
-            <Popup isOpen={isdeletepop} handleClose={() => setisDeletePop(false)} isShowHeader={true} >
-                <div className={``}><div className="flex flex-col justify-center items-center gap-3 ">
-                    <img src={DeleteCut} className="h-[100px] mt-6" />
-                    <h4 className="font-[900] font-sans mt-5 text-[20px]">Are you sure?</h4>
-                    <div className="flex flex-col justify-center items-center ">
-                        <p className="font-medium ">
-                            Are you sure you want to <span className="font-[900]">disable</span>{' '}
+            <Popup isOpen={isdisablepop} handleClose={() => setisDisablePop(false)} isShowHeader={true} >
+                <div className="flex flex-col justify-center items-center gap-5 pb-3">
+                    <img src={DeleteCut} className="h-70 w-70" />
+                    <div className="flex flex-col justify-center items-center gap-3 ">
+                        <h4 className="font-semibold text-[20px]">Are you sure?</h4>
+                        <p className="font-normal">
+                            Are you sure you want to <span className="font-semibold">Disable</span>{' '}
                         </p>
-                        <p className="font-semibold ">This User?</p>
-                        <p className="text-sm font-[900] mt-2">User ID {disableid}</p>
+                        <p className="font-normal">This User?</p>
+                        <p className="text-sm font-semibold">User ID #{disableid}</p>
                     </div>
 
-                    <div className="space-y-3 mt-8 flex justify-around w-4/5">
+                    <div className="flex justify-around w-4/5">
                         <CustomButton
-                            handleButtonClick={() => setisDeletePop(false)}
+                            handleButtonClick={() => setisDisablePop(false)}
                             label={'Cancel'}
                             type={'button'}
-                            styleClass={'btn-gray-light w-full  !rounded-xl !font-medium mr-2 bg-gray-400 text-white py-5 px-4 font-semibold '}
+                            styleClass={'btn-gray-light w-full  !rounded-xl !font-medium mr-2 bg-gray-200 text-black-900 p-3 font-semibold '}
                         />
                         <CustomButton
                             handleButtonClick={handletoggle}
                             label={'Yes, Disable'}
                             type={'button'}
-                            styleClass={'btn-red w-full !mt-0 !rounded-xl !font-medium ml-2 bg-red-600 text-white py-4 px-4 font-semibold'}
+                            styleClass={'btn-red w-full !mt-0 !rounded-xl !font-medium ml-2 bg-red-600 text-white p-3 font-semibold'}
                         />
                     </div>
-                </div>
                 </div>
             </Popup>
             <CustomCard styleClass={' p-5 '}>
                 <div role="presentation" className='mb-3' >
                     <Breadcrumbs aria-label="breadcrumb" className='opacity-[0.3]'>
-                        <Link to='/dashboard' className='text-sm hover:border-b-2 hover:border-gray-500'>
+                        <Link to='/dashboard' className='text-sm hover:!text-blue-902 cursor-pointer'>
                             Dashboard
                         </Link>
-                        <Typography color="" className='text-sm'>User</Typography>
+                        <Typography color="" className='text-sm xs:text-[10px] hover:!text-blue-902 cursor-pointer'>User Management</Typography>
                     </Breadcrumbs>
                     <h5 className='text-2xl font-medium text-[rgba(5, 25, 23, 1)] xs:text-sm'>User Management</h5>
                 </div>
                 <Input leftIcon={<img src={searchicon} className='w-[28px] opacity-[1] xs:w-5' />} type={'text'} placeholder={'Start typing to search for user'} className={'sm:placeholder:text-xs xs:placeholder:text-[5px] sm:w-68'} name={'searchValue'} onChange={(e) => setFilterValue({ ...filterValue, searchValue: e.target.value })} />
-                <Spinner classname='my-3' size={'25'} isLoading={isLoading} />
                 <Table
                     tableLayout="fixed"
                     columns={Column as any}
-                    emptyText={'No data found'}
+                    emptyText={userdatalist.count === 0 ? (<NoRecored />): (<div className="flex justify-center w-full my-3">
+                        <Spinner isLoading={isLoading} />
+                    </div>)}
                     data={userdatalist.rows}
                     rowKey="id"
                     scroll={{ x: 1000 }}

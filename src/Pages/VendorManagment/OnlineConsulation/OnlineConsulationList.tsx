@@ -80,46 +80,46 @@ function OnlineConsulationList() {
 
 
 
-    const Data1 = [
-        {
-            firstname: "ali",
-            lastname: "khan",
-            phone: "222233384",
-            email: "alukhan@gmail.com",
-            status: 'PENDING'
-        },
-        {
-            firstname: "ali2",
-            lastname: "khan2",
-            phone: "22223338422",
-            email: "alukhan2@gmail.com",
-            status: 'REJECTED'
-        }, {
-            firstname: "ali3",
-            lastname: "khan3",
-            phone: "22223338433",
-            email: "alukhan3@gmail.com",
-            status: 'DELIVERED'
-        }, {
-            firstname: "ali4",
-            lastname: "khan4",
-            phone: "22223338444",
-            email: "alukhan4@gmail.com",
-            status: 'PENDING'
-        }, {
-            firstname: "ali",
-            lastname: "khan",
-            phone: "222233384",
-            email: "alukhan@gmail.com",
-            status: 'APPROVED'
-        }, {
-            firstname: "ali5",
-            lastname: "khan5",
-            phone: "22223338455",
-            email: "alukhan55@gmail.com",
-            status: 'REJECTED'
-        }
-    ]
+    // const Data1 = [
+    //     {
+    //         firstname: "ali",
+    //         lastname: "khan",
+    //         phone: "222233384",
+    //         email: "alukhan@gmail.com",
+    //         status: 'PENDING'
+    //     },
+    //     {
+    //         firstname: "ali2",
+    //         lastname: "khan2",
+    //         phone: "22223338422",
+    //         email: "alukhan2@gmail.com",
+    //         status: 'REJECTED'
+    //     }, {
+    //         firstname: "ali3",
+    //         lastname: "khan3",
+    //         phone: "22223338433",
+    //         email: "alukhan3@gmail.com",
+    //         status: 'DELIVERED'
+    //     }, {
+    //         firstname: "ali4",
+    //         lastname: "khan4",
+    //         phone: "22223338444",
+    //         email: "alukhan4@gmail.com",
+    //         status: 'PENDING'
+    //     }, {
+    //         firstname: "ali",
+    //         lastname: "khan",
+    //         phone: "222233384",
+    //         email: "alukhan@gmail.com",
+    //         status: 'APPROVED'
+    //     }, {
+    //         firstname: "ali5",
+    //         lastname: "khan5",
+    //         phone: "22223338455",
+    //         email: "alukhan55@gmail.com",
+    //         status: 'REJECTED'
+    //     }
+    // ]
 
     const column = [
         {

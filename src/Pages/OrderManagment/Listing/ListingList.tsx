@@ -21,6 +21,7 @@ import { handleToastMessage } from '@src/Shared/toastify'
 import { OrderManagementModel } from '@src/Shared/Models/OrderManage/OrderManagementModel'
 import moment from 'moment'
 import { Spinner } from '@src/Shared/Spinner/Spinner'
+import NoRecored from '@src/Shared/NoRecored/NoRecored'
 interface filterType {
     searchValue: any;
     offset: any;
@@ -32,7 +33,8 @@ interface filterType {
 function ListingList() {
     const navigate = useNavigate();
     const [drop, setDrop] = useState(false);
-    const [orderdata, setOrderData]= useState([]) as any
+    const [orderdata, setOrderData] = useState([]) as any
+    const [emtypmessage,setEmptyMessage]=useState(true)
     function handleDrop(): void {
         setDrop(prevDrop => !prevDrop)
     }
@@ -93,14 +95,14 @@ function ListingList() {
     //     }
     // ]
 
-const handleChangePage= (event:any)=>{
-    setFilterValue({...filterValue, offset:event})
-}
-const handleChangeRowsPerPage = (event: any) => {
-    console.log(event);
-    setFilterValue({ ...filterValue, limit: event });
-};
-console.log('order data == ', orderdata)
+    const handleChangePage = (event: any) => {
+        setFilterValue({ ...filterValue, offset: event })
+    }
+    const handleChangeRowsPerPage = (event: any) => {
+        console.log(event);
+        setFilterValue({ ...filterValue, limit: event });
+    };
+    console.log('order data == ', orderdata)
     useEffect(() => {
         let delttime = setTimeout(() => {
             FetchOrderApi();
@@ -111,11 +113,11 @@ console.log('order data == ', orderdata)
     const FetchOrderApi = () => {
         seIsLoading(true)
         backendCall({
-            url: `/api/admin/order_management/?limit=${filterValue.limit}&offset=${filterValue.offset}&order=desc`,
+            url: `/api/admin/order_management/?limit=${filterValue.limit}&offset=${filterValue.offset}&order=desc&text=${filterValue.searchValue}`,
             method: 'GET',
             dataModel: OrderManagementModel
         }).then((res) => {
-            if (res != res.error) {
+            if (!res.error) {
                 setOrderData(res.data)
                 seIsLoading(false)
             } else {
@@ -125,13 +127,13 @@ console.log('order data == ', orderdata)
         })
     }
 
-    const handleupdate = (e:any, id:any)=>{
+    const handleupdate = (e: any, id: any) => {
         let action = e.target.checked ? 'ENABLE' : 'DISABLE';
         backendCall({
-            url:`/api/admin/order_management/${id}/status?action=${action}`,
-            method:'PUT'
-        }).then((res)=>{
-            if(res != res.error){
+            url: `/api/admin/order_management/${id}/status?action=${action}`,
+            method: 'PUT'
+        }).then((res) => {
+            if (res != res.error) {
                 handleToastMessage('success', res.message)
                 FetchOrderApi()
             }
@@ -168,7 +170,7 @@ console.log('order data == ', orderdata)
                     <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px] truncate sm:text-[10px] md:text-[10px]'>{row?.name || '-'}</p>
                 </div>
             )
-        },{
+        }, {
             title: (
                 <div className='w-full flex items-start justify-start'>
                     <span className="font-semibold text-black-900 text-[15px] opacity-[1] sm:text-sm md:text-sm">{'Quantity'}</span>
@@ -183,7 +185,7 @@ console.log('order data == ', orderdata)
                 </div>
             )
         },
-          {
+        {
             title: (
                 <div className='w-full flex items-start justify-start'>
                     <span className="font-semibold text-black-900 text-[15px] opacity-[1] sm:text-sm md:text-sm">{'Item'}</span>
@@ -223,9 +225,9 @@ console.log('order data == ', orderdata)
             width: 110,
             render: (name: string, row: any) => (
                 <div className="w-full flex items-center justify-start  gap-3 ml-14">
-                     <Switch
+                    <Switch
                         checked={row.is_active == 1}
-                        onChange={(e)=>handleupdate(e,row?.id)}
+                        onChange={(e) => handleupdate(e, row?.id)}
                         inputProps={{ 'aria-label': 'controlled' }}
                     />
                     <CustomButton icon={<LazyImage src={viewbtn} className='w-4' />} handleButtonClick={() => navigate(`/order_managment/listing/listing_profile/${row.id}`)} type={'button'} />
@@ -352,11 +354,11 @@ console.log('order data == ', orderdata)
             <CustomCard styleClass={'p-5'}>
                 <div role="presentation" className='mb-3'>
                     <Breadcrumbs aria-label="breadcrumb" className='opacity-[0.3]'>
-                        <Link to='/dashboard' className='text-sm hover:border-b-2 hover:border-gray-500'>
+                        <Link to='/dashboard' className='text-sm hover:!text-blue-902 cursor-pointer'>
                             Dashboard
                         </Link>
-                        <Typography color="" className='text-[10px]'>Orders Management</Typography>
-                        <Typography color="" className='text-[10px]'>Listing</Typography>
+                        <p className='text-sm xs:text-[10px] hover:!text-blue-902 cursor-pointer'>Orders Management</p>
+                        <p className='text-sm xs:text-[10px] hover:!text-blue-902 cursor-pointer'>Listing</p>
                     </Breadcrumbs>
                     <div className="flex items-center justify-between">
                         <h5 className='text-2xl sm:text-lg font-medium text-[rgba(5, 25, 23, 1)]'>Orders Listing Management</h5>
@@ -450,10 +452,19 @@ console.log('order data == ', orderdata)
                         </div>}
                     </div>
                     <div className='w-full'>
-                        <Input type={'text'} placeholder={'Start typing to search  for user'} leftIcon={<LazyImage src={Searchicon} className='w-[28px] opacity-[1]' />} className={'sm:placeholder:text-xs px-3 sm:w-50'} name='searchValue' />
+                        <Input
+                            name='searchvalue'
+                            id='searchvalue'
+                            type='text'
+                            placeholder='Start typing to search  for user'
+                            className='sm:placeholder:text-xs px-3 sm:w-50'
+                            leftIcon={<img src={Searchicon} className='w-[28px] opacity-[1]' />}
+                            // inputClassName=''
+                            onChange={(e: { target: { value: any; }; }) => setFilterValue({ ...filterValue, searchValue: e.target.value })}
+
+                        />
                     </div>
                 </div>
-                <Spinner isLoading={isloading}/>
                 <div className="flex gap-10 sm:gap-2 sm:overflow-x-auto">
                     {
 
@@ -468,8 +479,10 @@ console.log('order data == ', orderdata)
                 <Table
                     tableLayout="fixed"
                     columns={column as any}
-                    emptyText={'No data found'}
-                    data={orderdata.rows as any}
+                    emptyText={orderdata.count === 0 ? (<NoRecored />):(<div className="flex justify-center w-full my-3">
+                        <Spinner isLoading={isloading} />
+                    </div>)}
+                    data={orderdata?.rows as any}
                     rowKey="id"
                     scroll={{ x: 1000 }}
                     sticky={true}
@@ -478,10 +491,10 @@ console.log('order data == ', orderdata)
                         className: '',
                     })}
                 />
-                <Pagination 
-                 handleChangePage={handleChangePage}
-                 handleChangeRowsPerPage={handleChangeRowsPerPage}
-                 totalCount={orderdata.count}
+                <Pagination
+                    handleChangePage={handleChangePage}
+                    handleChangeRowsPerPage={handleChangeRowsPerPage}
+                    totalCount={orderdata.count}
                 />
             </CustomCard>
         </>
