@@ -66,7 +66,7 @@ function Popup({
                                 <div>{title}</div>
                                 {isLoading && (
                                     <div className={`${Style.closeIcon} mt-3`}>
-                                        <Spinner />
+                                        <Spinner isLoading={isLoading} />
                                     </div>
                                 )}
                                 {/* {!isLoading && (

@@ -93,6 +93,7 @@ const routes = [
           {path:'',component:<VendorManagmentList/>},
           {path:'vendor_details/:id',component:<VendorManagmentProfile/>},
           {path:'vendor_details/?module_id',component:<VendorManagmentProfile/>},
+          {path:'*',component:<h1 className='text-2xl font-semibold text-center my-10'>404 NOT FOUND</h1>}
           // {
           //   path: 'ecommerce_shop',
           //   component: <EcommerceShop />,
@@ -193,6 +194,10 @@ const routes = [
         ]
       }
     ]
+  },{
+    path:'*',
+    component:<h1 className='text-2xl font-semibold text-center my-10'>404 NOT FOUND</h1>,
+    protectedPath:false
   }
 ]
 
@@ -225,6 +230,7 @@ function AppRouting() {
               }
             </Route>
           ))}
+          <Route path="*" element={<h1 className='text-2xl font-semibold text-center my-10'>404 NOT FOUND</h1>} />
       </Routes>
     </BrowserRouter>
   )

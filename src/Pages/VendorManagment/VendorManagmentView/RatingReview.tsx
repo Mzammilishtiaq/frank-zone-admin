@@ -62,7 +62,7 @@ function RatingReview({ vendorid }: any) {
 
 
   return (
-    <div className='Ratings&Reviews py-5'>
+    <div className='Ratings&Reviews p-5'>
       <div className="flex justify-center w-full"></div>
       <h5 className='text-black-900 font-semibold text-[20px] py-1'>Ratings & Reviews</h5>
       <h1 className='text-black-900 text-xl font-semibold text-center my-2 w-full absolute'>{emptymessage && <NoRecored/>}</h1>

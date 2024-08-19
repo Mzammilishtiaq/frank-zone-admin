@@ -62,7 +62,7 @@ function VendorManagmentProfile() {
     "Documents Verification",
     "Products",
     "Reviews & Ratings",
-    "Specialities"
+    // "Specialities"
   ]);
   // const [vendordetailshopdata, setVendorDetailShopData] = useState([]);
 
@@ -132,8 +132,8 @@ function VendorManagmentProfile() {
 
   return (
     <div>
-      <CustomCard styleClass={'p-5 sticky'}>
-        <div role="presentation" className='mb-3'>
+      <CustomCard styleClass={'sticky'}>
+        <div role="presentation" className='px-5 pt-5'>
           <Breadcrumbs aria-label="breadcrumb" className='opacity-[0.3]'>
             <Link to='/dashboard' className='text-sm hover:border-b-2 xs:text-xs hover:!text-blue-902 cursor-pointer'>
               Dashboard
@@ -147,12 +147,12 @@ function VendorManagmentProfile() {
             <h5 className='text-2xl sm:text-lg xs:text-xs font-medium text-[rgba(5, 25, 23, 1)]'>{moduleId == '1' ? 'Ecommerce' : moduleId == '2' ? 'Food' : moduleId == '4' ? 'Online Consultation' : ''} Vendors Management</h5>
           </div>
         </div>
-        <SeperatorLine className='!border !border-black-900 !border-opacity-0.1 -ml-5 ' />
+        <SeperatorLine className='!border !border-black-900 !border-opacity-0.1' />
 
-        <div className="flex gap-5 sm:gap-1 xs:overflow-x-auto sm:overflow-x-auto md:overflow-x-auto sm:w-[100vw] xs:w-[100vw]">
+        <div className="flex items-center gap-24 sm:gap-1 xs:overflow-x-auto sm:overflow-x-auto md:overflow-x-auto sm:w-[100vw] xs:w-[100vw] ml-10 xs:ml-2 sm:ml-2">
           {
             moduleId === '1' && Ecommerce.map((item: any, index: any) => (
-              <div className={`text-gray-900 flex sm:text-[8px] md:text-[10px] xs:text-[6px]  cursor-pointer pb-[5px] 
+              <div className={`text-gray-900 flex sm:text-[8px] md:text-[10px] xs:text-[6px]  cursor-pointer pb-[10px] 
                          ${activeTab === item ? 'border-black-900 border-b-2 text-black-900 font-medium' : null}`}
                 onClick={() => handleTab(item)} key={index}
               >{item}</div>
@@ -177,7 +177,8 @@ function VendorManagmentProfile() {
             ))
           }
         </div>
-        <SeperatorLine className='!border !border-black-900 !border-opacity-0.1 -mt-[13px]  -ml-5' />
+        
+        <SeperatorLine className='!border !border-black-900 !border-opacity-0.1 -mt-[13px] !mb-0' />
         {/* <Spinner isLoading={isloading} classname='my-3' /> */}
         <div className="overflow-y-auto lg:h-96 md:h-97 sm:h-[30rem]  no-scrollbar">
           {activeTab === profileTypes?.vendor_details && <Detail vendordetail={vendordetaildata} vendordetailid={vendordetaildata.id} loading={isloading} />}

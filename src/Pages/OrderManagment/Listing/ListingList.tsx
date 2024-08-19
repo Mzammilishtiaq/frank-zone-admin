@@ -351,8 +351,8 @@ function ListingList() {
 
     return (
         <>
-            <CustomCard styleClass={'p-5'}>
-                <div role="presentation" className='mb-3'>
+            <CustomCard styleClass={''}>
+                <div role="presentation" className='px-5 pt-5'>
                     <Breadcrumbs aria-label="breadcrumb" className='opacity-[0.3]'>
                         <Link to='/dashboard' className='text-sm hover:!text-blue-902 cursor-pointer'>
                             Dashboard
@@ -364,7 +364,7 @@ function ListingList() {
                         <h5 className='text-2xl sm:text-lg font-medium text-[rgba(5, 25, 23, 1)]'>Orders Listing Management</h5>
                     </div>
                 </div>
-                <div className="w-full flex items-center gap-5 pb-2">
+                <div className="w-full flex items-center gap-5 px-5">
                     <div className='cursor-pointer relative top-0'>
                         <LazyImage src={filledicon} className='text-2xl text-gray-400 font-thin' handleClick={handleDrop} />
 
@@ -465,12 +465,13 @@ function ListingList() {
                         />
                     </div>
                 </div>
-                <div className="flex gap-10 sm:gap-2 sm:overflow-x-auto">
+                <SeperatorLine className='!border !border-black-900 !border-opacity-0.1' /> 
+                <div className="flex gap-10 sm:gap-2 sm:overflow-x-auto px-5 bg-gray-100">
                     {
 
                         ListingTab.map((item, index) => (
-                            <div className={`text-gray-900 flex sm:text-[10px]  cursor-pointer pb-[5px] 
-                      ${activeTab === item ? 'border-black-900 border-b-2 text-black-900 font-medium' : null}`}
+                            <div className={`text-gray-500 flex sm:text-[10px]  cursor-pointer py-2 
+                      ${activeTab === item ? 'border-red-500 border-b-2 text-black-900 font-medium' : null}`}
                                 onClick={() => handleTab(item)} key={index}
                             >{item}</div>
                         ))
@@ -491,11 +492,13 @@ function ListingList() {
                         className: '',
                     })}
                 />
-                <Pagination
+               <div className="px-5 pb-5">
+               <Pagination
                     handleChangePage={handleChangePage}
                     handleChangeRowsPerPage={handleChangeRowsPerPage}
                     totalCount={orderdata.count}
                 />
+               </div>
             </CustomCard>
         </>
     )

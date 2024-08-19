@@ -262,8 +262,8 @@ function VendorManagmentList() {
 
     return (
         <>
-            <CustomCard styleClass={'p-5 '}>
-                <div role="presentation" className=''>
+            <CustomCard styleClass={' '}>
+               <div role="presentation" className='px-5 pt-5'>
                     <Breadcrumbs aria-label="breadcrumb" className='opacity-[0.3]'>
                         <Link to='/dashboard' className='text-sm xs:text-xs hover:!text-blue-902 cursor-pointer'>
                             Dashboard
@@ -274,7 +274,7 @@ function VendorManagmentList() {
                         <h5 className='text-2xl sm:text-lg font-medium xs:text-xs text-[rgba(5, 25, 23, 1)]'>{moduleId == '1' ? 'Ecommerce' : moduleId == '2' ? 'Food' : moduleId == '4' ? 'OnLine Consultation' : ''} Vendors Management</h5>
                     </div>
                 </div>
-                <div className="w-full flex items-center mb-0">
+                <div className="w-full flex items-center px-5 ">
                     <div className='px-2 py-1 cursor-pointer relative top-0'>
                         <img src={filledicon} className='text-2xl text-gray-400 font-thin' onClick={handleDrop} />
 
@@ -317,11 +317,13 @@ function VendorManagmentList() {
                         className: '',
                     })}
                 />
+                <div className="px-5 pb-5">
                 <Pagination
                     handleChangePage={handleChangePage}
                     handleChangeRowsPerPage={handleChangeRowsPerPage}
                     totalCount={userdatalist?.count}
                 />
+                </div>
 
             </CustomCard>
         </>

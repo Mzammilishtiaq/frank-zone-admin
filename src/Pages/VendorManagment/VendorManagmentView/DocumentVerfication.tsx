@@ -71,9 +71,9 @@ function DocumentVerfication({ vendorid }: any) {
         }).then((res) => {
             //   console.log('resdetailventordocumentverfication ==', res)
             if (!res.error) {
-                    setDocumentVerficationData(res)
-                    setIsLoading(false)
-                    // handleToastMessage('success', res.message);
+                setDocumentVerficationData(res.data.rows)
+                setIsLoading(false)
+                // handleToastMessage('success', res.message);
 
             } else {
                 setIsLoading(false)
@@ -122,27 +122,27 @@ function DocumentVerfication({ vendorid }: any) {
             ))
         }, {
             title: (
-                <div className=" w-full flex items-center justify-center">
+                <div className=" w-full flex items-start justify-start">
                     <p className='font-semibold text-black-900 text-[15px] opacity-[1]'>{'Date'}</p>
                 </div>
             ),
             dataindex: "name",
             key: "name",
             render: ((name: string, row: any) => (
-                <div className='w-full flex items-center justify-center'>
+                <div className='w-full flex items-start justify-start'>
                     <p className='text-black-900 capitalize font-normal opacity-[0.7] text-[15px]'>{moment(row?.date).utc().format('DD-MM-YYYY')}</p>
                 </div>
             ))
         }, {
             title: (
-                <div className="w-full flex items-center justify-center">
+                <div className="w-full flex items-start justify-start">
                     <p className='font-semibold text-black-900 text-[15px] opacity-[1]'>{'Document'}</p>
                 </div>
             ),
             dataindex: "name",
             key: "name",
             render: ((name: string, row: any) => (
-                <div className="w-full flex items-center justify-center">
+                <div className="w-full flex items-start justify-start">
                     <p className={
                         row.status && row.status === 'PENDING'
                             ? 'text-white bg-orange-500  rounded px-3 font-medium py-1'
@@ -156,21 +156,21 @@ function DocumentVerfication({ vendorid }: any) {
             ))
         }, {
             title: (
-                <div className="w-full flex items-center justify-center">
+                <div className="w-full flex items-start justify-start">
                     <p className='font-semibold text-black-900 text-[15px] opacity-[1]'>{'Files'}</p>
                 </div>
             ),
             dataindex: "name",
             key: "name",
             render: ((name: string, row: any) => (
-                <div className='w-full flex items-center justify-between mx-3'>
-                    <LazyImage src={row?.image || NoImage} alt={row?.name} className='h-7 w-7' />
-                    <CustomButton type={"button"} handleButtonClick={() => handlepopimg(row.image, row.name)} styleClass='hover:border-b-2 border-gray-300 rounded-none text-[10px]' label={row.name + ' Url'} />
+                <div className='w-40 gap-1 flex items-center justify-around'>
+                    <LazyImage src={row?.image || NoImage} alt={row?.name} className='h-7 w-7 cursor-pointer' handleClick={() => handlepopimg(row.image, row.name)} />
+                    <CustomButton type={"button"} handleButtonClick={() => handlepopimg(row.image, row.name)} styleClass='hover:border-b-2 border-gray-300 rounded-none text-[10px] cursor-pointer' label={row.name + ' Url'} />
                 </div>
             ))
         }, {
             title: (
-                <div className="w-full flex items-end justify-end">
+                <div className="w-full flex items-center justify-end -ml-5">
                     <p className='font-semibold text-black-900 text-[15px] opacity-[1]'>{'Actions'}</p>
                 </div>
             ),
@@ -178,8 +178,8 @@ function DocumentVerfication({ vendorid }: any) {
             key: "name",
             render: ((name: string, row: any) => {
                 return (
-                    <div className={`w-full flex items-center justify-end gap-1`}>
-                        <VscCheck className={` bg-green-500 text-white text-[20px] rounded-full p-1 w-6 h-6 cursor-pointer ${row.status !== 'PENDING' ? '!text-gray-800 !bg-gray-300 pointer-events-none opacity-50' : ''}`} onClick={() => handleupdateVendorShop(row.id, row.type, 'PENDING')} />
+                    <div className={`w-full flex items-center justify-end gap-1 -ml-5`}>
+                        <VscCheck className={` bg-green-500 text-white text-[20px] rounded-full p-1 w-6 h-6 cursor-pointer ${row.status !== 'PENDING' ? '!text-gray-800 !bg-gray-300 pointer-events-none opacity-50' : ''}`} onClick={() => handleupdateVendorShop(row.id, row.type, 'APPROVED')} />
                         <VscChromeClose className={`bg-red-500 text-white text-[20px] rounded-full p-1 w-6 h-6 cursor-pointer ${row.status !== 'PENDING' ? '!text-gray-800 !bg-gray-300 pointer-events-none opacity-50' : ''}`}
                             onClick={() => setDeletePopup(true)}
                         />
@@ -194,11 +194,11 @@ function DocumentVerfication({ vendorid }: any) {
     return (
         <div>
             <Popup isOpen={deletepopup} handleClose={() => setDeletePopup(false)} isShowHeader={true}>
-                <div className="flex flex-col items-center gap-7 m-5">
-                    <LazyImage src={CircleCross} className="h-32" />
-                    <h5 className="font-bold text-2xl mt-5">Rejection</h5>
+                <div className="flex flex-col items-center gap-5 pb-3 m-3">
+                    <LazyImage src={CircleCross} className="h-70 w-70" />
+                    <h5 className="font-semibold text-2xl">Rejection</h5>
                     <div className="flex flex-col justify-center items-center">
-                        <p className="font-medium text-sm text-gray-400 ">
+                        <p className="font-normal text-sm text-gray-500 ">
                             Kindly Give Reason For Rejection
                         </p>
                     </div>
@@ -208,22 +208,22 @@ function DocumentVerfication({ vendorid }: any) {
                             handleButtonClick={() => setDeletePopup(false)}
                             label={'Close'}
                             type={'button'}
-                            styleClass={'bg-gray-300 py-4 text-white w-full  !rounded-xl !font-medium mr-2 '}
+                            styleClass={'btn-gray-light w-full  !rounded-xl !font-medium mr-2 bg-gray-200 text-black-900 p-3 font-semibold  '}
                         />
                         <CustomButton
                             // handleButtonClick={handleDelete}
                             label={'Yes, Reject'}
                             type={'button'}
                             variant={'outlined'}
-                            styleClass={'bg-red-500 text-white w-full !mt-0 !rounded-xl !font-medium ml-2'}
+                            styleClass={'btn-red w-full !mt-0 !rounded-xl !font-medium ml-2 bg-red-600 text-white p-3 font-semibold'}
 
                         />
                     </div>
                 </div>
             </Popup>
-            <Popup isOpen={imgpopup} handleClose={() => setImgPopup(false)} isShowHeader={true}>
-                <div className="flex flex-col gap-6 text-center items-center justify-center p-6 w-full">
-                    <LazyImage src={imgpopupdata.img} className='' />
+            <Popup isOpen={imgpopup} handleClose={() => setImgPopup(false)} isShowHeader={true} isLoading={isLoading}>
+                <div className="flex flex-col gap-2 text-center items-center justify-center px-5">
+                    <LazyImage src={imgpopupdata.img} className='w-[30vw] h-[30vh] rounded-xl' />
                     <h5 className='text-black-900 font-medium'>{imgpopupdata.name}</h5>
                 </div>
             </Popup>
@@ -232,14 +232,14 @@ function DocumentVerfication({ vendorid }: any) {
             <Table
                 tableLayout="fixed"
                 columns={DocumentColumn as any}
-                emptyText={documentverficationdata?.data === null ? (
-                        <NoRecored />
+                emptyText={documentverficationdata ? (
+                    <NoRecored />
                 ) : (
                     <div className="flex justify-center w-full my-3">
                         <Spinner isLoading={isLoading} />
                     </div>
                 )}
-                data={documentverficationdata?.data?.rows}
+                data={documentverficationdata}
                 rowKey="item_id"
                 scroll={{ x: 1000 }}
                 sticky={true}

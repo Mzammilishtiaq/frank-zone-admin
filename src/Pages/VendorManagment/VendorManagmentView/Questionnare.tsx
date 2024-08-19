@@ -61,7 +61,7 @@ function Questionnare({ vendorid, moduleid }: any) {
   }
 
   return (
-    <div className="ecommerceshop-question">
+    <div className="ecommerceshop-question p-5">
       <h5 className='font-semibold xs:text-sm text-xl'>{moduleid == '1' ? 'Ecommerce' : moduleid == '2' ? 'Food' : moduleid == '4' ? 'Online Consultation' : ''} Question</h5>
       <div className="flex justify-center w-full">
       <Spinner isLoading={isloading}/>

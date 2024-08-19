@@ -12,15 +12,16 @@ export class VendorManagmentListModel {
         let data = item.rows.map(
             (item: any, index:number) =>
                 new VendorManagmentListModel(
-                    item.id,
-                    item.accountStatus,
-                    item.email,
-                    item.first_name,
-                    item.last_name,
-                    item.phone
+                    item?.id,
+                    item?.accountStatus,
+                    item?.email,
+                    item?.first_name,
+                    item?.last_name,
+                    item?.phone
                 )
 
         )
-        return { rows: data, count: item.count }
+        return { rows: data, count: item?.count }
+
     }
 }

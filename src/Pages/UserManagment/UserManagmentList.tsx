@@ -35,7 +35,7 @@ function UserManagmentList() {
     const [isLoading, setIsLoading] = React.useState(false);
     const [actionvalue, setActionValue] = React.useState('')
     const [disableid, setDisableId] = React.useState('')
-    const [emtypmessage,setEmptyMessage]=React.useState(true)
+    const [emtypmessage, setEmptyMessage] = React.useState(true)
     const [filterValue, setFilterValue] = React.useState<filterType>({
         searchValue: '',
         offset: 0,
@@ -257,8 +257,9 @@ function UserManagmentList() {
                     </div>
                 </div>
             </Popup>
-            <CustomCard styleClass={' p-5 '}>
-                <div role="presentation" className='mb-3' >
+            <CustomCard styleClass={''}>
+               <div className="p-5 w-full">
+               <div role="presentation" className='mb-3' >
                     <Breadcrumbs aria-label="breadcrumb" className='opacity-[0.3]'>
                         <Link to='/dashboard' className='text-sm hover:!text-blue-902 cursor-pointer'>
                             Dashboard
@@ -267,11 +268,17 @@ function UserManagmentList() {
                     </Breadcrumbs>
                     <h5 className='text-2xl font-medium text-[rgba(5, 25, 23, 1)] xs:text-sm'>User Management</h5>
                 </div>
-                <Input leftIcon={<img src={searchicon} className='w-[28px] opacity-[1] xs:w-5' />} type={'text'} placeholder={'Start typing to search for user'} className={'sm:placeholder:text-xs xs:placeholder:text-[5px] sm:w-68'} name={'searchValue'} onChange={(e) => setFilterValue({ ...filterValue, searchValue: e.target.value })} />
+                <Input
+                    leftIcon={<img src={searchicon} className='w-[28px] opacity-[1] xs:w-5' />}
+                    type={'text'}
+                    placeholder={'Start typing to search for user'} className={'sm:placeholder:text-xs xs:placeholder:text-[5px] sm:w-68'} name={'searchValue'}
+                    onChange={(e) => setFilterValue({ ...filterValue, searchValue: e.target.value })}
+                />
+               </div>
                 <Table
                     tableLayout="fixed"
                     columns={Column as any}
-                    emptyText={userdatalist.count === 0 ? (<NoRecored />): (<div className="flex justify-center w-full my-3">
+                    emptyText={userdatalist.count === 0 ? (<NoRecored />) : (<div className="flex justify-center w-full my-3">
                         <Spinner isLoading={isLoading} />
                     </div>)}
                     data={userdatalist.rows}
@@ -283,11 +290,13 @@ function UserManagmentList() {
                         className: '',
                     })}
                 />
-                <Pagination
+               <div className="p-5">
+               <Pagination
                     handleChangePage={handleChangePage}
                     handleChangeRowsPerPage={handleChangeRowsPerPage}
                     totalCount={userdatalist.count}
                 />
+               </div>
 
             </CustomCard>
         </div>

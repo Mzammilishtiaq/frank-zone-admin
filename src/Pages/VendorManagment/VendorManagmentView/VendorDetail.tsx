@@ -105,7 +105,7 @@ function VendorDetail({ vendordetail, vendordetailid, loading }: any) {
   return (
     <>
       <div className="profiledetail" >
-        <div className=" flex flex-col gap-2 py-5">
+        <div className=" flex flex-col gap-2 p-5 ">
           <h5 className='font-semibold text-black-900 text-xl sm:text-lg xs:text-sm'>Profile Details</h5>
           <Spinner isLoading={loading} />
           <div className="flex sm:flex-col xs:flex-col md:flex-col items-center justify-start gap-5" key={vendordetail.id}>
@@ -133,7 +133,7 @@ function VendorDetail({ vendordetail, vendordetailid, loading }: any) {
         {
           vendorshopdetail && vendorshopdetail.map((items: any) => (
           // data1 && data1.map((items: any) => (
-            <div className=" flex flex-col gap-2 py-5">
+            <div className=" flex flex-col gap-2 p-5">
               {
                 items?.vendorShop.map((item: any) => {
                   console.log('isdefault', item?.isdefault)

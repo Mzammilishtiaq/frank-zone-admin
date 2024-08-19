@@ -152,7 +152,6 @@ const handleLogout= ()=>{
     let _siderbar = [
       {
         link: '/dashboard',
-        // link: '#',
         title: 'Dashboard',
         icon: dashboardiconblack,
         icon_white: dashboardiconwhite,
@@ -180,15 +179,13 @@ const handleLogout= ()=>{
             icon: <></>
           },
           {
-            // link: '/vendor_managment/',
-            link: '#',
+            link: '/vendor_managment/*',
             title: 'Health & Beauty',
             icon: <></>,
 
 
           }, {
-            link: '#',
-            // link: '/vendor_managment/?module_id=4',
+            link: '/vendor_managment/**',
             title: 'Handyman',
             icon: <></>,
           }, {
@@ -452,13 +449,13 @@ const handleLogout= ()=>{
                       Profile Settings
                     </p> */}
                     {/* <SeperatorLine className="!border-gray-800"></SeperatorLine> */}
-                    <p className="text-xs font-light text-black-900 pl-3 pt-2 cursor-pointer hover:bg-gray-200 hover:py-1 hover:text-white">Payment Method</p>
+                    <p className="text-xs font-light text-black-900 pl-3 pt-2 cursor-pointer hover:bg-gray-100 hover:pb-1 ">Payment Method</p>
                     {/* <SeperatorLine className="!border-gray-800"></SeperatorLine> */}
-                    <p className="text-xs font-light text-black-900 pl-3 pt-2 cursor-pointer hover:bg-gray-200 hover:py-1 hover:text-white">Manage Shorts</p>
+                    <p className="text-xs font-light text-black-900 pl-3 pt-2 cursor-pointer hover:bg-gray-100 hover:pb-1 ">Manage Shorts</p>
                     {/* <SeperatorLine className="!border-gray-800"></SeperatorLine> */}
-                    <p className="text-xs font-light text-black-900 pl-3 pt-2 cursor-pointer hover:bg-gray-200 hover:py-1 hover:text-white">Settings</p>
+                    <p className="text-xs font-light text-black-900 pl-3 pt-2 cursor-pointer hover:bg-gray-100 hover:pb-1 ">Settings</p>
                     {/* <SeperatorLine className="!border-gray-800"></SeperatorLine> */}
-                    <p onClick={handleLogout} className="text-xs font-light text-red-100 pl-3 pt-2 cursor-pointer hover:bg-gray-200 hover:py-1 hover:text-white"> Sign Out</p>
+                    <p onClick={handleLogout} className="text-xs font-light text-red-100 pl-3 pt-2 cursor-pointer hover:bg-gray-100 hover:pb-1 "> Sign Out</p>
                   </div>
                 </div>
                 <div className="flex justify-around items-center bg-grey-200"></div>

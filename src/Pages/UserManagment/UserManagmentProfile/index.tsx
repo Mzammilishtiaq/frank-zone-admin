@@ -34,7 +34,7 @@ function UserManagmentProfile() {
     const [emptymessage, setEmptyMessage] = useState('')
     const [actionvalue, setActionValue] = React.useState('')
     const [disableid, setDisableId] = React.useState('')
-    const [isdeletepop, setisDeletePop] = React.useState(false);
+    const [isdisablepop, setisDisablePop] = React.useState(false);
     const [userdetaildata, setUserDetailData] = useState<userDeailType>({
         id: 0,
         name: '',
@@ -149,7 +149,7 @@ function UserManagmentProfile() {
             handletoggle(id,action)
             
         }else{
-            setisDeletePop(true)
+            setisDisablePop(true)
             action = 'DISABLE';
             setDisableId(id);
             setActionValue(action);
@@ -166,7 +166,7 @@ function UserManagmentProfile() {
             if (res && !res.error) {
                 setIsLoading(false)
                 FetchUserManagmentDetailData();
-                setisDeletePop(false)
+                setisDisablePop(false)
                 handleToastMessage('success', res?.message)
 
             } else {
@@ -180,37 +180,36 @@ function UserManagmentProfile() {
 
     return (
         <>
-            <Popup isOpen={isdeletepop} handleClose={() => setisDeletePop(false)} isShowHeader={true} >
-                <div className={``}><div className="flex flex-col justify-center items-center gap-3 ">
-                    <img src={DeleteCut} className="h-[100px] mt-6" />
-                    <h4 className="font-[900] font-sans mt-5 text-[20px]">Are you sure?</h4>
-                    <div className="flex flex-col justify-center items-center ">
-                        <p className="font-medium ">
-                            Are you sure you want to <span className="font-[900]">Disable</span>{' '}
+            <Popup isOpen={isdisablepop} handleClose={() => setisDisablePop(false)} isShowHeader={true} >
+                <div className="flex flex-col justify-center items-center gap-5 pb-3">
+                    <img src={DeleteCut} className="h-70 w-70" />
+                    <div className="flex flex-col justify-center items-center gap-3 ">
+                        <h4 className="font-semibold text-[20px]">Are you sure?</h4>
+                        <p className="font-normal">
+                            Are you sure you want to <span className="font-semibold">Disable</span>{' '}
                         </p>
-                        <p className="font-semibold ">This User?</p>
-                        <p className="text-sm font-[900] mt-2">User ID {disableid}</p>
+                        <p className="font-normal">This User?</p>
+                        <p className="text-sm font-semibold">User ID #{disableid}</p>
                     </div>
 
-                    <div className="space-y-3 mt-8 flex justify-around w-4/5">
+                    <div className="flex justify-around w-4/5">
                         <CustomButton
-                            handleButtonClick={() => setisDeletePop(false)}
+                            handleButtonClick={() => setisDisablePop(false)}
                             label={'Cancel'}
                             type={'button'}
-                            styleClass={'btn-gray-light w-full  !rounded-xl !font-medium mr-2 bg-gray-400 text-white py-5 px-4 font-semibold '}
+                            styleClass={'btn-gray-light w-full  !rounded-xl !font-medium mr-2 bg-gray-200 text-black-900 p-3 font-semibold '}
                         />
                         <CustomButton
                             handleButtonClick={handletoggle}
                             label={'Yes, Disable'}
                             type={'button'}
-                            styleClass={'btn-red w-full !mt-0 !rounded-xl !font-medium ml-2 bg-red-600 text-white py-4 px-4 font-semibold'}
+                            styleClass={'btn-red w-full !mt-0 !rounded-xl !font-medium ml-2 bg-red-600 text-white p-3 font-semibold'}
                         />
                     </div>
                 </div>
-                </div>
             </Popup>
-            <CustomCard styleClass='p-5 sticky'>
-                <div role="presentation" >
+            <CustomCard styleClass='sticky'>
+               <div role="presentation" className="p-5" >
                     <Breadcrumbs aria-label="breadcrumb" className='opacity-[0.3] text-gray-500'>
                         <Link to='/dashboard' className='text-sm xs:text-[10px] hover:!text-blue-902 cursor-pointer'>
                             Dashboard
@@ -230,7 +229,7 @@ function UserManagmentProfile() {
                         </div>
                     </div>
                 </div>
-                <SeperatorLine className='opacity-[0.1] -ml-[20px] -mt-2' />
+                <SeperatorLine className='opacity-[0.1] -mt-2' />
                 {<Spinner size='25' isLoading={isLoading} />}
                 <div className=" xs:flex-col xs:items-start xs:justify-start  xs:w-full
             sm:flex-col sm:items-start sm:justify-start  sm:w-full

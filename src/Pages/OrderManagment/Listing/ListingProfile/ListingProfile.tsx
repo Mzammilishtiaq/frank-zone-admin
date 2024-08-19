@@ -85,7 +85,7 @@ function ListingProfile() {
 
   return (
     <CustomCard styleClass={'sticky'}>
-      <div role="presentation" className='mb-3 px-5 pt-5 pb-1'>
+      <div role="presentation" className=' px-5 pt-5'>
         <Breadcrumbs aria-label="breadcrumb" className='opacity-[0.3] '>
           <Link to='/dashboard' className='text-sm xs:text-[10px] hover:!text-blue-902 cursor-pointer '>
             Dashboard

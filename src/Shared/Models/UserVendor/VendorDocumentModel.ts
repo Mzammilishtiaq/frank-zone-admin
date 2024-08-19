@@ -19,7 +19,10 @@ export class VendorDocumentModel {
             new VendorDocumentModel(item.id, 4, 'Bank Back Card', item.bank_card_back_url, item.createdAt, item.bank_card_status, 'bank'),
             new VendorDocumentModel(item.id, 5, 'Menu Card', item.menu_card_url, item.createdAt, item.menu_card_status, 'menu')
         ]
-        return { rows: data, count:data.length }
+        if(item?.id){
+            return { rows: data, count:data.length }
+        }
+        return { rows: [], count:0 }
 
     }
 }

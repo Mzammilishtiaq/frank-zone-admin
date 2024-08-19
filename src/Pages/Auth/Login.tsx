@@ -42,7 +42,7 @@ const Login = () => {
                     setIsLoading(false)
                     SetStorage(res.data)
                     navigate(`/dashboard`)
-                    handleToastMessage('success',res?.message)
+                    // handleToastMessage('success',res?.message)
                 }else {
                     setIsLoading(false);
                     handleToastMessage('error', res?.message);
